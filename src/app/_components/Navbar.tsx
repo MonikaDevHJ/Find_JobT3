@@ -17,7 +17,10 @@ export default function Navbar() {
     return (
         <nav className="bg-white shadow-2xl fixed w-full z-auto border-[2px] border-fuchsia-500 rounded-4xl">
             <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-                <div className="text-4xl font-bold text-fuchsia-700">FindJob</div>
+                <Link href="/">
+                    <div className="text-4xl font-bold text-fuchsia-700">FindJob</div>
+
+                </Link>
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex space-x-6">
