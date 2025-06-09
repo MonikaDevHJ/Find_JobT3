@@ -155,7 +155,8 @@ const PhoneLoginModal: React.FC<PhoneLoginModalProps> = ({ role, onClose }) => {
         )}
       </div>
     </div>
-  );
+ 
+);
 };
 
 export default PhoneLoginModal;
