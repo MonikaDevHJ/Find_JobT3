@@ -17,6 +17,7 @@ export default function CandidatePage() {
         <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-10 md:p-16">
           {/* Add your content or form here */}
           <div className="">
+          <div className="">
             <p className="mb-2 text-xl font-semibold">Name</p>
             <input
               type="text"
@@ -48,7 +49,11 @@ export default function CandidatePage() {
           </div>
           <div className="mt-8">
             <p className="mb-2 text-xl font-semibold">Gender</p>
-            <select name="gender " id="gender" className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none">
+            <select
+              name="gender "
+              id="gender"
+              className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+            >
               <option value="">Select Gender</option> {/* Placeholder option */}
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -59,7 +64,11 @@ export default function CandidatePage() {
 
           <div className="mt-8">
             <p className="mb-2 text-xl font-semibold">Gender</p>
-            <select name="gender " id="gender" className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none">
+            <select
+              name="gender "
+              id="gender"
+              className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+            >
               <option value="">Select Gender</option> {/* Placeholder option */}
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -70,18 +79,31 @@ export default function CandidatePage() {
 
           <div className="mt-8">
             <p className="mb-2 text-xl font-semibold">Education</p>
-            <select name="Education " id="Eduaction" className="w-full border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none">
+            <select
+              name="Education "
+              id="Eduaction"
+              className="w-full border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+            >
               <option value="">Select Education</option>
               <option value="10Th">10 th</option>
               <option value="12Th">12 th</option>
               <option value="12Th">Graduation</option>
               <option value="12Th">Post Graduation</option>
               <option value="12Th">Others</option>
-
-
             </select>
-
           </div>
+          </div>
+ 
+        <div className=" flex mt-16">
+         <div className="">
+            <button>Save</button>
+         </div>
+         <div>
+             <button>
+              Next 
+             </button>
+         </div>
+        </div>
 
         </div>
       </div>
