@@ -17,7 +17,7 @@ export default function CandidatePage() {
         <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-10 md:p-16">
           {/* Add your content or form here */}
           <div className="">
-            <p className="text-base font-semibold">Name</p>
+            <p className="mb-2 text-xl font-semibold">Name</p>
             <input
               type="text"
               name=""
@@ -27,7 +27,7 @@ export default function CandidatePage() {
             />
           </div>
           <div className="mt-8">
-            <p className="text-base font-semibold">Phone Number</p>
+            <p className="mb-2 text-xl font-semibold">Phone Number</p>
             <input
               type="text"
               name=""
@@ -37,7 +37,7 @@ export default function CandidatePage() {
             />
           </div>
           <div className="mt-8">
-            <p className="text-base font-semibold">Email</p>
+            <p className="mb-2 text-xl font-semibold">Email</p>
             <input
               type="text"
               name=""
@@ -46,6 +46,43 @@ export default function CandidatePage() {
               placeholder="Enter Your mail"
             />
           </div>
+          <div className="mt-8">
+            <p className="mb-2 text-xl font-semibold">Gender</p>
+            <select name="gender " id="gender" className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none">
+              <option value="">Select Gender</option> {/* Placeholder option */}
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+              <option value="prefer_not_to_say">Prefer not to say</option>
+            </select>
+          </div>
+
+          <div className="mt-8">
+            <p className="mb-2 text-xl font-semibold">Gender</p>
+            <select name="gender " id="gender" className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none">
+              <option value="">Select Gender</option> {/* Placeholder option */}
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+              <option value="prefer_not_to_say">Prefer not to say</option>
+            </select>
+          </div>
+
+          <div className="mt-8">
+            <p className="mb-2 text-xl font-semibold">Education</p>
+            <select name="Education " id="Eduaction" className="w-full border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none">
+              <option value="">Select Education</option>
+              <option value="10Th">10 th</option>
+              <option value="12Th">12 th</option>
+              <option value="12Th">Graduation</option>
+              <option value="12Th">Post Graduation</option>
+              <option value="12Th">Others</option>
+
+
+            </select>
+
+          </div>
+
         </div>
       </div>
     </div>
