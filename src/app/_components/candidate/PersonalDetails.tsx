@@ -2,9 +2,9 @@ import React from 'react'
 
 
 type props = {
-    onText: () => void;
+    onNext: () => void;
 }
-const PersonalDetails = ( {onText}: props) => {
+const PersonalDetails = ( {onNext}: props) => {
     return (
         <div>
             <div className="mt-10 px-4 sm:px-10 md:px-24">
@@ -45,20 +45,7 @@ const PersonalDetails = ( {onText}: props) => {
                                 placeholder="Enter Your mail"
                             />
                         </div>
-                        <div className="mt-8">
-                            <p className="mb-2 text-xl font-semibold">Gender</p>
-                            <select
-                                name="gender "
-                                id="gender"
-                                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-                            >
-                                <option value="">Select Gender</option> {/* Placeholder option */}
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                                <option value="prefer_not_to_say">Prefer not to say</option>
-                            </select>
-                        </div>
+                     
 
                         <div className="mt-8">
                             <p className="mb-2 text-xl font-semibold">Gender</p>
@@ -93,11 +80,13 @@ const PersonalDetails = ( {onText}: props) => {
                     </div>
 
                     <div className=" flex mt-16 items-center justify-center gap-20">
-                        <div className="">
+                        <div  className="">
                             <button className="border border-4xl  border-fuchsia-600 bg-fuchsia-600 text-4xl hover:bg-fuchsia-400 rounded-2xl p-0.5 font-semibold">Save</button>
                         </div>
                         <div>
-                            <button className="border border-4xl border-fuchsia-600 bg-fuchsia-600 text-4xl  hover:bg-fuchsia-400 rounded-2xl p-0.5 font-semibold ">
+                            <button 
+                            onClick={onNext}
+                             className="border border-4xl border-fuchsia-600 bg-fuchsia-600 text-4xl  hover:bg-fuchsia-400 rounded-2xl p-0.5 font-semibold ">
                                 Next
                             </button>
                         </div>

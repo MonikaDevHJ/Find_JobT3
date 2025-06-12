@@ -4,11 +4,46 @@ import PersonalDetails from "../_components/candidate/PersonalDetails";
 import EducationDetails from "../_components/candidate/EducationDetails";
 import Experience from "../_components/candidate/Experience";
 import Preview from "../_components/candidate/Preview";
-import {  useState } from "react";
+  import { useReducer, useState } from "react";
 
-// app/candidate/page.tsx
+// ✅ Step 1: Define form data type
+type FormData = {
+  name: string;
+  phone: string;
+  email: string;
+  gender: string;
+  education: string;
+};
+
+// ✅ Step 2: Define action type
+type Action = {
+  type: "SET_PERSONAL_DETAILS";
+  payload: Partial<FormData>;
+};
+
+// ✅ Step 3: Initial form state
+const initialState: FormData = {
+  name: "",
+  phone: "",
+  email: "",
+  gender: "",
+  education: "",
+};
+
+// ✅ Step 4: Reducer function
+function formReducer(state: FormData, action: Action): FormData {
+  switch (action.type) {
+    case "SET_PERSONAL_DETAILS":
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+}
+
 export default function CandidatePage() {
   const [step, setStep] = useState(1);
+  const [formState, dispatch] = useReducer(formReducer, initialState);
+
   return (
     <div className="min-h-screen bg-gray-200">
       {/* Title */}
@@ -21,16 +56,29 @@ export default function CandidatePage() {
         </p>
       </div>
 
-      {/* Step Components (only one shows at a time) */}
+      {/* Step Components */}
       <div className="mt-10 px-4 sm:px-10 md:px-24">
-        {step === 1 && <PersonalDetails onText={() => setStep(2)} />}
-        {step === 2 && (<EducationDetails onText={() => setStep(3)} onBack={() => setStep(1)}  /> )}
-        {step === 3 && (<Experience onText={() => setStep(4)} onBack={() => setStep(2)} />)}
+        {step === 1 && (
+          <PersonalDetails
+            onNext={() => setStep(2)}
+            formState={formState}
+            dispatch={dispatch}
+          />
+        )}
+        {step === 2 && (
+          <EducationDetails
+            onNext={() => setStep(3)}
+            onBack={() => setStep(1)}
+          />
+        )}
+        {step === 3 && (
+          <Experience
+            onNext={() => setStep(4)}
+            onBack={() => setStep(2)}
+          />
+        )}
         {step === 4 && <Preview onBack={() => setStep(3)} />}
       </div>
-
-      {/* Responsive Card */}
-     
     </div>
   );
 }
