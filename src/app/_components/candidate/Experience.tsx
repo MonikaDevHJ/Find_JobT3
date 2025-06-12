@@ -1,11 +1,11 @@
 import React from 'react'
 
 type props = {
-onText : ()=> void 
+onNext : ()=> void 
 onBack : () => void
 }
 
-const Experience = ({onText,onBack}:props) => {
+const Experience = ({onNext,onBack}:props) => {
   return (
     <div>
       <p>Experience details </p>
