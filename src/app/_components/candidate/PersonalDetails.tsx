@@ -1,51 +1,36 @@
-import type { Dispatch } from "react";
+"use client";
+
 import { useState } from "react";
-
-type FormData = {
-  name: string;
-  phone: string;
-  email: string;
-  gender: string;
-  education: string;
-};
-
-type Action = {
-  type: "SET_PERSONAL_DETAILS";
-  payload: Partial<FormData>;
-};
+import { useFormContext } from "~/app/context/CandidateFormContext";
 
 type Props = {
   onNext: () => void;
-  formState: FormData;
-  dispatch: Dispatch<Action>;
 };
 
-const PersonalDetails = ({ onNext, formState, dispatch }: Props) => {
-  const [errors, setErrors] = useState<Partial<FormData>>({});
+const PersonalDetails = ({ onNext }: Props) => {
+  const { state, dispatch } = useFormContext();
+  const { name, phone, email, gender, education } = state.personal;
+
+  const [errors, setErrors] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    gender: "",
+    education: "",
+  });
 
   const validateForm = () => {
-    const newError: Partial<FormData> = {};
-    if (!formState.name.trim()) {
-      newError.name = "Name is required";
-    }
+    const newErrors: typeof errors = { name: "", phone: "", email: "", gender: "", education: "" };
 
-    if (!formState.phone.trim()) {
-      newError.phone = "Phone number is Required";
-    } else if (!/^\d{10}$/.test(formState.phone)) {
-      newError.phone = "Phone Number must be 10 Digit ";
-    }
-    if (!formState.email.trim()) {
-      newError.email = "Email is Required ";
-    }
+    if (!name.trim()) newErrors.name = "Name is required";
+    if (!phone.trim()) newErrors.phone = "Phone number is required";
+    else if (!/^\d{10}$/.test(phone)) newErrors.phone = "Phone must be 10 digits";
+    if (!email.trim()) newErrors.email = "Email is required";
+    if (!gender) newErrors.gender = "Gender is required";
+    if (!education) newErrors.education = "Education is required";
 
-    if (!formState.gender) {
-      newError.gender = "Gender is Required";
-    }
-    if (!formState.education) {
-      newError.education = "Education is Reuqired";
-    }
-    setErrors(newError);
-    return Object.keys(newError).length === 0;
+    setErrors(newErrors);
+    return Object.values(newErrors).every((val) => val === "");
   };
 
   return (
@@ -59,41 +44,29 @@ const PersonalDetails = ({ onNext, formState, dispatch }: Props) => {
             <label className="mb-2 block text-xl font-semibold">Name</label>
             <input
               type="text"
-              value={formState.name}
+              value={name}
               onChange={(e) =>
-                dispatch({
-                  type: "SET_PERSONAL_DETAILS",
-                  payload: { name: e.target.value },
-                })
+                dispatch({ type: "SET_PERSONAL", payload: { name: e.target.value } })
               }
               className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
               placeholder="Enter Your Name"
             />
-            {errors.name && (
-              <p className="text-sm text-red-500">{errors.name}</p>
-            )}
+            {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
           </div>
 
-          {/* Phone Number */}
+          {/* Phone */}
           <div>
-            <label className="mb-2 block text-xl font-semibold">
-              Phone Number
-            </label>
+            <label className="mb-2 block text-xl font-semibold">Phone</label>
             <input
               type="text"
-              value={formState.phone}
+              value={phone}
               onChange={(e) =>
-                dispatch({
-                  type: "SET_PERSONAL_DETAILS",
-                  payload: { phone: e.target.value },
-                })
+                dispatch({ type: "SET_PERSONAL", payload: { phone: e.target.value } })
               }
               className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-              placeholder="Enter Your Number"
+              placeholder="Enter Your Phone"
             />
-            {errors.phone && (
-              <p className="text-sm text-red-500">{errors.phone}</p>
-            )}
+            {errors.phone && <p className="text-sm text-red-500">{errors.phone}</p>}
           </div>
 
           {/* Email */}
@@ -101,31 +74,23 @@ const PersonalDetails = ({ onNext, formState, dispatch }: Props) => {
             <label className="mb-2 block text-xl font-semibold">Email</label>
             <input
               type="text"
-              value={formState.email}
+              value={email}
               onChange={(e) =>
-                dispatch({
-                  type: "SET_PERSONAL_DETAILS",
-                  payload: { email: e.target.value },
-                })
+                dispatch({ type: "SET_PERSONAL", payload: { email: e.target.value } })
               }
               className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
               placeholder="Enter Your Email"
             />
-            {errors.email && (
-              <p className="text-sm text-red-500">{errors.email}</p>
-            )}
+            {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
           </div>
 
           {/* Gender */}
           <div>
             <label className="mb-2 block text-xl font-semibold">Gender</label>
             <select
-              value={formState.gender}
+              value={gender}
               onChange={(e) =>
-                dispatch({
-                  type: "SET_PERSONAL_DETAILS",
-                  payload: { gender: e.target.value },
-                })
+                dispatch({ type: "SET_PERSONAL", payload: { gender: e.target.value } })
               }
               className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             >
@@ -135,23 +100,16 @@ const PersonalDetails = ({ onNext, formState, dispatch }: Props) => {
               <option value="other">Other</option>
               <option value="prefer_not_to_say">Prefer not to say</option>
             </select>
-            {errors.gender && (
-              <p className="text-sm text-red-500">{errors.gender}</p>
-            )}
+            {errors.gender && <p className="text-sm text-red-500">{errors.gender}</p>}
           </div>
 
           {/* Education */}
           <div>
-            <label className="mb-2 block text-xl font-semibold">
-              Education
-            </label>
+            <label className="mb-2 block text-xl font-semibold">Education</label>
             <select
-              value={formState.education}
+              value={education}
               onChange={(e) =>
-                dispatch({
-                  type: "SET_PERSONAL_DETAILS",
-                  payload: { education: e.target.value },
-                })
+                dispatch({ type: "SET_PERSONAL", payload: { education: e.target.value } })
               }
               className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             >
@@ -162,10 +120,23 @@ const PersonalDetails = ({ onNext, formState, dispatch }: Props) => {
               <option value="Post Graduation">Post Graduation</option>
               <option value="Others">Others</option>
             </select>
+            {errors.education && <p className="text-sm text-red-500">{errors.education}</p>}
           </div>
-          {errors.education && (
-            <p className="text-sm text-red-500">{errors.education}</p>
-          )}
+
+            <div>
+            <label className="mb-2 block text-xl font-semibold">Location</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) =>
+                dispatch({ type: "SET_PERSONAL", payload: { name: e.target.value } })
+              }
+              className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+              placeholder="Enter Your Location"
+            />
+            {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
+          </div>
+
         </div>
 
         {/* Buttons */}
@@ -174,7 +145,7 @@ const PersonalDetails = ({ onNext, formState, dispatch }: Props) => {
             onClick={() => {
               const isValid = validateForm();
               if (isValid) {
-                alert("Data Saved locally");
+                alert("Data saved locally");
               }
             }}
             className="rounded-2xl border border-fuchsia-600 bg-fuchsia-600 px-6 py-2 text-xl font-semibold text-white hover:bg-fuchsia-500"
@@ -182,14 +153,12 @@ const PersonalDetails = ({ onNext, formState, dispatch }: Props) => {
             Save
           </button>
           <button
-            
-            onClick={()=>{
-                const isValid = validateForm();
-                if(isValid){
-                    onNext();
-                }
+            onClick={() => {
+              const isValid = validateForm();
+              if (isValid) {
+                onNext();
+              }
             }}
-
             className="rounded-2xl border border-fuchsia-600 bg-fuchsia-600 px-6 py-2 text-xl font-semibold text-white hover:bg-fuchsia-500"
           >
             Next
