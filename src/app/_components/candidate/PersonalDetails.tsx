@@ -122,6 +122,21 @@ const PersonalDetails = ({ onNext }: Props) => {
             </select>
             {errors.education && <p className="text-sm text-red-500">{errors.education}</p>}
           </div>
+
+            <div>
+            <label className="mb-2 block text-xl font-semibold">Location</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) =>
+                dispatch({ type: "SET_PERSONAL", payload: { name: e.target.value } })
+              }
+              className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+              placeholder="Enter Your Location"
+            />
+            {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
+          </div>
+
         </div>
 
         {/* Buttons */}
