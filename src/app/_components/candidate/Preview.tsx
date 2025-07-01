@@ -14,40 +14,81 @@ const Preview = ({ onBack }: Props) => {
   return (
     <div className="mt-10 px-4 sm:px-10 md:px-24">
       <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-10 md:p-16">
-        <h2 className="text-2xl font-bold text-center mb-8 text-fuchsia-700">
+        <h2 className="mb-8 text-center text-2xl font-bold text-fuchsia-700">
           Preview Your Details
         </h2>
 
         {/* Personal Info */}
         <div className="mb-6">
-          <h3 className="text-xl font-semibold mb-2">👤 Personal Information</h3>
-          <p><strong>Name:</strong> {personal.name}</p>
-          <p><strong>Phone:</strong> {personal.phone}</p>
-          <p><strong>Email:</strong> {personal.email}</p>
-          <p><strong>Gender:</strong> {personal.gender}</p>
-          <p><strong>Education:</strong> {personal.education}</p>
+          <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
+            <p className="mb-2 text-xl font-semibold">
+              👤 Personal Information
+            </p>
+            <div className="mt-3 ml-8 space-y-2">
+              <p>
+                <strong>Name:</strong> {personal.name}
+              </p>
+              <p>
+                <strong>Phone:</strong> {personal.phone}
+              </p>
+              <p>
+                <strong>Email:</strong> {personal.email}
+              </p>
+              <p>
+                <strong>Gender:</strong> {personal.gender}
+              </p>
+              <p>
+                <strong>Education:</strong> {personal.education}
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Education Info */}
         <div className="mb-6">
-          <h3 className="text-xl font-semibold mb-2">🎓 Education Details</h3>
-          <p><strong>Degree:</strong> {education.degree}</p>
-          <p><strong>Stream:</strong> {education.stream}</p>
-          <p><strong>University:</strong> {education.university}</p>
-          <p><strong>College:</strong> {education.college}</p>
-          <p><strong>Score:</strong> {education.score}</p>
+          <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
+            <p className="mb-2 text-xl font-semibold">🎓 Education Details</p>
+
+            <div className="mt-3 ml-8 space-y-2">
+              <p>
+                <strong>Degree:</strong> {education.degree}
+              </p>
+              <p>
+                <strong>Stream:</strong> {education.stream}
+              </p>
+              <p>
+                <strong>University:</strong> {education.university}
+              </p>
+              <p>
+                <strong>College:</strong> {education.college}
+              </p>
+              <p>
+                <strong>Score:</strong> {education.score}
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Experience Info */}
         <div className="mb-6">
-          <h3 className="text-xl font-semibold mb-2">💼 Experience Details</h3>
-          <p><strong>Company:</strong> {experience.company}</p>
-          <p><strong>Role:</strong> {experience.role}</p>
-          <p><strong>Years:</strong> {experience.years}</p>
+          <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
+            <p className="mb-2 text-xl font-semibold">💼 Experience Details</p>
+            <div className="mt-3 ml-8 space-y-2">
+              <p>
+                <strong>Company:</strong> {experience.company}
+              </p>
+              <p>
+                <strong>Role:</strong> {experience.role}
+              </p>
+              <p>
+                <strong>Years:</strong> {experience.years}
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Buttons */}
-        <div className="flex justify-center mt-10 gap-12">
+        <div className="mt-10 flex justify-center gap-12">
           <button
             onClick={onBack}
             className="rounded-2xl border border-gray-500 bg-white px-6 py-2 text-xl font-semibold text-gray-700 hover:bg-gray-100"
