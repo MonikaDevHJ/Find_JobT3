@@ -8,6 +8,7 @@ type PersonalInfo = {
   phone: string;
   email: string;
   gender: string;
+  education:string;
 };
 
 type EducationalInfo = {
@@ -33,7 +34,7 @@ type FormState = {
 
 
 const initialState: FormState = {
-  personal: { name: "", phone: "", email: "", gender: "" },
+  personal: { name: "", phone: "", email: "", gender: "" , education:"" },
   education: { degree: "", stream: "", university: "", college: "", score: "" },
   experience: { company: "", role: "", years: "" },
 
@@ -44,45 +45,45 @@ type Action =
   | { type: "SET_EDUCATION"; payload: Partial<EducationalInfo> }
   | { type: "SET_EXPERIENCE"; payload: Partial<ExperienceInfo> };
 
-  function formReducer(state:FormState, action:Action):FormState{
-    switch(action.type){
-      case "SET_PERSONAL":
-        return{
-          ...state,
-          personal: {...state.personal,...action.payload},
-        };
+function formReducer(state: FormState, action: Action): FormState {
+  switch (action.type) {
+    case "SET_PERSONAL":
+      return {
+        ...state,
+        personal: { ...state.personal, ...action.payload },
+      };
 
-        case "SET_EDUCATION":
-          return{
-            ...state,
-            education:{...state.education,...action.payload},
-          };
-          case "SET_EXPERIENCE":
-            return{
-              ...state,
-              experience:{...state.experience,...action.payload},
-            };
-            default:
-              return state;
-    }
+    case "SET_EDUCATION":
+      return {
+        ...state,
+        education: { ...state.education, ...action.payload },
+      };
+    case "SET_EXPERIENCE":
+      return {
+        ...state,
+        experience: { ...state.experience, ...action.payload },
+      };
+    default:
+      return state;
   }
+}
 
-  const FormContext = createContext<{
-    state: FormState;
-    dispatch : React.Dispatch<Action>;
-  }>({
-    state:initialState,
-    dispatch:()=>{}
-  })
+const FormContext = createContext<{
+  state: FormState;
+  dispatch: React.Dispatch<Action>;
+}>({
+  state: initialState,
+  dispatch: () => { }
+})
 
-  export const FormProvider  = ({children}:{children:React.ReactNode})=>{
-    const [state, dispatch] = useReducer(formReducer, initialState);
+export const FormProvider = ({ children }: { children: React.ReactNode }) => {
+  const [state, dispatch] = useReducer(formReducer, initialState);
 
-    return  (
-      <FormContext.Provider value={{state,dispatch}}>
-        {children}
-      </FormContext.Provider>
-    )
-  }
+  return (
+    <FormContext.Provider value={{ state, dispatch }}>
+      {children}
+    </FormContext.Provider>
+  )
+}
 
-  export const useFormContext = ()=>useContext(FormContext);
+export const useFormContext = () => useContext(FormContext);

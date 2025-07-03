@@ -86,7 +86,7 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
           {errors.university && <p className="text-sm text-red-500">{errors.university}</p>}
         </div>
 
-        {/* College */}
+        {/* College */} 
         <div className="mt-6">
           <label className="mb-2 block text-xl font-semibold">College Name</label>
           <input
