@@ -13,6 +13,33 @@ const PersonalDetails = ({ onNext }: Props) => {
   const { state, dispatch } = useFormContext();
   const [errors, setErrors] = useState({ name: "", phone: "", email: "", gender: "", education: "" })
 
+  const validateForm = () => {
+    const newErrors = {
+      name: "",
+      phone: "",
+      email: "",
+      gender: "",
+      education: ""
+    }
+    if(!name.trim()){
+      newErrors.name= "Email is required";
+
+    }
+    if(!phone.trim()){
+      newErrors.phone= "Contact Number is require";
+    }
+    if(!email.trim()){
+      newErrors.email="email is required";
+    }
+    if(!gender.trim()){
+      newErrors.gender= "gender is required";
+    }if(!education.trim()){ 
+      newErrors.education = "Education is required"
+    }
+    setErrors(newErrors);
+    return Object.values(newErrors).every((val)=>val==="");
+  }
+
   const { name, phone, email, gender, education } = state.personal;
   return (
     <div>
