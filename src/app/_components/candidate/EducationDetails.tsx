@@ -20,7 +20,7 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
     score: "",
   });
 
-  const ValidateForm = () => {
+  const validateForm = () => {
     const newError = {
       degree: "",
       stream: "",
@@ -68,6 +68,7 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
                 className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                 placeholder="Enter Graduation"
               />
+              {errors.degree && <p className="text-sm text-red-500">{errors.degree}</p>}
             </div>
           </div>
 
@@ -83,6 +84,8 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
                 className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                 placeholder="Computer Science"
               />
+              {errors.stream && <p className="text-sm text-red-500">{errors.stream}</p>}
+
             </div>
           </div>
 
@@ -98,6 +101,8 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
                 className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                 placeholder="Enter University"
               />
+              {errors.University && <p className="text-sm text-red-500">{errors.University}</p>}
+
             </div>
           </div>
 
@@ -113,6 +118,8 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
                 className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                 placeholder="SSCW"
               />
+              {errors.college && <p className="text-sm text-red-500">{errors.college}</p>}
+
             </div>
           </div>
 
@@ -128,6 +135,8 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
                 className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                 placeholder="CGPA/%"
               />
+              {errors.score && <p className="text-sm text-red-500">{errors.score}</p>}
+
             </div>
           </div>
         </div>
@@ -135,15 +144,32 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
         {/* Button Save and Next  */}
         <div className="mt-20 flex justify-center gap-8">
           <div className="rounded-2xl border bg-fuchsia-500 p-2 text-3xl">
-            <button>Save</button>
+            <button
+              onClick={() => {
+                if (validateForm()) {
+                  localStorage.setItem(
+                    "Educational Details",
+                    JSON.stringify(state.education),
+                  );
+                  alert("eduactionale Details Saves In Loaclly")
+                }
+              }}
+
+            >Save</button>
           </div>
 
           <div className="rounded-2xl border bg-fuchsia-500 p-2 text-3xl">
-            <button>Next</button>
+            <button
+            onClick={()=>{
+              if(validateForm())  {
+                onNext();
+              }
+            }}
+            >Next</button>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
