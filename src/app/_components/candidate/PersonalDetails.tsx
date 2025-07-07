@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useFormContext } from "~/app/context/CandidateFormContext";
 
@@ -12,6 +12,14 @@ type Props = {
 const PersonalDetails = ({ onNext }: Props) => {
   const { state, dispatch } = useFormContext();
   const [errors, setErrors] = useState({ name: "", phone: "", email: "", gender: "", education: "" })
+
+  useEffect(()=>{
+   const saveData = localStorage.getItem("PersonalDetails");
+   if(saveData){
+    const Personal = JSON.parse(saveData);//convert String to Object
+      dispatch({type:"SET_PERSONAL",payload:Personal});
+   }
+  }, []);
 
   const validateForm = () => {
     const newErrors = {
@@ -127,12 +135,20 @@ const PersonalDetails = ({ onNext }: Props) => {
       <div className="flex justify-center mt-20 gap-10">
         <div className="">
           <button
-            onClick={() => validateForm()}
+            onClick={() =>
+              {
+                if(validateForm()){
+                  localStorage.setItem("PersonalDetail", JSON.stringify(state.personal));
+                  alert("Personal Details Saved Succefully in Local")
+                }
+              }}
             className="border bg-fuchsia-500 rounded-2xl p-2 text-3xl ">Save</button>
         </div>
         <div className="">
           <button
-            onClick={() => validateForm()}
+            onClick={() =>{  if(validateForm()){
+              onNext();//this will move to the eduactionaleDetails
+            }}}
             className="border bg-fuchsia-500 rounded-2xl p-2 text-3xl">Next</button>
         </div>
       </div>
