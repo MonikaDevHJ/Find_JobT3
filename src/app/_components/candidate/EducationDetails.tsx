@@ -1,6 +1,8 @@
-"use client";
+import { University } from "lucide-react";
+import React, { useState } from "react";
+import Stream from "stream";
+import { object } from "zod";
 
-import { useState } from "react";
 import { useFormContext } from "~/app/context/CandidateFormContext";
 
 type Props = {
@@ -10,131 +12,135 @@ type Props = {
 
 const EducationDetails = ({ onNext, onBack }: Props) => {
   const { state, dispatch } = useFormContext();
-  const { degree, stream, university, college, score } = state.education;
-
   const [errors, setErrors] = useState({
     degree: "",
     stream: "",
-    university: "",
+    University: "",
     college: "",
     score: "",
   });
 
-  const validateForm = () => {
-    const newErrors = {
-      degree: degree ? "" : "Degree is required",
-      stream: stream ? "" : "Stream is required",
-      university: university ? "" : "University is required",
-      college: college ? "" : "College is required",
-      score: score ? "" : "CGPA / % is required",
+  const ValidateForm = () => {
+    const newError = {
+      degree: "",
+      stream: "",
+      University: "",
+      college: "",
+      score: "",
     };
-    setErrors(newErrors);
-    return Object.values(newErrors).every((val) => val === "");
+    if (!newError.degree.trim()) {
+      newError.degree = "Graduation is Required";
+    }
+    if (!newError.stream.trim()) {
+      newError.stream = "Stream is Required";
+    }
+    if (!newError.stream.trim()) {
+      newError.University = "University Is required";
+    }
+    if (!newError.college.trim()) {
+      newError.college = "College Is Required";
+    }
+    if (!newError.score.trim()) {
+      newError.score = "Score is required";
+    }
+
+    setErrors(newError);
+    return Object.values(newError).every((val) => val === "");
   };
 
   return (
-    <div className="mt-10 px-4 sm:px-10 md:px-24">
-      <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-10 md:p-16">
-        <p className="text-2xl font-bold">Educational Details</p>
-
-        {/* Degree */}
-        <div className="mt-4">
-          <label className="mb-2 block text-xl font-semibold">Degree</label>
-          <select
-            value={degree}
-            onChange={(e) =>
-              dispatch({ type: "SET_EDUCATION", payload: { degree: e.target.value } })
-            }
-            className="w-full rounded border border-gray-500 p-2 pt-3 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-          >
-            <option value="">Select Degree</option>
-            <option value="10th">10th</option>
-            <option value="12th">12th</option>
-            <option value="Graduation">Graduation</option>
-            <option value="Post Graduation">Post Graduation</option>
-          </select>
-          {errors.degree && <p className="text-sm text-red-500">{errors.degree}</p>}
+    <div className="border bg-gray-100">
+      <div className="border p-10">
+        <div className="">
+          <p className="text-2xl font-semibold">Educational Details</p>
         </div>
 
-        {/* Stream */}
-        <div className="mt-6">
-          <label className="mb-2 block text-xl font-semibold">Stream</label>
-          <input
-            type="text"
-            value={stream}
-            onChange={(e) =>
-              dispatch({ type: "SET_EDUCATION", payload: { stream: e.target.value } })
-            }
-            placeholder="Computer Science"
-            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-          />
-          {errors.stream && <p className="text-sm text-red-500">{errors.stream}</p>}
+        <div className="mt-10 space-y-7">
+          {/* Degree */}
+          <div className="">
+            <div className="">
+              <label className="">Graduation</label>
+            </div>
+
+            <div className="">
+              <input
+                type="text"
+                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+                placeholder="Enter Graduation"
+              />
+            </div>
+          </div>
+
+          {/* Stream */}
+          <div className="">
+            <div className="">
+              <label className="">Stream</label>
+            </div>
+
+            <div className="">
+              <input
+                type="text"
+                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+                placeholder="Computer Science"
+              />
+            </div>
+          </div>
+
+          {/* University */}
+          <div className="">
+            <div className="">
+              <label className="">University</label>
+            </div>
+
+            <div className="">
+              <input
+                type="text"
+                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+                placeholder="Enter University"
+              />
+            </div>
+          </div>
+
+          {/* College */}
+          <div className="">
+            <div className="">
+              <label className="">College</label>
+            </div>
+
+            <div className="">
+              <input
+                type="text"
+                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+                placeholder="SSCW"
+              />
+            </div>
+          </div>
+
+          {/* CGPA */}
+          <div className="">
+            <div className="">
+              <label className="">CGPA</label>
+            </div>
+
+            <div className="">
+              <input
+                type="text"
+                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+                placeholder="CGPA/%"
+              />
+            </div>
+          </div>
         </div>
 
-        {/* University */}
-        <div className="mt-6">
-          <label className="mb-2 block text-xl font-semibold">University</label>
-          <input
-            type="text"
-            value={university}
-            onChange={(e) =>
-              dispatch({ type: "SET_EDUCATION", payload: { university: e.target.value } })
-            }
-            placeholder="Tumkur University"
-            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-          />
-          {errors.university && <p className="text-sm text-red-500">{errors.university}</p>}
-        </div>
+        {/* Button Save and Next  */}
+        <div className="mt-20 flex justify-center gap-8">
+          <div className="rounded-2xl border bg-fuchsia-500 p-2 text-3xl">
+            <button>Save</button>
+          </div>
 
-        {/* College */} 
-        <div className="mt-6">
-          <label className="mb-2 block text-xl font-semibold">College Name</label>
-          <input
-            type="text"
-            value={college}
-            onChange={(e) =>
-              dispatch({ type: "SET_EDUCATION", payload: { college: e.target.value } })
-            }
-            placeholder="SSCW"
-            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-          />
-          {errors.college && <p className="text-sm text-red-500">{errors.college}</p>}
-        </div>
-
-        {/* CGPA/Score */}
-        <div className="mt-6">
-          <label className="mb-2 block text-xl font-semibold">CGPA / %</label>
-          <input
-            type="text"
-            value={score}
-            onChange={(e) =>
-              dispatch({ type: "SET_EDUCATION", payload: { score: e.target.value } })
-            }
-            placeholder="85"
-            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-          />
-          {errors.score && <p className="text-sm text-red-500">{errors.score}</p>}
-        </div>
-
-        {/* Buttons */}
-        <div className="flex justify-center mt-10 gap-12">
-          <button
-            onClick={onBack}
-            className="rounded-2xl border border-gray-500 bg-white px-6 py-2 text-xl font-semibold text-gray-700 hover:bg-gray-100"
-          >
-            Back
-          </button>
-          <button
-            onClick={() => {
-              const isValid = validateForm();
-              if (isValid) {
-                onNext();
-              }
-            }}
-            className="rounded-2xl border border-fuchsia-600 bg-fuchsia-600 px-6 py-2 text-xl font-semibold text-white hover:bg-fuchsia-500"
-          >
-            Next
-          </button>
+          <div className="rounded-2xl border bg-fuchsia-500 p-2 text-3xl">
+            <button>Next</button>
+          </div>
         </div>
       </div>
     </div>
