@@ -57,7 +57,7 @@ const PersonalDetails = ({ onNext }: Props) => {
       newErrors.education = "Education is required";
     }
     setErrors(newErrors);
-    return Object.values(newErrors).every((val) => val === " ");
+    return Object.values(newErrors).every((val) => val === "");
   };
 
   const { name, phone, email, gender, education } = state.personal;
