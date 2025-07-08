@@ -1,5 +1,5 @@
 import { University } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Stream from "stream";
 import { object } from "zod";
 
@@ -15,16 +15,30 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
   const [errors, setErrors] = useState({
     degree: "",
     stream: "",
-    University: "",
+    university: "",
     college: "",
     score: "",
   });
+
+  useEffect(() => {
+    //  step1 : get Data from Local Storage
+    const saveData = localStorage.getItem("Educational Details");
+
+    // step 2 : if Data exist
+    if (saveData) {
+      // Step3 : Conver string back to object
+      const eduactionale = JSON.parse(saveData);
+
+      // step 4 :update From State
+      dispatch({ type: "SET_EDUCATION", payload: eduactionale });
+    }
+  }, []);
 
   const validateForm = () => {
     const newError = {
       degree: "",
       stream: "",
-      University: "",
+      university: "",
       college: "",
       score: "",
     };
@@ -35,7 +49,7 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
       newError.stream = "Stream is Required";
     }
     if (!newError.stream.trim()) {
-      newError.University = "University Is required";
+      newError.university = "University Is required";
     }
     if (!newError.college.trim()) {
       newError.college = "College Is Required";
@@ -47,6 +61,8 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
     setErrors(newError);
     return Object.values(newError).every((val) => val === "");
   };
+
+  const { degree, stream, university, college, score } = state.education;
 
   return (
     <div className="border bg-gray-100">
@@ -65,10 +81,19 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
             <div className="">
               <input
                 type="text"
+                value={degree}
+                onChange={(e) =>
+                  dispatch({
+                    type: "SET_EDUCATION",
+                    payload: { degree: e.target.value },
+                  })
+                }
                 className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                 placeholder="Enter Graduation"
               />
-              {errors.degree && <p className="text-sm text-red-500">{errors.degree}</p>}
+              {errors.degree && (
+                <p className="text-sm text-red-500">{errors.degree}</p>
+              )}
             </div>
           </div>
 
@@ -81,11 +106,19 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
             <div className="">
               <input
                 type="text"
+                value={stream}
+                onChange={(e) =>
+                  dispatch({
+                    type: "SET_EDUCATION",
+                    payload: { stream: e.target.value },
+                  })
+                }
                 className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                 placeholder="Computer Science"
               />
-              {errors.stream && <p className="text-sm text-red-500">{errors.stream}</p>}
-
+              {errors.stream && (
+                <p className="text-sm text-red-500">{errors.stream}</p>
+              )}
             </div>
           </div>
 
@@ -98,11 +131,19 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
             <div className="">
               <input
                 type="text"
+                value={university}
+                onChange={(e) =>
+                  dispatch({
+                    type: "SET_EDUCATION",
+                    payload: { university: e.target.value },
+                  })
+                }
                 className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                 placeholder="Enter University"
               />
-              {errors.University && <p className="text-sm text-red-500">{errors.University}</p>}
-
+              {errors.university && (
+                <p className="text-sm text-red-500">{errors.university}</p>
+              )}
             </div>
           </div>
 
@@ -115,11 +156,19 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
             <div className="">
               <input
                 type="text"
+                value={college}
+                onChange={(e) =>
+                  dispatch({
+                    type: "SET_EDUCATION",
+                    payload: { college: e.target.value },
+                  })
+                }
                 className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                 placeholder="SSCW"
               />
-              {errors.college && <p className="text-sm text-red-500">{errors.college}</p>}
-
+              {errors.college && (
+                <p className="text-sm text-red-500">{errors.college}</p>
+              )}
             </div>
           </div>
 
@@ -132,11 +181,19 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
             <div className="">
               <input
                 type="text"
+                value={score}
+                onChange={(e) =>
+                  dispatch({
+                    type: "SET_EDUCATION",
+                    payload: { score: e.target.value },
+                  })
+                }
                 className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                 placeholder="CGPA/%"
               />
-              {errors.score && <p className="text-sm text-red-500">{errors.score}</p>}
-
+              {errors.score && (
+                <p className="text-sm text-red-500">{errors.score}</p>
+              )}
             </div>
           </div>
         </div>
@@ -151,25 +208,28 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
                     "Educational Details",
                     JSON.stringify(state.education),
                   );
-                  alert("eduactionale Details Saves In Loaclly")
+                  alert("eduactionale Details Saves In Loaclly");
                 }
               }}
-
-            >Save</button>
+            >
+              Save
+            </button>
           </div>
 
           <div className="rounded-2xl border bg-fuchsia-500 p-2 text-3xl">
             <button
-            onClick={()=>{
-              if(validateForm())  {
-                onNext();
-              }
-            }}
-            >Next</button>
+              onClick={() => {
+                if (validateForm()) {
+                  onNext();
+                }
+              }}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
