@@ -42,19 +42,19 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
       college: "",
       score: "",
     };
-    if (!newError.degree.trim()) {
+    if (!degree.trim()) {
       newError.degree = "Graduation is Required";
     }
-    if (!newError.stream.trim()) {
+    if (!stream.trim()) {
       newError.stream = "Stream is Required";
     }
-    if (!newError.stream.trim()) {
+    if (!university.trim()) {
       newError.university = "University Is required";
     }
-    if (!newError.college.trim()) {
+    if (!college.trim()) {
       newError.college = "College Is Required";
     }
-    if (!newError.score.trim()) {
+    if (!score.trim()) {
       newError.score = "Score is required";
     }
 
@@ -200,7 +200,16 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
 
         {/* Button Save and Next  */}
         <div className="mt-20 flex justify-center gap-8">
+
+          <button
+            onClick={onBack}
+            className="rounded-2xl border border-gray-500 bg-white px-6 py-2 text-xl font-semibold text-gray-700 hover:bg-gray-100"
+          >
+            Back
+          </button>
           <div className="rounded-2xl border bg-fuchsia-500 p-2 text-3xl">
+
+
             <button
               onClick={() => {
                 if (validateForm()) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormContext } from "~/app/context/CandidateFormContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   onNext: () => void;
@@ -17,6 +17,21 @@ const Experience = ({ onNext, onBack }: Props) => {
     role: "",
     years: "",
   });
+
+  useEffect(() => {
+    // step1:get Data from local storage
+    const saveData = localStorage.getItem("Experience Details");
+
+    // step 2 if Data exist
+    if (saveData) {
+      // step 3 : convert String back to object
+      const experience = JSON.parse(saveData);
+
+      // Step 4 : Update the form state
+
+      dispatch({ type: "SET_EXPERIENCE", payload: experience });
+    }
+  }, [])
 
   const validateForm = () => {
     const newErrors = {
@@ -80,12 +95,31 @@ const Experience = ({ onNext, onBack }: Props) => {
 
         {/* Buttons */}
         <div className="flex justify-center mt-10 gap-12">
+
+
           <button
             onClick={onBack}
             className="rounded-2xl border border-gray-500 bg-white px-6 py-2 text-xl font-semibold text-gray-700 hover:bg-gray-100"
           >
             Back
           </button>
+
+          <div className="">
+            <button
+              onClick={() => {
+                if (validateForm()) {
+                  localStorage.setItem(
+                    "Experience Details",
+                    JSON.stringify(state.experience),
+                  );
+                  alert("Experince Details Saved Succefully in Local");
+                }
+              }}
+              className="rounded-2xl border bg-fuchsia-500 p-2 text-3xl"
+            >
+              Save
+            </button>
+          </div>
           <button
             onClick={() => {
               const isValid = validateForm();
