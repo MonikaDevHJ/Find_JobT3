@@ -1,8 +1,6 @@
-import { University } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import Stream from "stream";
-import { object } from "zod";
+"use client";
 
+import { useEffect, useState } from "react";
 import { useFormContext } from "~/app/context/CandidateFormContext";
 
 type Props = {
@@ -21,43 +19,21 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
   });
 
   useEffect(() => {
-    //  step1 : get Data from Local Storage
-    const saveData = localStorage.getItem("Educational Details");
-
-    // step 2 : if Data exist
+    const saveData = localStorage.getItem("EducationalDetails");
     if (saveData) {
-      // Step3 : Conver string back to object
-      const eduactionale = JSON.parse(saveData);
-
-      // step 4 :update From State
-      dispatch({ type: "SET_EDUCATION", payload: eduactionale });
+      const education = JSON.parse(saveData);
+      dispatch({ type: "SET_EDUCATION", payload: education });
     }
   }, []);
 
   const validateForm = () => {
     const newError = {
-      degree: "",
-      stream: "",
-      university: "",
-      college: "",
-      score: "",
+      degree: degree.trim() ? "" : "Graduation is Required",
+      stream: stream.trim() ? "" : "Stream is Required",
+      university: university.trim() ? "" : "University is Required",
+      college: college.trim() ? "" : "College is Required",
+      score: score.trim() ? "" : "Score is Required",
     };
-    if (!degree.trim()) {
-      newError.degree = "Graduation is Required";
-    }
-    if (!stream.trim()) {
-      newError.stream = "Stream is Required";
-    }
-    if (!university.trim()) {
-      newError.university = "University Is required";
-    }
-    if (!college.trim()) {
-      newError.college = "College Is Required";
-    }
-    if (!score.trim()) {
-      newError.score = "Score is required";
-    }
-
     setErrors(newError);
     return Object.values(newError).every((val) => val === "");
   };
@@ -65,177 +41,158 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
   const { degree, stream, university, college, score } = state.education;
 
   return (
-    <div className="border bg-gray-100">
-      <div className="border p-10">
-        <div className="">
-          <p className="text-2xl font-semibold">Educational Details</p>
+    <div className="px-4 sm:px-6 md:px-10 lg:px-20 py-8">
+      <div className="bg-gray-100 rounded-xl p-6 sm:p-10 md:p-16 max-w-3xl mx-auto space-y-6">
+        <div>
+          <p className="text-xl sm:text-2xl font-semibold text-center sm:text-left">
+            Educational Details
+          </p>
         </div>
 
-        <div className="mt-10 space-y-7">
-          {/* Degree */}
-          <div className="">
-            <div className="">
-              <label className="">Graduation</label>
-            </div>
-
-            <div className="">
-              <input
-                type="text"
-                value={degree}
-                onChange={(e) =>
-                  dispatch({
-                    type: "SET_EDUCATION",
-                    payload: { degree: e.target.value },
-                  })
-                }
-                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-                placeholder="Enter Graduation"
-              />
-              {errors.degree && (
-                <p className="text-sm text-red-500">{errors.degree}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Stream */}
-          <div className="">
-            <div className="">
-              <label className="">Stream</label>
-            </div>
-
-            <div className="">
-              <input
-                type="text"
-                value={stream}
-                onChange={(e) =>
-                  dispatch({
-                    type: "SET_EDUCATION",
-                    payload: { stream: e.target.value },
-                  })
-                }
-                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-                placeholder="Computer Science"
-              />
-              {errors.stream && (
-                <p className="text-sm text-red-500">{errors.stream}</p>
-              )}
-            </div>
-          </div>
-
-          {/* University */}
-          <div className="">
-            <div className="">
-              <label className="">University</label>
-            </div>
-
-            <div className="">
-              <input
-                type="text"
-                value={university}
-                onChange={(e) =>
-                  dispatch({
-                    type: "SET_EDUCATION",
-                    payload: { university: e.target.value },
-                  })
-                }
-                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-                placeholder="Enter University"
-              />
-              {errors.university && (
-                <p className="text-sm text-red-500">{errors.university}</p>
-              )}
-            </div>
-          </div>
-
-          {/* College */}
-          <div className="">
-            <div className="">
-              <label className="">College</label>
-            </div>
-
-            <div className="">
-              <input
-                type="text"
-                value={college}
-                onChange={(e) =>
-                  dispatch({
-                    type: "SET_EDUCATION",
-                    payload: { college: e.target.value },
-                  })
-                }
-                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-                placeholder="SSCW"
-              />
-              {errors.college && (
-                <p className="text-sm text-red-500">{errors.college}</p>
-              )}
-            </div>
-          </div>
-
-          {/* CGPA */}
-          <div className="">
-            <div className="">
-              <label className="">CGPA</label>
-            </div>
-
-            <div className="">
-              <input
-                type="text"
-                value={score}
-                onChange={(e) =>
-                  dispatch({
-                    type: "SET_EDUCATION",
-                    payload: { score: e.target.value },
-                  })
-                }
-                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-                placeholder="CGPA/%"
-              />
-              {errors.score && (
-                <p className="text-sm text-red-500">{errors.score}</p>
-              )}
-            </div>
-          </div>
+        {/* Degree */}
+        <div>
+          <label className="mb-2 block text-base sm:text-lg font-semibold">
+            Graduation
+          </label>
+          <input
+            type="text"
+            value={degree}
+            onChange={(e) =>
+              dispatch({
+                type: "SET_EDUCATION",
+                payload: { degree: e.target.value },
+              })
+            }
+            placeholder="Enter Graduation"
+            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+          />
+          {errors.degree && (
+            <p className="text-sm text-red-500">{errors.degree}</p>
+          )}
         </div>
 
-        {/* Button Save and Next  */}
-        <div className="mt-20 flex justify-center gap-8">
+        {/* Stream */}
+        <div>
+          <label className="mb-2 block text-base sm:text-lg font-semibold">
+            Stream
+          </label>
+          <input
+            type="text"
+            value={stream}
+            onChange={(e) =>
+              dispatch({
+                type: "SET_EDUCATION",
+                payload: { stream: e.target.value },
+              })
+            }
+            placeholder="Computer Science"
+            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+          />
+          {errors.stream && (
+            <p className="text-sm text-red-500">{errors.stream}</p>
+          )}
+        </div>
 
+        {/* University */}
+        <div>
+          <label className="mb-2 block text-base sm:text-lg font-semibold">
+            University
+          </label>
+          <input
+            type="text"
+            value={university}
+            onChange={(e) =>
+              dispatch({
+                type: "SET_EDUCATION",
+                payload: { university: e.target.value },
+              })
+            }
+            placeholder="Enter University"
+            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+          />
+          {errors.university && (
+            <p className="text-sm text-red-500">{errors.university}</p>
+          )}
+        </div>
+
+        {/* College */}
+        <div>
+          <label className="mb-2 block text-base sm:text-lg font-semibold">
+            College
+          </label>
+          <input
+            type="text"
+            value={college}
+            onChange={(e) =>
+              dispatch({
+                type: "SET_EDUCATION",
+                payload: { college: e.target.value },
+              })
+            }
+            placeholder="SSCW"
+            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+          />
+          {errors.college && (
+            <p className="text-sm text-red-500">{errors.college}</p>
+          )}
+        </div>
+
+        {/* Score */}
+        <div>
+          <label className="mb-2 block text-base sm:text-lg font-semibold">
+            CGPA / %
+          </label>
+          <input
+            type="text"
+            value={score}
+            onChange={(e) =>
+              dispatch({
+                type: "SET_EDUCATION",
+                payload: { score: e.target.value },
+              })
+            }
+            placeholder="Enter CGPA / Percentage"
+            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+          />
+          {errors.score && (
+            <p className="text-sm text-red-500">{errors.score}</p>
+          )}
+        </div>
+
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 mt-10">
           <button
             onClick={onBack}
-            className="rounded-2xl border border-gray-500 bg-white px-6 py-2 text-xl font-semibold text-gray-700 hover:bg-gray-100"
+            className="w-full sm:w-auto rounded-xl border border-gray-500 bg-white text-gray-700 py-2 px-6 text-lg font-semibold hover:bg-gray-100"
           >
             Back
           </button>
-          <div className="rounded-2xl border bg-fuchsia-500 p-2 text-3xl">
 
+          <button
+            onClick={() => {
+              if (validateForm()) {
+                localStorage.setItem(
+                  "EducationalDetails",
+                  JSON.stringify(state.education)
+                );
+                alert("Educational Details Saved in LocalStorage");
+              }
+            }}
+            className="w-full sm:w-auto rounded-xl bg-fuchsia-500 text-white py-2 px-6 text-lg font-semibold hover:bg-fuchsia-600"
+          >
+            Save
+          </button>
 
-            <button
-              onClick={() => {
-                if (validateForm()) {
-                  localStorage.setItem(
-                    "Educational Details",
-                    JSON.stringify(state.education),
-                  );
-                  alert("eduactionale Details Saves In Loaclly");
-                }
-              }}
-            >
-              Save
-            </button>
-          </div>
-
-          <div className="rounded-2xl border bg-fuchsia-500 p-2 text-3xl">
-            <button
-              onClick={() => {
-                if (validateForm()) {
-                  onNext();
-                }
-              }}
-            >
-              Next
-            </button>
-          </div>
+          <button
+            onClick={() => {
+              if (validateForm()) {
+                onNext();
+              }
+            }}
+            className="w-full sm:w-auto rounded-xl bg-fuchsia-600 text-white py-2 px-6 text-lg font-semibold hover:bg-fuchsia-500"
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>

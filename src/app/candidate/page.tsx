@@ -7,7 +7,7 @@ import Experience from "../_components/candidate/Experience";
 import Preview from "../_components/candidate/Preview";
 
 export default function CandidatePage() {
-  const [step, setStep] = useState(3  ); // Start from 1
+  const [step, setStep] = useState(1  ); // Start from 1
 
   return (
     <div className="min-h-screen bg-gray-200">
