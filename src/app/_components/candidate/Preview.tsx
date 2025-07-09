@@ -12,9 +12,9 @@ const Preview = ({ onBack, goToStep }: Props) => {
 
   const { personal, education, experience } = state;
 
- 
 
- 
+
+
   return (
     <div className="mt-10 px-4 sm:px-10 md:px-24">
       <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-10 md:p-16">
@@ -62,7 +62,21 @@ const Preview = ({ onBack, goToStep }: Props) => {
         {/* Education Info */}
         <div className="mb-6">
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
-            <p className="mb-2 text-xl font-semibold">🎓 Education Details</p>
+
+
+            <div className="flex justify-between item-center">
+              <div className="">
+                <p className="mb-2 text-xl font-semibold">
+                  🎓 Education Details
+                </p>
+              </div>
+
+              <div className="">
+                <button className="text-sm text-blue-600 underline hover:text-blue-800" onClick={() => goToStep(2)}>
+                  ✏️Edit
+                </button>
+              </div>
+            </div>
 
             <div className="mt-3 ml-8 space-y-2">
               <p>
@@ -87,7 +101,24 @@ const Preview = ({ onBack, goToStep }: Props) => {
         {/* Experience Info */}
         <div className="mb-6">
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
-            <p className="mb-2 text-xl font-semibold">💼 Experience Details</p>
+
+
+            <div className="flex justify-between item-center">
+              <div className="">
+                <p className="mb-2 text-xl font-semibold">
+                  💼 Experience Details
+                </p>
+              </div>
+
+              <div className="">
+                <button className="text-sm text-blue-600 underline hover:text-blue-800" onClick={() => goToStep(3)}>
+                  ✏️Edit
+                </button>
+              </div>
+            </div>
+
+
+
             <div className="mt-3 ml-8 space-y-2">
               <p>
                 <strong>Company:</strong> {experience.company}
