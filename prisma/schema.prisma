@@ -18,3 +18,21 @@ model Post {
 
     @@index([name])
 }
+
+model Candidate {
+    id         String   @id @default(uuid())
+    name       String
+    phone      String
+    email      String
+    gender     String
+    education  String
+    degree     String
+    stream     String
+    university String
+    college    String
+    score      String
+    company    String
+    role       String
+    years      String
+    createdAt  DateTime @default(now())
+}
