@@ -8,7 +8,7 @@ type PersonalInfo = {
   phone: string;
   email: string;
   gender: string;
-  education:string;
+  education: string;
 };
 
 type EducationalInfo = {
@@ -27,6 +27,7 @@ type ExperienceInfo = {
 
 
 type FormState = {
+  id?: string;
   personal: PersonalInfo;
   education: EducationalInfo;
   experience: ExperienceInfo;
@@ -34,16 +35,17 @@ type FormState = {
 
 
 const initialState: FormState = {
-  personal: { name: "", phone: "", email: "", gender: "" , education:"" },
+  personal: { name: "", phone: "", email: "", gender: "", education: "" },
   education: { degree: "", stream: "", university: "", college: "", score: "" },
   experience: { company: "", role: "", years: "" },
-
+  id: undefined
 }
 
 type Action =
   | { type: "SET_PERSONAL"; payload: Partial<PersonalInfo> }
   | { type: "SET_EDUCATION"; payload: Partial<EducationalInfo> }
-  | { type: "SET_EXPERIENCE"; payload: Partial<ExperienceInfo> };
+  | { type: "SET_EXPERIENCE"; payload: Partial<ExperienceInfo> }
+  | { type: "SET_ID"; payload: string }
 
 function formReducer(state: FormState, action: Action): FormState {
   switch (action.type) {
@@ -63,6 +65,11 @@ function formReducer(state: FormState, action: Action): FormState {
         ...state,
         experience: { ...state.experience, ...action.payload },
       };
+      case "SET_ID":
+        return{
+          ...state,
+          id:action.payload
+        }
     default:
       return state;
   }
