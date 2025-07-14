@@ -1,23 +1,25 @@
 import { NextResponse } from "next/server";
-import { db } from "~/server/db";
+import CandidatePage from "~/app/candidate/page";
 
-export async function POST(request: Request) {
-  try {
-    const body = await request.json();
-    const { id, personal, education, experience } = body;
+import {db} from "~/server/db"
 
-    const candidate = await db.candidate.upsert({
-      where: {
-        id: id || "", // empty string won’t match anything → will create
-      },
-      update: {
-        name: personal.name,
+export async function POST(request:Request) {
+try{
+  const body = await request.json();
+  const { id, personal, education, experience } = body;
+
+  const candidate = await db.candidate.upsert({
+    where: {
+      id: id||"",  //if no ID Prisma will create new
+    },
+    create:{
+      name: personal.name,
         phone: personal.phone,
         email: personal.email,
         gender: personal.gender,
         education: personal.education,
-
-        degree: education.degree,
+  
+         degree: education.degree,
         stream: education.stream,
         university: education.university,
         college: education.college,
@@ -26,15 +28,16 @@ export async function POST(request: Request) {
         company: experience.company,
         role: experience.role,
         years: experience.years,
-      },
-      create: {
-        name: personal.name,
+
+    },
+    update: {
+       name: personal.name,
         phone: personal.phone,
         email: personal.email,
         gender: personal.gender,
         education: personal.education,
-
-        degree: education.degree,
+  
+         degree: education.degree,
         stream: education.stream,
         university: education.university,
         college: education.college,
@@ -43,15 +46,18 @@ export async function POST(request: Request) {
         company: experience.company,
         role: experience.role,
         years: experience.years,
-      },
-    });
 
-    return NextResponse.json(
-      { message: "Candidate saved!", candidate },
+
+    }
+  });
+
+ return NextResponse.json(
+      { message: "Candidate Saved!", candidate },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("❌ Error:", error);
     return NextResponse.json({ message: "Error", error }, { status: 500 });
   }
+
 }
