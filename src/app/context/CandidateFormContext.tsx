@@ -2,7 +2,6 @@
 
 import React, { createContext, useReducer, useContext } from "react";
 
-
 type PersonalInfo = {
   name: string;
   phone: string;
@@ -25,27 +24,26 @@ type ExperienceInfo = {
   years: string;
 };
 
-
 type FormState = {
   id?: string;
   personal: PersonalInfo;
   education: EducationalInfo;
   experience: ExperienceInfo;
-}
-
+};
 
 const initialState: FormState = {
   personal: { name: "", phone: "", email: "", gender: "", education: "" },
   education: { degree: "", stream: "", university: "", college: "", score: "" },
   experience: { company: "", role: "", years: "" },
-  id: undefined
-}
+  id: undefined,
+};
 
 type Action =
   | { type: "SET_PERSONAL"; payload: Partial<PersonalInfo> }
   | { type: "SET_EDUCATION"; payload: Partial<EducationalInfo> }
   | { type: "SET_EXPERIENCE"; payload: Partial<ExperienceInfo> }
   | { type: "SET_ID"; payload: string }
+  | { type: "RESET_PERSONAL" };
 
 function formReducer(state: FormState, action: Action): FormState {
   switch (action.type) {
@@ -65,11 +63,24 @@ function formReducer(state: FormState, action: Action): FormState {
         ...state,
         experience: { ...state.experience, ...action.payload },
       };
-      case "SET_ID":
-        return{
-          ...state,
-          id:action.payload
-        }
+    case "SET_ID":
+      return {
+        ...state,
+        id: action.payload,
+      };
+
+    case "RESET_PERSONAL":
+      return {
+        ...state,
+        personal: {
+          name: "",
+          phone: "",
+          email: "",
+          gender: "",
+          education: "",
+        },
+      };
+
     default:
       return state;
   }
@@ -80,8 +91,8 @@ const FormContext = createContext<{
   dispatch: React.Dispatch<Action>;
 }>({
   state: initialState,
-  dispatch: () => { }
-})
+  dispatch: () => {},
+});
 
 export const FormProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(formReducer, initialState);
@@ -90,7 +101,7 @@ export const FormProvider = ({ children }: { children: React.ReactNode }) => {
     <FormContext.Provider value={{ state, dispatch }}>
       {children}
     </FormContext.Provider>
-  )
-}
+  );
+};
 
 export const useFormContext = () => useContext(FormContext);
