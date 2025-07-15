@@ -103,7 +103,8 @@ const Preview = ({ onBack, goToStep }: Props) => {
                     id: state.id || undefined, // ✅ send id if available
                   }),
                 });
-
+               
+                // Then handle the result
                 const result = await response.json();
 
                 if (response.ok) {
