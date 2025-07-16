@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import Navbar from "./_components/Navbar";
 
 import  {FormProvider}   from '../app/context/CandidateFormContext'
+import {ClerkProvider} from "@clerk/nextjs"
 
 
 
@@ -25,6 +26,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
+    <ClerkProvider>
     <html lang="en" className={`${geist.variable}`}>
       <body>
         <Navbar/>
@@ -33,5 +35,6 @@ export default function RootLayout({
          </FormProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
