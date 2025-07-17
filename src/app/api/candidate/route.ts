@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import CandidatePage from "~/app/candidate/page";
 
 import {db} from "~/server/db"
 

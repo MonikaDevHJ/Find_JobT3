@@ -1,41 +1,38 @@
-// app/page.tsx
+"use client";
 
-import { currentUser } from "@clerk/nextjs/server"; // ✅ fixed import
-import { SignInButton } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-export default async function HomePage() {
-  const user = await currentUser();
+export default function HomePage() {
+  const router = useRouter();
 
-  if (user) {
-    const role = user.publicMetadata?.role;
-
+  const handleClick = (role: string) => {
     if (role === "candidate") {
-      redirect("/candidate");
+      router.push("/candidate");
     } else if (role === "employer") {
-      redirect("/employer");
-    } else {
-      redirect("/select-role");
+      router.push("/employer");
     }
-  }
+  };
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-white to-blue-50 px-4">
-      <h1 className="mb-8 text-center text-3xl font-bold text-blue-600 sm:text-4xl md:text-5xl">Find Job</h1>
+      <h1 className="mb-8 text-center text-3xl font-bold text-blue-600 sm:text-4xl md:text-5xl">
+        Find Job
+      </h1>
 
       <div className="flex w-full max-w-xs flex-col space-y-4">
-        {/* 👇 This shows if not signed in */}
-        <SignInButton mode="modal">
-          <button className="w-full rounded-xl bg-fuchsia-600 py-3 text-white shadow-md transition duration-300 hover:bg-fuchsia-700">
-            Sign In as Candidate
-          </button>
-        </SignInButton>
+        <button
+          onClick={() => handleClick("candidate")}
+          className="w-full rounded-xl bg-fuchsia-600 py-3 text-white shadow-md transition duration-300 hover:bg-fuchsia-700"
+        >
+          Go to Candidate
+        </button>
 
-        <SignInButton mode="modal">
-          <button className="w-full rounded-xl bg-blue-600 py-3 text-white shadow-md transition duration-300 hover:bg-blue-700">
-            Sign In as Employer
-          </button>
-        </SignInButton>
+        <button
+          onClick={() => handleClick("employer")}
+          className="w-full rounded-xl bg-blue-600 py-3 text-white shadow-md transition duration-300 hover:bg-blue-700"
+        >
+          Go to Employer
+        </button>
       </div>
     </div>
   );
