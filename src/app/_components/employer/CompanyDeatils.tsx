@@ -2,11 +2,11 @@ import React from 'react'
 
 type Props = {
     onNext: () => void;
-    onBack : ()=>void
+    onBack: () => void
 
 }
 
-const CompanyDeatils = ({onNext, onBack}:Props) => {
+const CompanyDeatils = ({ onNext, onBack }: Props) => {
     return (
         <div>
             <div>
