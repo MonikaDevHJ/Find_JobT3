@@ -1,13 +1,19 @@
 import React from 'react'
 
-const CompanyDeatils = () => {
-  return (
-    <div>
-      <div>
-        Employer Details
-      </div>
-    </div>
-  )
+type Props = {
+    onNext: () => void;
+    onBack : ()=>void
+
+}
+
+const CompanyDeatils = ({onNext, onBack}:Props) => {
+    return (
+        <div>
+            <div>
+                Employer Details
+            </div>
+        </div>
+    )
 }
 
 export default CompanyDeatils
