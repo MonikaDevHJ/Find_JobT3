@@ -1,6 +1,10 @@
 import React from 'react'
 
-const Preview = () => {
+type Props = {
+    onBack : () => void
+}
+
+const Preview = ( {onBack}:Props) => {
   return (
     <div>
       

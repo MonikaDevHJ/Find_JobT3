@@ -1,9 +1,14 @@
 import React from 'react'
 
-const EmployerDeatils = () => {
+type Props = {
+    onNext: ()=> void;
+ 
+}
+
+const EmployerDeatils = ({onNext}: Props) => {
   return (
     <div>
-      
+        <p>Employer Details</p>
     </div>
   )
 }
