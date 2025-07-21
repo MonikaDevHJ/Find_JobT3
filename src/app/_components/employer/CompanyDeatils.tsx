@@ -44,7 +44,7 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
 
 
                         <div className="">
-                            <label className="">Compnay Loactiom</label>
+                            <label className="">Compnay Loaction</label>
                             <input type="text" className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
                                 placeholder="Bengalore Karnataka" />
 

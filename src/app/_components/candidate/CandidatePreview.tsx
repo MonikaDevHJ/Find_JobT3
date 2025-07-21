@@ -30,6 +30,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
                 onClick={() => goToStep(1)}
               >
                 ✏️Edit
+                
               </button>
             </div>
            
