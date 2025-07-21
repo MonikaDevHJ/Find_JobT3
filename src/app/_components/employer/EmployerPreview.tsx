@@ -73,9 +73,11 @@ const EmployerPreview = ({ onBack }: Props) => {
                     {/* Buttons */}
 
                     <div className="mt-10 flex justify-center gap-12">
-                        <div className="rounded-2xl border border-gray-500 bg-white px-6 py-2 text-xl font-semibold text-gray-700 hover:bg-gray-100">
+                        <button 
+                        onClick={()=>onBack()}
+                        className="rounded-2xl border border-gray-500 bg-white px-6 py-2 text-xl font-semibold text-gray-700 hover:bg-gray-100">
                              Back
-                        </div>
+                        </button>
 
                         <div className="rounded-2xl border border-green-600 bg-green-600 px-6 py-2 text-xl font-semibold text-white hover:bg-green-500">
                               Submit
