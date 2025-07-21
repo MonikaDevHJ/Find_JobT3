@@ -22,6 +22,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
         {/* Personal Info */}
         <div className="mb-6">
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
+           
             <div className="flex justify-between item-center">
               <p className="mb-2 text-xl font-semibold">👤 Personal Information</p>
               <button
@@ -29,8 +30,10 @@ const Preview = ({ onBack, goToStep }: Props) => {
                 onClick={() => goToStep(1)}
               >
                 ✏️Edit
+                
               </button>
             </div>
+           
             <div className="mt-3 ml-8 space-y-2">
               <p><strong>Name:</strong> {personal.name}</p>
               <p><strong>Phone:</strong> {personal.phone}</p>

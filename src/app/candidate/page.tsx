@@ -4,7 +4,7 @@ import { useState } from "react";
 import PersonalDetails from "../_components/candidate/PersonalDetails";
 import EducationDetails from "../_components/candidate/EducationDetails";
 import Experience from "../_components/candidate/Experience";
-import Preview from "../_components/candidate/Preview";
+import Preview from "../_components/candidate/CandidatePreview";
 
 export default function CandidatePage() {
   const [step, setStep] = useState(1); // Start from 1
