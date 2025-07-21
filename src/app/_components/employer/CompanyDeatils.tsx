@@ -58,11 +58,18 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
                     <div>
                         <div className="flex gap-10  justify-center items-center mt-14 ">
                             <div className="">
+                                <button
+                                onClick={()=>onBack()}
+                                 className="w-full sm:w-auto rounded-xl bg-fuchsia-600 text-white py-2 px-6 text-lg font-semibold">
+                                    Back
+                                </button>
+                            </div>
+                            <div className="">
                                 <button className="w-full sm:w-auto rounded-xl bg-fuchsia-600 text-white py-2 px-6 text-lg font-semibold">
                                     Save
                                 </button>
                             </div>
-                            <div>
+                            <div className="">
                                 <button
                                 onClick={()=>onNext()} 
                                 

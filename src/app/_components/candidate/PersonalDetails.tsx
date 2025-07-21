@@ -42,7 +42,7 @@ const PersonalDetails = ({ onNext }: Props) => {
       education: "",
     };
     if (!name.trim()) {
-      newErrors.name = "Email is required";
+      newErrors.name = "Email is required"; 
     }
     if (!phone.trim()) {
       newErrors.phone = "Contact Number is require";
