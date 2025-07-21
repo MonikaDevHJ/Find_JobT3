@@ -6,7 +6,7 @@ import EmployerDeatils from "../_components/employer/EmployerDeatils";
 import EmployerPreview from "../_components/employer/EmployerPreview";
 
 export default function EmployerPage() {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
 
   const goToStep = (stepNumber: number) => {
     setStep(stepNumber);
@@ -24,9 +24,9 @@ export default function EmployerPage() {
 
       <div className="mt-10 px-4 sm:px-10 md:px-24">
         {step === 1 && <EmployerDeatils onNext={() => setStep(2)} />}
-        {step === 2 && <CompanyDeatils onNext={() => setStep(3)} onBack={() => setStep} /> }
-        {step === 3 && <EmployerPreview onBack={() => setStep} goToStep={goToStep} />}
+        {step === 2 && <CompanyDeatils onNext={() => setStep(3)} onBack={() => setStep(1)} /> }
+        {step === 3 && <EmployerPreview onBack={() => setStep(2)} goToStep={goToStep} />}
       </div>  
     </div>
   );
-}
+}5  

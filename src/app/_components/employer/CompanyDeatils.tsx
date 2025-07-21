@@ -10,7 +10,7 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
         <div className="px-4 py-8 sm:px-6 md:px-10 lg:px-20">
             <div className="mx-auto max-w-3xl space-y-6 rounded-xl bg-gray-100 p-6 sm:p-10 md:p-16">
                 <div className="">
-                    <div>
+                    <div className="">
                         <p className="text-center text-xl font-semibold sm:text-left sm:text-2xl">
                             Company Details
                         </p>
@@ -63,7 +63,10 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
                                 </button>
                             </div>
                             <div>
-                                <button className="w-full sm:w-auto rounded-xl bg-fuchsia-600 text-white py-2 px-6 text-lg font-semibold">
+                                <button
+                                onClick={()=>onNext()} 
+                                
+                                className="w-full sm:w-auto rounded-xl bg-fuchsia-600 text-white py-2 px-6 text-lg font-semibold">
                                     Next
                                 </button>
                             </div>
