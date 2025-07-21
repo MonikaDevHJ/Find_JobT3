@@ -6,7 +6,7 @@ import EmployerDeatils from "../_components/employer/EmployerDeatils";
 import Preview from "../_components/candidate/Preview";
 
 export default function EmployerPage() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
 
   const goToStep = (stepNumber: number) => {
     setStep(stepNumber);
