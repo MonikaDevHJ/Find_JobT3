@@ -1,23 +1,52 @@
 import React, { useState } from "react";
-import { useFormContext } from "~/app/context/CandidateFormContext";
+import { useEmployerFormContext } from "~/app/context/EmployerFormContext";
 
 type Props = {
   onNext: () => void;
 };
 
 const EmployerDeatils = ({ onNext }: Props) => {
-    const { state, dispatch } = useFormContext();
-  
-  const [errors, setErrors] = useState({
-    employerName:"",
-    companyName :"",
-    EmployerID : "",
-    ContactNumber : "",
-    Designation : "",
-    CompanyName : "",
+  const { state, dispatch } = useEmployerFormContext();
 
+  const [errors, setErrors] = useState({
+    employerName: "",
+    companyName: "",
+    EmployerId: "",
+    ContactNumber: "",
+    Designation: "",
+    CompanyName: "",
   });
 
+  const validateForm = () => {
+    const newErrors = {
+      employerName: "",
+      companyName: "",
+      EmployerId: "",
+      ContactNumber: "",
+      Designation: "",
+      CompanyName: "",
+    };
+    if (!employerName.trim()) {
+      newErrors.employerName = "EMployer Name is Resuired";
+    }
+    if (!companyName.trim()) {
+      newErrors.companyName = "Company Name is Required";
+    }
+    if (!employerId.trim()) {
+      newErrors.EmployerId = "Employer Name is Required";
+    }
+    if (!contactNumber.trim()) {
+      newErrors.ContactNumber = "Contact Numbver is Required";
+    }
+    if (!designation.trim()) {
+      newErrors.Designation = "Designationn is requires";
+    }
+    setErrors(newErrors);
+    return Object.values(newErrors).every((val) => val === "");
+  };
+
+  const { employerName, companyName, employerId, contactNumber, designation } =
+    state.employer;
 
   return (
     <div className="px-4 py-8 sm:px-6 md:px-10 lg:px-20">
@@ -32,11 +61,19 @@ const EmployerDeatils = ({ onNext }: Props) => {
           <div>
             <label className="">Employer Name</label>
             <input
-              
               type="text"
               className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
               placeholder="Enter Your Name"
+              onChange={(e) =>
+                dispatch({
+                  type: "SET_EMPLOYER",
+                  payload: { employerName: e.target.value },
+                })
+              }
             />
+            {errors.employerName && (
+              <p className="text-sm text-red-500">{errors.employerName}</p>
+            )}
           </div>
 
           <div>
@@ -45,7 +82,16 @@ const EmployerDeatils = ({ onNext }: Props) => {
               type="text"
               className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
               placeholder="Enter Your Company Name"
+              onChange={(e) => {
+                dispatch({
+                  type: "SET_EMPLOYER",
+                  payload: { companyName: e.target.value },
+                });
+              }}
             />
+            {errors.companyName && (
+              <p className="text-sm text-red-500">{errors.companyName}</p>
+            )}
           </div>
 
           <div>
@@ -54,7 +100,16 @@ const EmployerDeatils = ({ onNext }: Props) => {
               type="text"
               className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
               placeholder="Enter Your Employer ID"
+              onChange={(e) => {
+                dispatch({
+                  type: "SET_EMPLOYER",
+                  payload: {employerId: e.target.value },
+                });
+              }}
             />
+            {errors.EmployerId && (
+              <p className="text-sm text-red-500">{errors.EmployerId}</p>
+            )}
           </div>
 
           <div>
@@ -63,7 +118,16 @@ const EmployerDeatils = ({ onNext }: Props) => {
               type="text"
               className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
               placeholder="Enter your Office Number"
+              onChange={(e) => {
+                dispatch({
+                  type: "SET_EMPLOYER",
+                  payload: { contactNumber: e.target.value },
+                });
+              }}
             />
+            {errors.ContactNumber && (
+              <p className="text-sm text-red-500">{errors.ContactNumber}</p>
+            )}
           </div>
 
           <div>
@@ -72,17 +136,19 @@ const EmployerDeatils = ({ onNext }: Props) => {
               type="text"
               className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
               placeholder="Enter your Designation"
+              onChange={(e) => {
+                dispatch({
+                  type: "SET_EMPLOYER",
+                  payload: { designation: e.target.value },
+                });
+              }}
             />
+            {errors.Designation && (
+              <p className="text-sm text-red-500">{errors.Designation}</p>
+            )}
           </div>
 
-          <div>
-            <label className="">Company Name</label>
-            <input
-              type="text"
-              className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-              placeholder="Enter Your Company Name"
-            />
-          </div>
+
         </div>
 
         <div className="">
@@ -95,7 +161,11 @@ const EmployerDeatils = ({ onNext }: Props) => {
 
             <div className="">
               <button
-                onClick={() => onNext()}
+                onClick={() => {
+                  if (validateForm()) {
+                    onNext();
+                  }
+                }}
                 className="w-full rounded-xl bg-fuchsia-600 px-6 py-2 text-lg font-semibold text-white sm:w-auto"
               >
                 Next
