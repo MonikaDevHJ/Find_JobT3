@@ -4,6 +4,7 @@ import { useState } from "react";
 import CompanyDeatils from "../_components/employer/CompanyDeatils";
 import EmployerDeatils from "../_components/employer/EmployerDeatils";
 import EmployerPreview from "../_components/employer/EmployerPreview";
+import { EmployerFormProvider } from "../context/EmployerFormContext";
 
 export default function EmployerPage() {
   const [step, setStep] = useState(1);
@@ -12,6 +13,7 @@ export default function EmployerPage() {
     setStep(stepNumber);
   };
   return (
+    <EmployerFormProvider>
     <div className="min-h-screen bg-gray-200">
       <div className="flex items-center justify-center px-4 pt-16 text-center text-3xl font-bold sm:text-4xl md:text-5xl">
         <p
@@ -28,5 +30,6 @@ export default function EmployerPage() {
         {step === 3 && <EmployerPreview onBack={() => setStep(2)} goToStep={goToStep} />}
       </div>  
     </div>
+    </EmployerFormProvider>
   );
 }5  

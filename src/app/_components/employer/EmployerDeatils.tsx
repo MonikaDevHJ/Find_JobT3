@@ -14,39 +14,43 @@ const EmployerDeatils = ({ onNext }: Props) => {
     EmployerId: "",
     ContactNumber: "",
     Designation: "",
-    CompanyName: "",
   });
 
   const validateForm = () => {
-    const newErrors = {
-      employerName: "",
-      companyName: "",
-      EmployerId: "",
-      ContactNumber: "",
-      Designation: "",
-      CompanyName: "",
-    };
-    if (!employerName.trim()) {
-      newErrors.employerName = "EMployer Name is Resuired";
-    }
-    if (!companyName.trim()) {
-      newErrors.companyName = "Company Name is Required";
-    }
-    if (!employerId.trim()) {
-      newErrors.EmployerId = "Employer Name is Required";
-    }
-    if (!contactNumber.trim()) {
-      newErrors.ContactNumber = "Contact Numbver is Required";
-    }
-    if (!designation.trim()) {
-      newErrors.Designation = "Designationn is requires";
-    }
-    setErrors(newErrors);
-    return Object.values(newErrors).every((val) => val === "");
-  };
-
   const { employerName, companyName, employerId, contactNumber, designation } =
     state.employer;
+
+  const newErrors = {
+    employerName: "",
+    companyName: "",
+    EmployerId: "",
+    ContactNumber: "",
+    Designation: "",
+    CompanyName: "",
+  };
+
+  if (!employerName.trim()) {
+    newErrors.employerName = "Employer Name is required";
+  }
+  if (!companyName.trim()) {
+    newErrors.companyName = "Company Name is required";
+  }
+  if (!employerId.trim()) {
+    newErrors.EmployerId = "Employer ID is required";
+  }
+  if (!contactNumber.trim()) {
+    newErrors.ContactNumber = "Contact Number is required";
+  }
+  if (!designation.trim()) {
+    newErrors.Designation = "Designation is required";
+  }
+
+  setErrors(newErrors);
+  return Object.values(newErrors).every((val) => val === "");
+};
+
+
+
 
   return (
     <div className="px-4 py-8 sm:px-6 md:px-10 lg:px-20">
@@ -103,7 +107,7 @@ const EmployerDeatils = ({ onNext }: Props) => {
               onChange={(e) => {
                 dispatch({
                   type: "SET_EMPLOYER",
-                  payload: {employerId: e.target.value },
+                  payload: { employerId: e.target.value },
                 });
               }}
             />
