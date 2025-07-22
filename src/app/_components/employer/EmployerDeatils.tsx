@@ -18,7 +18,7 @@ const EmployerDeatils = ({ onNext }: Props) => {
 
   const validateForm = () => {
   const { employerName, companyName, employerId, contactNumber, designation } =
-    state.employer;
+    state.employer
 
   const newErrors = {
     employerName: "",
