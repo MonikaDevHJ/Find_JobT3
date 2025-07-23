@@ -12,7 +12,6 @@ type EmployerInfo = {
 
 type CompanyInfo = {
   companyName: string;
-  employerId: string;
   CompanyID: string;
   contactNumber: string;
   designation: string;
@@ -34,11 +33,10 @@ const initialState: EmployerFormState = {
   },
   company: {
     companyName: "",
-    employerId: "",
     contactNumber: "",
     designation: "",
     CompanyID: "",
-    companyLocation: ""
+    companyLocation: "",
   },
 };
 
