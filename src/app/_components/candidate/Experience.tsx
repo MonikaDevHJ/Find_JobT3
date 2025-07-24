@@ -119,15 +119,15 @@ const Experience = ({ onNext, onBack }: Props) => {
           </button>
 
           <button
-            onClick={() => {
-              if (validateForm()) {
-                localStorage.setItem(
-                  "ExperienceDetails",
-                  JSON.stringify(state.experience)
-                );
-                alert("Experience Details Saved Successfully in Local");
-              }
-            }}
+            // onClick={() => {
+            //   if (validateForm()) {
+            //     localStorage.setItem(
+            //       "ExperienceDetails",
+            //       JSON.stringify(state.experience)
+            //     );
+            //     alert("Experience Details Saved Successfully in Local");
+            //   }
+            // }}
             className="w-full sm:w-auto rounded-xl bg-fuchsia-500 text-white py-2 px-6 text-lg font-semibold hover:bg-fuchsia-600"
           >
             Save
