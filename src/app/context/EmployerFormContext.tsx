@@ -15,10 +15,12 @@ type CompanyInfo = {
   CompanyID: string;
   contactNumber: string;
   designation: string;
-  companyLocation : string
+  companyLocation: string;
+  companyWebsite?: string
 };
 
 type EmployerFormState = {
+  id?: string;
   employer: EmployerInfo;
   company: CompanyInfo;
 };
@@ -37,12 +39,16 @@ const initialState: EmployerFormState = {
     designation: "",
     CompanyID: "",
     companyLocation: "",
+    companyWebsite: "", // ✅ Initialize this too
   },
+  id: undefined,
 };
 
 type Action =
   | { type: "SET_EMPLOYER"; payload: Partial<EmployerInfo> }
-  | { type: "SET_COMPANY"; payload: Partial<CompanyInfo> };
+  | { type: "SET_COMPANY"; payload: Partial<CompanyInfo> }
+  | { type: "SET_ID"; payload: string }
+  | { type: "RESET_EMPLOYER" };
 
 function employerFormReducer(
   state: EmployerFormState,
@@ -56,6 +62,15 @@ function employerFormReducer(
       };
     case "SET_COMPANY":
       return { ...state, company: { ...state.company, ...action.payload } };
+    case "SET_ID":
+      return {
+        ...state,
+        id: action.payload,
+      };
+    case "RESET_EMPLOYER":
+      return {
+        ...initialState,
+      };
     default:
       return state;
   }

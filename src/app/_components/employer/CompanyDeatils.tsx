@@ -144,6 +144,21 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
               <p className="text-sm text-red-500">{error.companyLocation}</p>
             )}
           </div>
+
+          {/* ✅ Add this inside your form */}
+          <div>
+            <label>Company Website</label>
+            <input
+              type="text"
+              className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+              placeholder="https://example.com"
+              value={state.company.companyWebsite}
+              onChange={(e) =>
+                dispatch({ type: "SET_COMPANY", payload: { companyWebsite: e.target.value } })
+              }
+            />
+          </div>
+
         </div>
 
         {/* Buttons */}

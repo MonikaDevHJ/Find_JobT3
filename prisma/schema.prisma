@@ -44,6 +44,6 @@ model Employer {
   companyName     String
   companyLocation String
   companyID       String
-  companyWebsite  String
+  companyWebsite  String?
   createdAt       DateTime @default(now())
 }
