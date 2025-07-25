@@ -14,20 +14,26 @@ export async function POST(request: Request) {
       },
       create: {
         employerName: EmployerDetails.employerName,
-        EmployerId: EmployerDetails.EmployerId,
-        ContactNumber: EmployerDetails.ContactNumber,
-        Designation: EmployerDetails.Designation,
-        CompanyName: EmployerDetails.CompanyName,
+        employerId: EmployerDetails.EmployerId,
+        contactNumber: EmployerDetails.ContactNumber,
+        designation: EmployerDetails.Designation,
+        companyName: EmployerDetails.CompanyName,
         createdAt: EmployerDetails.createdAt,
-
+        companyWebsite: EmployerDetails.companyWebsite,
+        companyLocation: EmployerDetails.companyLocation,
+        companyID: EmployerDetails.CompanyID,
       },
+
       update: {
         employerName: EmployerDetails.employerName,
-        EmployerId: EmployerDetails.EmployerId,
-        ContactNumber: EmployerDetails.ContactNumber,
-        Designation: EmployerDetails.Designation,
-        CompanyName: EmployerDetails.CompanyName,
+        employerId: EmployerDetails.EmployerId,
+        contactNumber: EmployerDetails.ContactNumber,
+        designation: EmployerDetails.Designation,
+        companyName: EmployerDetails.CompanyName,
         createdAt: EmployerDetails.createdAt,
+        companyWebsite: EmployerDetails.companyWebsite,
+        companyLocation: EmployerDetails.companyLocation,
+        companyID: EmployerDetails.CompanyID,
       },
     });
   } catch {}
