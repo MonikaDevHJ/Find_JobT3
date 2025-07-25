@@ -1,46 +1,49 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    @@index([name])
+  @@index([name])
 }
 
 model Candidate {
-    id         String   @id @default(uuid())
-    name       String
-    phone      String
-    email      String
-    gender     String
-    education  String
-    degree     String
-    stream     String
-    university String
-    college    String
-    score      String
-    company    String
-    role       String
-    years      String
-    createdAt  DateTime @default(now())
+  id         String   @id @default(uuid())
+  name       String
+  phone      String
+  email      String
+  gender     String
+  education  String
+  degree     String
+  stream     String
+  university String
+  college    String
+  score      String
+  company    String
+  role       String
+  years      String
+  resumeLink String?
+  createdAt  DateTime @default(now())
 }
 
 model Employer {
-    id              String   @id @default(uuid())
-    employerName    String
-    employerId      String
-    contactNumber   String
-    designation     String
-    companyName     String
-    companyLocation String
-    createdAt       DateTime @default(now())
+  id              String   @id @default(uuid())
+  employerName    String
+  employerId      String
+  contactNumber   String
+  designation     String
+  companyName     String
+  companyLocation String
+  companyID       String
+  companyWebsite  String
+  createdAt       DateTime @default(now())
 }
