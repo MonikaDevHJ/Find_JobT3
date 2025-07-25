@@ -46,7 +46,7 @@ export async function POST(request: Request) {
         years: experience.years,
       },
     });
-
+    
     return NextResponse.json(
       { message: "Candidate Saved!", candidate },
       { status: 200 },

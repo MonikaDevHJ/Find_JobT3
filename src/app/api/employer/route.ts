@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { EMPTY_PATH } from "zod";
 
 import { db } from "~/server/db";
 
@@ -36,5 +35,16 @@ export async function POST(request: Request) {
         companyID: EmployerDetails.CompanyID,
       },
     });
-  } catch {}
+    
+    return NextResponse.json(
+        {message : "Employer Saved!",  employer},
+        {status:200},
+    );
+
+
+  } catch(error) {
+    console.error("❌ Error:", error)
+    return NextResponse.json ({message:"Error",error}, {status:500})
+
+  }
 }
