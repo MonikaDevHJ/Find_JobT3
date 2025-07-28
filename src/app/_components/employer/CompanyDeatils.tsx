@@ -38,7 +38,6 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
     if (!companyName.trim()) newErrors.companyName = "Company Name is Required";
     if (!CompanyID.trim()) newErrors.CompanyID = "Company ID is Required";
     if (!contactNumber.trim()) newErrors.contactNumber = "Contact Number is Required";
-    if (!designation.trim()) newErrors.designation = "Designation is Required";
     if (!companyLocation.trim()) newErrors.companyLocation = "Location is Required";
 
     setError(newErrors);
@@ -111,22 +110,7 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
             )}
           </div>
 
-          {/* Designation */}
-            {/* <div>
-              <label>Designation</label>
-              <input
-                type="text"
-                className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-                placeholder="Enter your Designation"
-                value={state.company.designation}
-                onChange={(e) =>
-                  dispatch({ type: "SET_COMPANY", payload: { designation: e.target.value } })
-                }
-              />
-              {error.designation && (
-                <p className="text-sm text-red-500">{error.designation}</p>
-              )}
-            </div> */}
+       
 
           {/* Location */}
           <div>
