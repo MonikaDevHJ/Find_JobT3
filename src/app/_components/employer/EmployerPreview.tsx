@@ -23,9 +23,11 @@ const EmployerPreview = ({ onBack, goToStep }: Props) => {
           <div className="mb-6 rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="item-center flex justify-between">
               <p className="mb-2 text-xl font-semibold">
-                👤 Personal Information
+                👤 Employer Information
               </p>
-              <button className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button
+                onClick={() => goToStep(1)}
+                className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
             </div>
@@ -40,7 +42,6 @@ const EmployerPreview = ({ onBack, goToStep }: Props) => {
               <p className="">HR Contact Number : {employer.contactNumber} </p>
 
               <p className="">Designation :{employer.designation} </p>
-              <p className="">Company Name :{employer.companyName} </p>
 
               <p></p>
             </div>
@@ -51,7 +52,9 @@ const EmployerPreview = ({ onBack, goToStep }: Props) => {
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="item-center flex justify-between">
               <p className="mb-2 text-xl font-semibold">Company Information</p>
-              <button className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button
+                onClick={() => goToStep(2)}
+                className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
             </div>
@@ -61,11 +64,16 @@ const EmployerPreview = ({ onBack, goToStep }: Props) => {
 
               <p className="">Comapny ID : {company.CompanyID} </p>
 
+
               <p className="">Company Contact Number : {company.contactNumber} </p>
 
-              <p className="">HR Contact Number :{company.contactNumber} </p>
+
+
+
 
               <p className="">Compnay Loaction :{company.companyLocation} </p>
+              <p className="">Compnay Website :{company.companyWebsite} </p>
+
 
               <p></p>
             </div>
