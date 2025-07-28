@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormContext } from "~/app/context/CandidateFormContext";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 type Props = {
   onNext: () => void;
@@ -11,6 +11,7 @@ type Props = {
 const Experience = ({ onNext, onBack }: Props) => {
   const { state, dispatch } = useFormContext();
   const { company, role, years } = state.experience;
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
 
   const [errors, setErrors] = useState({
     company: "",
@@ -107,7 +108,41 @@ const Experience = ({ onNext, onBack }: Props) => {
           {errors.years && (
             <p className="text-sm text-red-500">{errors.years}</p>
           )}
+
+
         </div>
+
+
+        {/* Resume Upload */}
+        <div className="w-full">
+          <label className="mb-2 block text-base sm:text-lg font-semibold">Upload Resume(PDF Only)</label>
+
+          <div className="w-full border-2 border-dashed border-gray-400 rounded-xl p-6 text-center bg-gray-50 hover:border-fuchsia-500 transition">
+            <label className="cursor-pointer">
+              <input type="file"
+              accept="application/pdf"
+              onChange={(e)=>{
+                const file = e.target.files?.[0];
+                if(file && file.type === "application/pdf"){
+                  const reader = new FileReader();
+                  reader.onloadend = () =>{
+                    const base64String = reader.result as string
+                      // save to localStorage
+                      localStorage.setItem("resumeFile", base64String);
+
+                      // also keep in React state (for preview if neded)
+                      setResumeFile(file);
+                  };
+                  reader.readAsDataURL(file);
+                }else {
+                  alert("Please Upload a valid PDF file")
+                }
+              }}
+              />
+            </label>
+          </div>
+        </div>
+
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 pt-6">
