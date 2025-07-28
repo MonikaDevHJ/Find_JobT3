@@ -27,7 +27,8 @@ const EmployerPreview = ({ onBack, goToStep }: Props) => {
               </p>
               <button
                 onClick={() => goToStep(1)}
-                className="text-sm text-blue-600 underline hover:text-blue-800">
+                className="text-sm text-blue-600 underline hover:text-blue-800"
+              >
                 ✏️Edit
               </button>
             </div>
@@ -54,7 +55,8 @@ const EmployerPreview = ({ onBack, goToStep }: Props) => {
               <p className="mb-2 text-xl font-semibold">Company Information</p>
               <button
                 onClick={() => goToStep(2)}
-                className="text-sm text-blue-600 underline hover:text-blue-800">
+                className="text-sm text-blue-600 underline hover:text-blue-800"
+              >
                 ✏️Edit
               </button>
             </div>
@@ -64,16 +66,12 @@ const EmployerPreview = ({ onBack, goToStep }: Props) => {
 
               <p className="">Comapny ID : {company.CompanyID} </p>
 
-
-              <p className="">Company Contact Number : {company.contactNumber} </p>
-
-
-
-
+              <p className="">
+                Company Contact Number : {company.contactNumber}{" "}
+              </p>
 
               <p className="">Compnay Loaction :{company.companyLocation} </p>
               <p className="">Compnay Website :{company.companyWebsite} </p>
-
 
               <p></p>
             </div>
