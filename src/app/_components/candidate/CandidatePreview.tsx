@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormContext } from "~/app/context/CandidateFormContext";
+import PDFViewer from "../common/PDFPreview"; // ✅ import PDFViewer
 
 type Props = {
   onBack: () => void;
@@ -8,9 +9,7 @@ type Props = {
 };
 
 const Preview = ({ onBack, goToStep }: Props) => {
-  const { state, dispatch } = useFormContext(); // ✅ Added dispatch
-  
-
+  const { state, dispatch } = useFormContext();
   const { personal, education, experience } = state;
 
   return (
@@ -23,18 +22,15 @@ const Preview = ({ onBack, goToStep }: Props) => {
         {/* Personal Info */}
         <div className="mb-6">
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
-
-            <div className="flex justify-between item-center">
+            <div className="flex justify-between items-center">
               <p className="mb-2 text-xl font-semibold">👤 Personal Information</p>
               <button
                 className="text-sm text-blue-600 underline hover:text-blue-800"
                 onClick={() => goToStep(1)}
               >
                 ✏️Edit
-
               </button>
             </div>
-
             <div className="mt-3 ml-8 space-y-2">
               <p><strong>Name:</strong> {personal.name}</p>
               <p><strong>Phone:</strong> {personal.phone}</p>
@@ -48,7 +44,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
         {/* Education Info */}
         <div className="mb-6">
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
-            <div className="flex justify-between item-center">
+            <div className="flex justify-between items-center">
               <p className="mb-2 text-xl font-semibold">🎓 Education Details</p>
               <button
                 className="text-sm text-blue-600 underline hover:text-blue-800"
@@ -70,7 +66,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
         {/* Experience Info */}
         <div className="mb-6">
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
-            <div className="flex justify-between item-center">
+            <div className="flex justify-between items-center">
               <p className="mb-2 text-xl font-semibold">💼 Experience Details</p>
               <button
                 className="text-sm text-blue-600 underline hover:text-blue-800"
@@ -86,6 +82,18 @@ const Preview = ({ onBack, goToStep }: Props) => {
             </div>
           </div>
         </div>
+
+        {/* Resume Preview */}
+        {experience.resume && (
+          <div className="mb-10">
+            <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
+              <p className="mb-4 text-xl font-semibold">📄 Resume Preview</p>
+              <div className="border border-gray-400 rounded-md overflow-hidden">
+                <PDFViewer base64Data={experience.resume} />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Buttons */}
         <div className="mt-10 flex justify-center gap-12">
@@ -104,18 +112,15 @@ const Preview = ({ onBack, goToStep }: Props) => {
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
                     ...state,
-                    id: state.id || undefined, // ✅ send id if available
+                    id: state.id || undefined,
                   }),
                 });
 
-                // Then handle the result
                 const result = await response.json();
 
                 if (response.ok) {
                   alert("✅ Candidate submitted successfully!");
                   console.log("DB response: ", result);
-
-                  // ✅ Save the returned `id` into state so we can update later
                   dispatch({ type: "SET_ID", payload: result.candidate.id });
                 } else {
                   alert("❌ Failed to submit.");

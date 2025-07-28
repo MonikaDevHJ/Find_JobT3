@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useFormContext } from "~/app/context/CandidateFormContext";
-import { use, useEffect, useState } from "react";
+import FileUpload from "../common/FileUpload";
 
 type Props = {
   onNext: () => void;
@@ -11,7 +12,6 @@ type Props = {
 const Experience = ({ onNext, onBack }: Props) => {
   const { state, dispatch } = useFormContext();
   const { company, role, years } = state.experience;
-  const [resumeFile, setResumeFile] = useState<File | null>(null);
 
   const [errors, setErrors] = useState({
     company: "",
@@ -108,41 +108,26 @@ const Experience = ({ onNext, onBack }: Props) => {
           {errors.years && (
             <p className="text-sm text-red-500">{errors.years}</p>
           )}
-
-
         </div>
 
+        {/* Resume Upload using FileUpload component */}
+        <label className="mb-2 block text-base sm:text-lg font-semibold">
+          Upload Resume (PDF Only)
+        </label>
 
-        {/* Resume Upload */}
-        <div className="w-full">
-          <label className="mb-2 block text-base sm:text-lg font-semibold">Upload Resume(PDF Only)</label>
+        <FileUpload
+          accept="application/pdf"
+          onFileSelect={(base64, file) => {
+            // save to localStorage
+            localStorage.setItem("resumeFile", base64);
 
-          <div className="w-full border-2 border-dashed border-gray-400 rounded-xl p-6 text-center bg-gray-50 hover:border-fuchsia-500 transition">
-            <label className="cursor-pointer">
-              <input type="file"
-              accept="application/pdf"
-              onChange={(e)=>{
-                const file = e.target.files?.[0];
-                if(file && file.type === "application/pdf"){
-                  const reader = new FileReader();
-                  reader.onloadend = () =>{
-                    const base64String = reader.result as string
-                      // save to localStorage
-                      localStorage.setItem("resumeFile", base64String);
-
-                      // also keep in React state (for preview if neded)
-                      setResumeFile(file);
-                  };
-                  reader.readAsDataURL(file);
-                }else {
-                  alert("Please Upload a valid PDF file")
-                }
-              }}
-              />
-            </label>
-          </div>
-        </div>
-
+            // also store in context if needed
+            dispatch({
+              type: "SET_EXPERIENCE",
+              payload: { resume: base64 },
+            });
+          }}
+        />
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 pt-6">
@@ -154,15 +139,6 @@ const Experience = ({ onNext, onBack }: Props) => {
           </button>
 
           <button
-            // onClick={() => {
-            //   if (validateForm()) {
-            //     localStorage.setItem(
-            //       "ExperienceDetails",
-            //       JSON.stringify(state.experience)
-            //     );
-            //     alert("Experience Details Saved Successfully in Local");
-            //   }
-            // }}
             className="w-full sm:w-auto rounded-xl bg-fuchsia-500 text-white py-2 px-6 text-lg font-semibold hover:bg-fuchsia-600"
           >
             Save
@@ -170,8 +146,7 @@ const Experience = ({ onNext, onBack }: Props) => {
 
           <button
             onClick={() => {
-              const isValid = validateForm();
-              if (isValid) {
+              if (validateForm()) {
                 onNext();
               }
             }}
