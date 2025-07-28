@@ -22,6 +22,7 @@ type ExperienceInfo = {
   company: string;
   role: string;
   years: string;
+  resume?:string;  
 };
 
 type FormState = {
