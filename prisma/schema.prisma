@@ -20,7 +20,7 @@ model Candidate {
   id         String   @id @default(uuid())
   name       String
   phone      String
-  email      String
+  email      String   @unique
   gender     String
   education  String
   degree     String
@@ -31,8 +31,8 @@ model Candidate {
   company    String
   role       String
   years      String
-  resumeLink String?
   createdAt  DateTime @default(now())
+  resumeLink String?
 }
 
 model Employer {

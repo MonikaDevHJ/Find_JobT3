@@ -12,10 +12,12 @@ type Props = {
 export default function PDFViewer({ base64Data }: Props) {
   const [numPages, setNumPages] = useState<number | null>(null);
 
+  const cleanedBase64 = base64Data.replace(/^data:application\/pdf;base64,/, "");
+
   return (
     <div className="w-full max-w-[500px]">
       <Document
-        file={`data:application/pdf;base64,${base64Data}`}
+        file={{ data: atob(cleanedBase64) }}
         onLoadSuccess={({ numPages }) => setNumPages(numPages)}
       >
         {Array.from({ length: numPages || 0 }, (_, i) => (

@@ -108,7 +108,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
             onClick={async () => {
               try {
                 const response = await fetch("/api/candidate", {
-                  method: "POST",
+                  method: "POST", 
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
                     ...state,

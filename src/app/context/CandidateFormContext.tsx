@@ -22,7 +22,9 @@ type ExperienceInfo = {
   company: string;
   role: string;
   years: string;
-  resume?:string;  
+  resume?: string;
+  resumeLink?: string;
+  resumeFileName?: string;
 };
 
 type FormState = {
@@ -35,7 +37,7 @@ type FormState = {
 const initialState: FormState = {
   personal: { name: "", phone: "", email: "", gender: "", education: "" },
   education: { degree: "", stream: "", university: "", college: "", score: "" },
-  experience: { company: "", role: "", years: "" },
+  experience: { company: "", role: "", years: "", resume: "", resumeLink: "", resumeFileName: "" },
   id: undefined,
 };
 
@@ -49,27 +51,13 @@ type Action =
 function formReducer(state: FormState, action: Action): FormState {
   switch (action.type) {
     case "SET_PERSONAL":
-      return {
-        ...state,
-        personal: { ...state.personal, ...action.payload },
-      };
-
+      return { ...state, personal: { ...state.personal, ...action.payload } };
     case "SET_EDUCATION":
-      return {
-        ...state,
-        education: { ...state.education, ...action.payload },
-      };
+      return { ...state, education: { ...state.education, ...action.payload } };
     case "SET_EXPERIENCE":
-      return {
-        ...state,
-        experience: { ...state.experience, ...action.payload },
-      };
+      return { ...state, experience: { ...state.experience, ...action.payload } };
     case "SET_ID":
-      return {
-        ...state,
-        id: action.payload,
-      };
-
+      return { ...state, id: action.payload };
     case "RESET_PERSONAL":
       return {
         ...state,
@@ -81,7 +69,6 @@ function formReducer(state: FormState, action: Action): FormState {
           education: "",
         },
       };
-
     default:
       return state;
   }

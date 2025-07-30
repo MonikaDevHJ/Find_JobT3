@@ -1,21 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   accept?: string;
   onFileSelect: (base64: string, file: File) => void;
+  initialFileName?: string;
 };
 
 export default function FileUpload({
   accept = "application/pdf",
   onFileSelect,
+  initialFileName,
 }: Props) {
   const [error, setError] = useState("");
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(initialFileName || null);
+
+  useEffect(() => {
+    setSelectedFileName(initialFileName || null);
+  }, [initialFileName]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
     if (!file) return;
 
     if (file.type !== accept) {
@@ -23,10 +29,13 @@ export default function FileUpload({
       return;
     }
 
+    setError("");
+    setSelectedFileName(file.name);
+
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result as string;
-      onFileSelect(base64, file); // Send to parent
+      onFileSelect(base64, file);
     };
     reader.readAsDataURL(file);
   };
@@ -48,6 +57,9 @@ export default function FileUpload({
       </div>
 
       {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
+      {selectedFileName && (
+        <p className="mt-2 text-sm text-blue-600">📄 {selectedFileName}</p>
+      )}
     </div>
   );
 }

@@ -11,7 +11,7 @@ type Props = {
 
 const Experience = ({ onNext, onBack }: Props) => {
   const { state, dispatch } = useFormContext();
-  const { company, role, years } = state.experience;
+  const { company, role, years, resumeLink, resumeFileName } = state.experience;
 
   const [errors, setErrors] = useState({
     company: "",
@@ -20,9 +20,9 @@ const Experience = ({ onNext, onBack }: Props) => {
   });
 
   useEffect(() => {
-    const saveData = localStorage.getItem("ExperienceDetails");
-    if (saveData) {
-      const experience = JSON.parse(saveData);
+    const savedData = localStorage.getItem("ExperienceDetails");
+    if (savedData) {
+      const experience = JSON.parse(savedData);
       dispatch({ type: "SET_EXPERIENCE", payload: experience });
     }
   }, []);
@@ -46,88 +46,94 @@ const Experience = ({ onNext, onBack }: Props) => {
 
         {/* Company */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">
-            Company
-          </label>
+          <label className="mb-2 block text-base sm:text-lg font-semibold">Company</label>
           <input
             type="text"
             value={company}
             onChange={(e) =>
-              dispatch({
-                type: "SET_EXPERIENCE",
-                payload: { company: e.target.value },
-              })
+              dispatch({ type: "SET_EXPERIENCE", payload: { company: e.target.value } })
             }
             placeholder="Infosys"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
           />
-          {errors.company && (
-            <p className="text-sm text-red-500">{errors.company}</p>
-          )}
+          {errors.company && <p className="text-sm text-red-500">{errors.company}</p>}
         </div>
 
         {/* Role */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">
-            Role
-          </label>
+          <label className="mb-2 block text-base sm:text-lg font-semibold">Role</label>
           <input
             type="text"
             value={role}
             onChange={(e) =>
-              dispatch({
-                type: "SET_EXPERIENCE",
-                payload: { role: e.target.value },
-              })
+              dispatch({ type: "SET_EXPERIENCE", payload: { role: e.target.value } })
             }
             placeholder="Frontend Developer"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
           />
-          {errors.role && (
-            <p className="text-sm text-red-500">{errors.role}</p>
-          )}
+          {errors.role && <p className="text-sm text-red-500">{errors.role}</p>}
         </div>
 
         {/* Years */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">
-            Years of Experience
-          </label>
+          <label className="mb-2 block text-base sm:text-lg font-semibold">Years of Experience</label>
           <input
             type="text"
             value={years}
             onChange={(e) =>
-              dispatch({
-                type: "SET_EXPERIENCE",
-                payload: { years: e.target.value },
-              })
+              dispatch({ type: "SET_EXPERIENCE", payload: { years: e.target.value } })
             }
             placeholder="1.8"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
           />
-          {errors.years && (
-            <p className="text-sm text-red-500">{errors.years}</p>
-          )}
+          {errors.years && <p className="text-sm text-red-500">{errors.years}</p>}
         </div>
 
-        {/* Resume Upload using FileUpload component */}
-        <label className="mb-2 block text-base sm:text-lg font-semibold">
-          Upload Resume (PDF Only)
-        </label>
-
+        {/* Resume Upload */}
+        <label className="mb-2 block text-base sm:text-lg font-semibold">Upload Resume (PDF Only)</label>
         <FileUpload
           accept="application/pdf"
-          onFileSelect={(base64, file) => {
-            // save to localStorage
-            localStorage.setItem("resumeFile", base64);
+          initialFileName={resumeFileName}
+          onFileSelect={async (base64, file) => {
+            if (!file) return;
 
-            // also store in context if needed
-            dispatch({
-              type: "SET_EXPERIENCE",
-              payload: { resume: base64 },
+            const formData = new FormData();
+            formData.append("resume", file);
+            formData.append("email", state.personal.email);
+
+            const res = await fetch("/api/upload-resume", {
+              method: "POST",
+              body: formData,
             });
+
+            const data = await res.json();
+
+            if (data.success) {
+              const updated = {
+                resume: base64,
+                resumeLink: data.resumeUrl,
+                resumeFileName: file.name,
+              };
+
+              dispatch({ type: "SET_EXPERIENCE", payload: updated });
+
+              localStorage.setItem(
+                "ExperienceDetails",
+                JSON.stringify({ ...state.experience, ...updated })
+              );
+            } else {
+              console.error("Resume upload failed:", data.error);
+            }
           }}
         />
+        {resumeFileName && (
+          <p className="text-blue-600 text-sm mt-2">
+            📄 {resumeFileName}
+          </p>
+        )}
+        {resumeLink && (
+          <p className="text-green-600 text-sm mt-1">Resume uploaded successfully ✅</p>
+        )}
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 pt-6">
@@ -139,14 +145,9 @@ const Experience = ({ onNext, onBack }: Props) => {
           </button>
 
           <button
-            className="w-full sm:w-auto rounded-xl bg-fuchsia-500 text-white py-2 px-6 text-lg font-semibold hover:bg-fuchsia-600"
-          >
-            Save
-          </button>
-
-          <button
             onClick={() => {
               if (validateForm()) {
+                localStorage.setItem("ExperienceDetails", JSON.stringify(state.experience));
                 onNext();
               }
             }}
