@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormContext } from "~/app/context/CandidateFormContext";
-import PDFViewer from "../common/PDFPreview"; // ✅ import PDFViewer
+// import PDFViewer from "../common/PDFPreview"; // ✅ import PDFViewer
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import SuccessModal from "../common/SuccessModal";
@@ -24,7 +24,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
     if (showSuccess) {
       const timeOut = setTimeout(() => {
         router.push("/find_job");
-      }, 3000);//redirect after 3 seconds
+      }, 2000);//redirect after 3 seconds
     }
   }, [showSuccess]);
 
@@ -107,7 +107,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
               <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
                 <p className="mb-4 text-xl font-semibold">📄 Resume Preview</p>
                 <div className="border border-gray-400 rounded-md overflow-hidden">
-                  <PDFViewer base64Data={experience.resume} />
+                  {/* <PDFViewer base64Data={experience.resume} /> */}
                 </div>
               </div>
             </div>
@@ -144,9 +144,10 @@ const Preview = ({ onBack, goToStep }: Props) => {
                   const result = await response.json();
 
                   if (response.ok) {
-                    alert("✅ Candidate submitted successfully!");
                     console.log("DB response: ", result);
                     dispatch({ type: "SET_ID", payload: result.candidate.id });
+                    setShowSucess(true);
+                    
                   } else {
                     alert("❌ Failed to submit.");
                     console.error(result.error);
