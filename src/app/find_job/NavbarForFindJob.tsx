@@ -2,10 +2,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { useRouter } from "next/navigation";
 
 export default function NavbarForFindJob() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownref = useRef(null);
+  const router = useRouter();
 
   // Close dropdown if clicked outside
   useEffect(() => {
@@ -41,7 +43,9 @@ export default function NavbarForFindJob() {
               ref={dropdownref}
             >
               <ul className="flex flex-col py-2">
-                <li className="cursor-pointer px-4 py-2 hover:bg-fuchsia-100">
+                <li className="cursor-pointer px-4 py-2 hover:bg-fuchsia-100"
+                onClick={()=>router.push("/find_job/profile")}
+                >
                   👤 View Profile
                 </li>
                 <li className="cursor-pointer px-4 py-2 hover:bg-fuchsia-100">
