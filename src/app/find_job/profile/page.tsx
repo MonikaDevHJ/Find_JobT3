@@ -1,104 +1,98 @@
 "use client";
 
-const Preview = () => {
+import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
+
+const ProfilePreview = () => {
+  const { user, isLoaded } = useUser();
+  const [candidate, setCandidate] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isLoaded || !user) return;
+
+    const fetchCandidate = async () => {
+      try {
+        const res = await fetch(`/api/candidate/${user.id}`);
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data = await res.json();
+        setCandidate(data);
+      } catch (err) {
+        console.error("❌ Error fetching profile:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCandidate();
+  }, [isLoaded, user]);
+
+  if (loading) return <p className="p-5 text-center">Loading profile...</p>;
+
   return (
-    <>
-      <div className="mt-10 px-4 sm:px-10 md:px-24">
-        <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-10 md:p-16">
-          <h2 className="mb-8 text-center text-2xl font-bold text-fuchsia-700">
-            Your Profile
-          </h2>
+    <div className="mt-10 px-4 sm:px-10 md:px-24">
+      <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-10 md:p-16">
+        <h2 className="mb-8 text-center text-2xl font-bold text-fuchsia-700">
+          Your Profile
+        </h2>
 
-          {/* Personal Info */}
-          <div className="mb-6">
-            <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
-              <div className="flex items-center justify-between">
-                <p className="mb-2 text-xl font-semibold">
-                  👤 Personal Information
-                </p>
-                <button className="text-sm text-blue-600 underline hover:text-blue-800">
-                  ✏️Edit
-                </button>
-              </div>
-              <div className="mt-3 ml-8 space-y-2">
-                <p>
-                  <strong>Name:</strong>{" "}
-                </p>
-                <p>
-                  <strong>Phone:</strong>{" "}
-                </p>
-                <p>
-                  <strong>Email:</strong>
-                </p>
-                <p>
-                  <strong>Gender:</strong>{" "}
-                </p>
-                <p>
-                  <strong>Education:</strong>
-                </p>
-              </div>
+        {/* Personal Info */}
+        <div className="mb-6">
+          <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
+            <div className="flex items-center justify-between">
+              <p className="mb-2 text-xl font-semibold">👤 Personal Information</p>
+              <button className="text-sm text-blue-600 underline hover:text-blue-800">
+                ✏️Edit
+              </button>
+            </div>
+            <div className="mt-3 ml-8 space-y-2">
+              <p><strong>Name:</strong> {candidate?.name || "-"}</p>
+              <p><strong>Phone:</strong> {candidate?.phone || "-"}</p>
+              <p><strong>Email:</strong> {candidate?.email || "-"}</p>
+              <p><strong>Gender:</strong> {candidate?.gender || "-"}</p>
+              <p><strong>Education:</strong> {candidate?.education || "-"}</p>
             </div>
           </div>
+        </div>
 
-          {/* Education Info */}
-          <div className="mb-6">
-            <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
-              <div className="flex items-center justify-between">
-                <p className="mb-2 text-xl font-semibold">
-                  🎓 Education Details
-                </p>
-                <button className="text-sm text-blue-600 underline hover:text-blue-800">
-                  ✏️Edit
-                </button>
-              </div>
-              <div className="mt-3 ml-8 space-y-2">
-                <p>
-                  <strong>Degree:</strong>{" "}
-                </p>
-                <p>
-                  <strong>Stream:</strong>
-                </p>
-                <p>
-                  <strong>University:</strong>{" "}
-                </p>
-                <p>
-                  <strong>College:</strong>{" "}
-                </p>
-                <p>
-                  <strong>Score:</strong>{" "}
-                </p>
-              </div>
+        {/* Education Info */}
+        <div className="mb-6">
+          <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
+            <div className="flex items-center justify-between">
+              <p className="mb-2 text-xl font-semibold">🎓 Education Details</p>
+              <button className="text-sm text-blue-600 underline hover:text-blue-800">
+                ✏️Edit
+              </button>
+            </div>
+            <div className="mt-3 ml-8 space-y-2">
+              <p><strong>Degree:</strong> {candidate?.degree || "-"}</p>
+              <p><strong>Stream:</strong> {candidate?.stream || "-"}</p>
+              <p><strong>University:</strong> {candidate?.university || "-"}</p>
+              <p><strong>College:</strong> {candidate?.college || "-"}</p>
+              <p><strong>Score:</strong> {candidate?.score || "-"}</p>
             </div>
           </div>
+        </div>
 
-          {/* Experience Info */}
-          <div className="mb-6">
-            <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
-              <div className="flex items-center justify-between">
-                <p className="mb-2 text-xl font-semibold">
-                  💼 Experience Details
-                </p>
-                <button className="text-sm text-blue-600 underline hover:text-blue-800">
-                  ✏️Edit
-                </button>
-              </div>
-              <div className="mt-3 ml-8 space-y-2">
-                <p>
-                  <strong>Company:</strong>{" "}
-                </p>
-                <p>
-                  <strong>Role:</strong>{" "}
-                </p>
-                <p>
-                  <strong>Years:</strong>{" "}
-                </p>
-              </div>
+        {/* Experience Info */}
+        <div className="mb-6">
+          <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
+            <div className="flex items-center justify-between">
+              <p className="mb-2 text-xl font-semibold">💼 Experience Details</p>
+              <button className="text-sm text-blue-600 underline hover:text-blue-800">
+                ✏️Edit
+              </button>
+            </div>
+            <div className="mt-3 ml-8 space-y-2">
+              <p><strong>Company:</strong> {candidate?.company || "-"}</p>
+              <p><strong>Role:</strong> {candidate?.role || "-"}</p>
+              <p><strong>Years:</strong> {candidate?.years || "-"}</p>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Preview;
+export default ProfilePreview;
