@@ -21,7 +21,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.25.0",
+    "@clerk/nextjs": "^6.30.0",
     "@heroicons/react": "^2.2.0",
     "@prisma/client": "^6.5.0",
     "@t3-oss/env-nextjs": "^0.12.0",
