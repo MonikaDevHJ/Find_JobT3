@@ -5,13 +5,14 @@ import { db } from "~/server/db";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { id, personal, education, experience } = body;
+    const {clerkId, id, personal, education, experience } = body;
 
     const candidate = await db.candidate.upsert({
       where: {
-        id: id || "", //if no ID Prisma will create new
+       clerkId //if no ID Prisma will create new
       },
       create: {
+        clerkId,
         name: personal.name,
         phone: personal.phone,
         email: personal.email,

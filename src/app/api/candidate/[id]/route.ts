@@ -3,7 +3,7 @@ import { db } from "~/server/db";
 
 interface Params {
   params: {
-    id: string;
+    id: string;  // This will be Clerk's user.id
   };
 }
 
@@ -16,7 +16,7 @@ export async function GET(_request: Request, { params }: Params) {
     }
 
     const candidate = await db.candidate.findUnique({
-      where: { id },
+      where: { clerkId:id },
     });
 
     if (!candidate) {
