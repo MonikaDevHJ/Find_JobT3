@@ -1,11 +1,11 @@
 import React from 'react'
 
-const  EmployerProfile = () => {
+const EmployerProfile = () => {
   return (
     <div>
-      <p>Employer Profile</p>
+      <p>Employer Prfile</p>
     </div>
   )
 }
 
-export default  EmployerProfile
+export default EmployerProfile
