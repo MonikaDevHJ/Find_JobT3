@@ -1,7 +1,6 @@
 "use client";
 
 import { useFormContext } from "~/app/context/CandidateFormContext";
-// import PDFViewer from "../common/PDFPreview"; // ✅ import PDFViewer
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import SuccessModal from "../common/SuccessModal";
@@ -26,6 +25,8 @@ const Preview = ({ onBack, goToStep }: Props) => {
       const timeOut = setTimeout(() => {
         router.push("/find_job");
       }, 2000); //redirect after 3 seconds
+      // Cleanup: cancel the timer if the component is removed early
+      return () => clearTimeout(timeOut);
     }
   }, [showSuccess]);
 
