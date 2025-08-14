@@ -1,5 +1,9 @@
-import React from "react";
+import React, { use } from "react";
 import { useEmployerFormContext } from "~/app/context/EmployerFormContext";
+import SuccessModal from "../common/SuccessModal"
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+
 
 type Props = {
   onBack: () => void;
@@ -8,7 +12,22 @@ type Props = {
 
 const EmployerPreview = ({ onBack, goToStep }: Props) => {
   const { state, dispatch } = useEmployerFormContext();
+
+  const [showSuccess, setShowSuccess] = useState(false)
+
   const { employer, company } = state;
+  const router = useRouter()
+
+useEffect(()=>{
+  if(showSuccess){
+    const timeOut =  setTimeout(()=>{
+      router.push("/post_job/employer_profile")
+    }, 2000);
+     // Cleanup: cancel the timer if the component is removed early
+      return () => clearTimeout(timeOut);
+  }   
+}, [showSuccess])
+
 
   return (
     <div className="mt-10 px-4 sm:px-10 md:px-24">
@@ -87,6 +106,12 @@ const EmployerPreview = ({ onBack, goToStep }: Props) => {
               Back
             </button>
 
+            {
+              showSuccess && (
+                <SuccessModal message={"Your Employer Acooutn Has Been Created Succesfull! Then Redirect To Post a Job "} />
+              )
+            }
+
             <div
               onClick={async () => {
                 try {
@@ -102,8 +127,9 @@ const EmployerPreview = ({ onBack, goToStep }: Props) => {
                   // the handle the result
                   const result = await response.json();
                   if (response.ok) {
-                    alert("Candidate Submited Succefully ");
+                    alert("Employer Submited Succefully ");
                     console.log("DB Response:", result);
+                    setShowSuccess(true);
 
                     //  ✅ Save the returned `id` into state so we can update later
                     dispatch({ type: "SET_ID", payload: result.candidate.id });
