@@ -21,7 +21,7 @@ const EmployerPreview = ({ onBack, goToStep }: Props) => {
 useEffect(()=>{
   if(showSuccess){
     const timeOut =  setTimeout(()=>{
-      router.push("/post_job/employer_profile")
+      router.push("/post_job")
     }, 2000);
      // Cleanup: cancel the timer if the component is removed early
       return () => clearTimeout(timeOut);
