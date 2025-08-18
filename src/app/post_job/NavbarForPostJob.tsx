@@ -44,7 +44,7 @@ export default function NavbarForPostJob() {
             >
               <ul className="flex flex-col py-2">
                 <li className="cursor-pointer px-4 py-2 hover:bg-fuchsia-100"
-                onClick={()=>router.push("/find_job/profile")}
+                onClick={()=>router.push("/post_job/employer_profile")}
                 >
                   👤 View Profile
                 </li>
