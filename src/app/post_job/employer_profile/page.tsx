@@ -21,7 +21,7 @@ const EmployerProfilePreview = () => {
             </div>
             <div className="mt-3 ml-8 space-y-2">
               <p>
-                <strong>Employer Name:</strong>
+                <strong>Employer Name:</strong>{" "}
               </p>
               <p>
                 <strong>Company Name:</strong>{" "}
@@ -30,7 +30,7 @@ const EmployerProfilePreview = () => {
                 <strong>Employer ID:</strong>{" "}
               </p>
               <p>
-                <strong>Contact Number:</strong>
+                <strong>Contact Number:</strong>{" "}
               </p>
               <p>
                 <strong>Designation:</strong>{" "}
@@ -43,7 +43,7 @@ const EmployerProfilePreview = () => {
         <div className="mb-6">
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
-              <p className="mb-2 text-xl font-semibold">  🏢 Company Details</p>
+              <p className="mb-2 text-xl font-semibold"> 🏢 Company Details</p>
               <button className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
@@ -53,7 +53,7 @@ const EmployerProfilePreview = () => {
                 <strong>Company Name:</strong>{" "}
               </p>
               <p>
-                <strong>Company ID:</strong>
+                <strong>Company ID:</strong>{" "}
               </p>
               <p>
                 <strong> Company Contact Number:</strong>{" "}
@@ -62,13 +62,11 @@ const EmployerProfilePreview = () => {
                 <strong>Company Location:</strong>{" "}
               </p>
               <p>
-                <strong>Company Website:</strong>
+                <strong>Company Website:</strong>{" "}
               </p>
             </div>
           </div>
         </div>
-
-       
       </div>
     </div>
   );
