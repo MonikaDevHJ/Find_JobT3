@@ -1,25 +1,30 @@
 import { NextResponse } from "next/server";
-
 import { db } from "~/server/db";
+import { auth } from "@clerk/nextjs/server";
 
 export async function POST(request: Request) {
   try {
+    // 👇 Clerk v6 requires await
+    const { userId } = await auth();
+
+    if (!userId) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
-    console.log("incoming Body", body);
-    const { id, employer, company } = body;
+    const { employer, company } = body;
 
     const newEmployer = await db.employer.upsert({
-      where: {
-        id: id || "",
-      },
+      where: { clerkId: userId },
       create: {
+        clerkId: userId,
         employerName: employer.employerName,
         employerId: employer.employerId,
         contactNumber: employer.contactNumber,
         designation: employer.designation,
         companyName: employer.companyName,
-        createdAt: new Date(), // or employer.createdAt if you're sending it
-        companyWebsite: company.companyWebsite || undefined, // ✅ proper fallback
+        createdAt: new Date(),
+        companyWebsite: company.companyWebsite || undefined,
         companyLocation: company.companyLocation,
         companyID: company.CompanyID,
       },
@@ -29,22 +34,19 @@ export async function POST(request: Request) {
         contactNumber: employer.contactNumber,
         designation: employer.designation,
         companyName: employer.companyName,
-        createdAt: new Date(), // or employer.createdAt
-        companyWebsite: company.companyWebsite || undefined, // ✅ safe update
+        createdAt: new Date(),
+        companyWebsite: company.companyWebsite || undefined,
         companyLocation: company.companyLocation,
         companyID: company.CompanyID,
       },
     });
 
-    return NextResponse.json(
-      { message: "Employer Saved!", employer },
-      { status: 200 },
-    );
+    return NextResponse.json({ message: "Employer Saved!", newEmployer }, { status: 200 });
   } catch (error: any) {
-    console.error("❌ Server Error:", error?.message || error);
+    console.error("❌ Employer API Error:", error?.message, JSON.stringify(error));
     return NextResponse.json(
-      { message: "Something went wrong", error: error?.message || error },
-      { status: 500 },
+      { message: "Something went wrong", error: error?.message || "Unknown error" },
+      { status: 500 }
     );
   }
 }
