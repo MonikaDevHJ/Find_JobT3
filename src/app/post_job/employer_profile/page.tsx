@@ -1,35 +1,40 @@
 "use client";
-import { useUSer } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs"
 import { error } from "console";
 import { use, useEffect, useState } from "react";
 
 
 
 const EmployerProfilePreview = () => {
-  const { user, isLoaded } = useUSer(); //cler Gives you loged In User
-  const [employer, setEmployer] = useUSer();  //Store Employer Data
+  const { user, isLoaded } = useUser(); //cler Gives you loged In User
+  const [employer, setEmployer] = useState<any>(null);  //Store Employer Data
   const [loading, setLoading] = useState(true);   //Loading State
 
 
-  useEffect(() = {
-    if(!isLoaded || !user);
+  useEffect(() => {
+    if(!isLoaded || !user)
   return;
 
-  const fetchEmployer = async ()=>{
-    try{
-      const res= await fetch (`/api/employer/${user.id}`)
-      if(!res.ok) throw new Error ("Failed to Fetch Employer ")
-        const data = await res.json();
+  const fetchEmployer = async () => {
+    try {
+      const res = await fetch(`/api/employer/${user.id}`)
+      if (!res.ok) throw new Error("Failed to Fetch Employer ")
+      const data = await res.json();
       setEmployer(data);
-    }catch(err){
-      console.log("❌ Error fetching employer:", err)
-    }finally{
+    } catch (err) {
+      console.error("❌ Error fetching employer:", err)
+    } finally {
       setLoading(false);
-    }
+    } 
   };
-  fetchEmployer();
+  fetchEmployer();  
 
-}, [isLoaded, User]);
+
+}, [isLoaded, user]);
+
+if(loading)
+  return
+<p className="p-4 text-center">Loading Employer.....</p>
 
 return (
   <div className="mt-10 px-4 sm:px-10 md:px-24">
@@ -38,7 +43,7 @@ return (
         Employer Profile
       </h2>
 
-      {/* Personal Info */}
+      {/* Employer Info */}
       <div className="mb-6">
         <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
           <div className="flex items-center justify-between">
@@ -51,19 +56,19 @@ return (
           </div>
           <div className="mt-3 ml-8 space-y-2">
             <p>
-              <strong>Employer Name:</strong>{" "}
+              <strong>Employer Name:</strong>{employer?.employerName|| "-" }
             </p>
             <p>
-              <strong>Company Name:</strong>{" "}
+              <strong>Company Name:</strong>{employer?.companyName|| "-"}
             </p>
             <p>
-              <strong>Employer ID:</strong>{" "}
+              <strong>Employer ID:</strong>{employer?.employerID || "-"}
             </p>
             <p>
-              <strong>Contact Number:</strong>{" "}
+              <strong>Contact Number:</strong>{employer?.ContactNumber || "-"}
             </p>
             <p>
-              <strong>Designation:</strong>{" "}
+              <strong>Designation:</strong>{employer?.Designation|| "-"}
             </p>
           </div>
         </div>
@@ -80,19 +85,19 @@ return (
           </div>
           <div className="mt-3 ml-8 space-y-2">
             <p>
-              <strong>Company Name:</strong>{" "}
+              <strong>Company Name:</strong>{employer?.companyName || "-"}
             </p>
             <p>
-              <strong>Company ID:</strong>{" "}
+              <strong>Company ID:</strong> {employer?.companyID || "-"}
             </p>
             <p>
-              <strong> Company Contact Number:</strong>{" "}
+              <strong> Company Contact Number:</strong>{employer?.companyContactNumber || "-"}
             </p>
             <p>
-              <strong>Company Location:</strong>{" "}
+              <strong>Company Location:</strong>{employer?.companyLocation  || "-"}
             </p>
             <p>
-              <strong>Company Website:</strong>{" "}
+              <strong>Company Website:</strong>{employer?.companyWebsite || "-"}
             </p>
           </div>
         </div>
