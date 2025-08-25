@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function NavbarForPostJob() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +29,9 @@ export default function NavbarForPostJob() {
     <nav className="w-full rounded-2xl border-2 border-fuchsia-500 bg-white shadow-2xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         {/* Left: Logo or Title */}
+        <Link href="/post_job">
         <div className="text-3xl font-bold text-fuchsia-600">Post_Job</div>
+        </Link>
 
         {/* Right: Profile Icon + DropDown */}
         <div className="relative cursor-pointer">
