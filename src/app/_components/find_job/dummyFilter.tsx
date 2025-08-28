@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState } from "react";
 
 // Define exact keys for experience
@@ -89,7 +87,7 @@ const Filter = () => {
       </div>
 
       {/* Apply Button */}
-      <button className="w-full bg-fuchsia-600 text-white py-2 rounded hover:bg-fuchsia-500 transition">
+      <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
         Apply Filters
       </button>
     </div>
