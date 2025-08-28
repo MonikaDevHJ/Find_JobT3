@@ -4,11 +4,10 @@ import Filter from"../_components/find_job/Filter"
 import  JobList from "../_components/find_job/JobList"
 const findJob = () => {
   return (
-    <div>
+    <div className=' text-center '>
       <SearchBar/>
       <Filter/>
       <JobList/>
-      <p>Find Job</p>
     </div>
   )
 }
