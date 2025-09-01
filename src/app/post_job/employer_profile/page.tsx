@@ -1,11 +1,13 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const EmployerProfilePreview = () => {
   const { user, isLoaded } = useUser(); //clear Gives you loged In User
   const [employer, setEmployer] = useState<any>(null); //Store Employer Data
   const [loading, setLoading] = useState(true); //Loading State
+  const router = useRouter();
 
   useEffect(() => {
     if (!isLoaded || !user) return;
@@ -42,7 +44,9 @@ const EmployerProfilePreview = () => {
               <p className="mb-2 text-xl font-semibold">
                 👤 Employer Information
               </p>
-              <button className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button 
+              onClick={()=>router.push("/employer?step=1")}
+              className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
             </div>
@@ -76,7 +80,9 @@ const EmployerProfilePreview = () => {
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
               <p className="mb-2 text-xl font-semibold"> 🏢 Company Details</p>
-              <button className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button 
+              onClick={()=>router.push("/employer?step=2")}
+              className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
             </div>
