@@ -26,8 +26,9 @@ export async function GET(
       );
     }
 
-    const employer = await db.employer.findUnique({
+    const employer = await db.employer.findFirst({
       where: { clerkId: id }, //match the clerk UserID
+      orderBy:{createdAt:"desc"}
     });
 
     if (!employer) {
