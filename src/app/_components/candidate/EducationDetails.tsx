@@ -13,7 +13,7 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
   const [errors, setErrors] = useState({
     degree: "",
     stream: "",
-    university: "",
+    university: "", 
     college: "",
     score: "",
   });
