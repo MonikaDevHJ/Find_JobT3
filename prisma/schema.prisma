@@ -17,8 +17,8 @@ model Post {
 }
 
 model Candidate {
-  id         String   @id @default(uuid()) //Internal Primary Key (perment IN DB)
-  clerkId    String?  @unique //External auth ID from Clerk
+  id         String @id @default(uuid()) //Internal Primary Key (perment IN DB)
+  clerkId    String
   name       String
   phone      String
   email      String
@@ -31,6 +31,7 @@ model Candidate {
   score      String
   company    String
   role       String
+
   years      String
   createdAt  DateTime @default(now())
   resumeLink Bytes?

@@ -15,8 +15,9 @@ export async function GET(_request: Request, { params }: Params) {
       return NextResponse.json({ message: "User ID required" }, { status: 400 });
     }
 
-    const candidate = await db.candidate.findUnique({
+    const candidate = await db.candidate.findFirst({
       where: { clerkId:id },
+      orderBy : {createdAt:"desc"}
     });
 
     if (!candidate) {
