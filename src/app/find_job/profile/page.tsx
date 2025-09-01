@@ -2,11 +2,13 @@
 
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"
 
 const ProfilePreview = () => {
   const { user, isLoaded } = useUser();
   const [candidate, setCandidate] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     if (!isLoaded || !user) return;
@@ -41,7 +43,9 @@ const ProfilePreview = () => {
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
               <p className="mb-2 text-xl font-semibold">👤 Personal Information</p>
-              <button className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button 
+              onClick={()=>router.push("/candidate?step=1")}
+              className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
             </div>
@@ -60,7 +64,9 @@ const ProfilePreview = () => {
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
               <p className="mb-2 text-xl font-semibold">🎓 Education Details</p>
-              <button className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button 
+              onClick={()=>router.push("/candidate?step=2")}
+              className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
             </div>
@@ -79,7 +85,9 @@ const ProfilePreview = () => {
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
               <p className="mb-2 text-xl font-semibold">💼 Experience Details</p>
-              <button className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button 
+              onClick={()=>router.push("/candidate?step=3")}
+              className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
             </div>
