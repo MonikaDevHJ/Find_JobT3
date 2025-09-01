@@ -39,7 +39,7 @@ model Candidate {
 
 model Employer {
   id              String   @id @default(uuid())
-  clerkId         String   @unique
+  clerkId         String
   employerName    String
   employerId      String   @unique
   contactNumber   String

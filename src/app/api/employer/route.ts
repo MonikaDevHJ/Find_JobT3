@@ -14,9 +14,8 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { employer, company } = body;
 
-    const newEmployer = await db.employer.upsert({
-      where: { clerkId: userId },
-      create: {
+    const newEmployer = await db.employer.create({
+      data: {
         clerkId: userId,
         employerName: employer.employerName,
         employerId: employer.employerId,
@@ -28,17 +27,7 @@ export async function POST(request: Request) {
         companyLocation: company.companyLocation,
         companyID: company.CompanyID,
       },
-      update: {
-        employerName: employer.employerName,
-        employerId: employer.employerId,
-        contactNumber: employer.contactNumber,
-        designation: employer.designation,
-        companyName: employer.companyName,
-        createdAt: new Date(),
-        companyWebsite: company.companyWebsite || undefined,
-        companyLocation: company.companyLocation,
-        companyID: company.CompanyID,
-      },
+     
     });
 
     return NextResponse.json({ message: "Employer Saved!", newEmployer }, { status: 200 });
