@@ -1,15 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PersonalDetails from "../_components/candidate/PersonalDetails";
 import EducationDetails from "../_components/candidate/EducationDetails";
 import Experience from "../_components/candidate/Experience";
 import Preview from "../_components/candidate/CandidatePreview";
+import { useSearchParams } from "next/navigation";
 
 export default function CandidatePage() {
-  const [step, setStep] = useState(1); // Start from 1
+  const searchParams = useSearchParams();
+  const stepFromUrl = parseInt(searchParams.get("step") || "1", 10)
 
-  // it is tool to move any step
+  const [step, setStep] = useState(stepFromUrl)
+
+  useEffect(() => {
+    setStep(stepFromUrl)
+
+
+  }, [stepFromUrl]) //run whenver URL step changes
+
+
+  // it is tool to move any stepgi
   const goToStep = (stepNumber: number) => {
     setStep(stepNumber);
   }
@@ -30,7 +41,7 @@ export default function CandidatePage() {
         {step === 2 && <EducationDetails onNext={() => setStep(3)} onBack={() => setStep(1)} />}
         {step === 3 && <Experience onNext={() => setStep(4)} onBack={() => setStep(2)} />}
         {step === 4 && <Preview onBack={() => setStep(3)} goToStep={goToStep} />}
-      </div> 
+      </div>
     </div>
   );
 }
