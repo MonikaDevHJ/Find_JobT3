@@ -12,7 +12,7 @@ const Filter = () => {
     "1-3yrs": false,
     "3-5yrs": false,
     "5+yrs": false,
-  });
+  }); 
 
   const handleExperienceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;

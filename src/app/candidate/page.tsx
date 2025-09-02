@@ -20,7 +20,7 @@ export default function CandidatePage() {
   }, [stepFromUrl]) //run whenver URL step changes
 
 
-  // it is tool to move any stepgi
+  // it is tool to move any stepg
   const goToStep = (stepNumber: number) => {
     setStep(stepNumber);
   }
