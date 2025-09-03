@@ -29,7 +29,7 @@ const Filter = () => {
     "Data Analysis",
   ];
 
-  const Companyies = [
+  const Companies = [
     "EY",
     "Infosys",
     "TCS",
@@ -42,15 +42,18 @@ const Filter = () => {
   ];
 
   return (
-    <div className="w-full rounded-2xl border border-gray-300 bg-white p-5 shadow-xl">
+    <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-300 bg-white p-5 shadow-xl sm:max-w-sm md:max-w-md">
       <p className="text-xl font-semibold">Apply Filters</p>
 
       {/* Education filter */}
       <div className="mt-6 text-start">
         <p className="font-semibold text-black">Education</p>
-        <div className="mt-2">
+        <div className="mt-2 flex flex-wrap gap-2">
           {EducationOptions.map((edu, index) => (
-            <div key={index} className="flex gap-2">
+            <div
+              key={index}
+              className="flex w-full items-center gap-2 sm:w-1/2 md:w-full"
+            >
               <input type="checkbox" id={`edu-${index}`} />
               <label htmlFor={`edu-${index}`} className="text-gray-900">
                 {edu}
@@ -63,9 +66,12 @@ const Filter = () => {
       {/* Location filter */}
       <div className="mt-5 text-start">
         <p className="font-semibold text-black">Location</p>
-        <div className="mt-2">
+        <div className="mt-2 flex flex-wrap gap-2">
           {Location.map((loc, index) => (
-            <div key={index} className="flex gap-2">
+            <div
+              key={index}
+              className="flex w-full items-center gap-2 sm:w-1/2 md:w-full"
+            >
               <input type="checkbox" id={`loc-${index}`} />
               <label htmlFor={`loc-${index}`} className="text-gray-900">
                 {loc}
@@ -75,14 +81,17 @@ const Filter = () => {
         </div>
       </div>
 
-      {/* Slaary Filter */}
+      {/* Salary Filter */}
       <div className="mt-5 text-start">
         <p className="font-semibold text-black">Salary</p>
-        <div className="mt-2">
+        <div className="mt-2 flex flex-wrap gap-2">
           {Salary.map((sal, index) => (
-            <div key={index} className="flex gap-2">
-              <input type="checkbox" id={`loc- ${index} `} />
-              <label htmlFor={`loc-${index}`} className="text-gray-900">
+            <div
+              key={index}
+              className="flex w-full items-center gap-2 sm:w-1/2 md:w-full"
+            >
+              <input type="checkbox" id={`sal-${index}`} />
+              <label htmlFor={`sal-${index}`} className="text-gray-900">
                 {sal}
               </label>
             </div>
@@ -93,11 +102,16 @@ const Filter = () => {
       {/* Industry */}
       <div className="mt-5 text-start">
         <p className="font-semibold text-black">Industry</p>
-        <div className="mt-2">
+        <div className="mt-2 flex flex-wrap gap-2">
           {Industry.map((ind, index) => (
-            <div key={index} className="flex  gap-2">
-              <input type="checkbox" />
-              <label htmlFor="">{ind}</label>
+            <div
+              key={index}
+              className="flex w-full items-center gap-2 sm:w-1/2 md:w-full"
+            >
+              <input type="checkbox" id={`ind-${index}`} />
+              <label htmlFor={`ind-${index}`} className="text-gray-900">
+                {ind}
+              </label>
             </div>
           ))}
         </div>
@@ -106,11 +120,16 @@ const Filter = () => {
       {/* Companies */}
       <div className="mt-5 text-start">
         <p className="font-semibold text-black">Companies</p>
-        <div className="mt-2">
-          {Companyies.map((comp, index) => (
-            <div key={index} className="flex gap-2">
-              <input type="checkbox" />
-              <label htmlFor="">{comp}</label>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {Companies.map((comp, index) => (
+            <div
+              key={index}
+              className="flex w-full items-center gap-2 sm:w-1/2 md:w-full"
+            >
+              <input type="checkbox" id={`comp-${index}`} />
+              <label htmlFor={`comp-${index}`} className="text-gray-900">
+                {comp}
+              </label>
             </div>
           ))}
         </div>
