@@ -6,7 +6,7 @@ type FiltersState = {
 };
 
 const Filter = () => {
-  // 👇 define the state type so TS knows each key has an array of strings
+  // TS knows each key has an array of strings
   const [selectedFilters, setSelectedFilters] = useState<FiltersState>({});
 
   const filters = [
@@ -43,10 +43,9 @@ const Filter = () => {
 
   function handleChange(key: string, opt: string, checked: boolean) {
     setSelectedFilters((prev) => {
-      // make a copy of the current array for this key (or empty if none yet)
       const current = prev[key] || [];
-
       let updatedForKey: string[];
+
       if (checked) {
         // add this option (avoid duplicates)
         updatedForKey = [...current, opt];
@@ -96,10 +95,7 @@ const Filter = () => {
         </div>
       ))}
 
-      {/* 👇 Debug output to see state live */}
-      <pre className="mt-4 text-xs text-gray-500">
-        {JSON.stringify(selectedFilters, null, 2)}
-      </pre>
+      {/* removed the debug <pre> so nothing shows below */}
     </div>
   );
 };
