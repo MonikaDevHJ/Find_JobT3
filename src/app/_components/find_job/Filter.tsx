@@ -1,6 +1,38 @@
 import React from "react";
 
 const Filter = () => {
+  const filters = [
+    {
+      key: "education",
+      name: "Education",
+      options: [
+        "UnderGradtion",
+        "Under Graduation",
+        "Post Graduation",
+        "10th",
+        "12Th",
+        "Diploma",
+      ],
+    },
+    {
+      key: "location",
+      name: "Location",
+      options: [
+        "Bengalore",
+        "Mumbai",
+        "Chennai",
+        "Delhi",
+        "Gujarath",
+        "Hassan",
+      ],
+    },
+    {
+      key: "salary",
+      name: "Salary",
+      option: ["0-3 Lakh", "3-6 Lakh", "6-12 Lakh", "12-24 Lakh"],
+    },
+  ];
+
   const EducationOptions = [
     "Under Graduation",
     "Post Graduation",
