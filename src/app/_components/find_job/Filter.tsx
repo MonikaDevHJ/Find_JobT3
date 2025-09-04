@@ -1,6 +1,9 @@
+"use client"
 import React from "react";
 
 const Filter = () => {
+
+  const [selectedFilters, setSelectedFilters] = React.useState({});
   const filters = [
     {
       key: "education",
@@ -29,39 +32,35 @@ const Filter = () => {
     {
       key: "salary",
       name: "Salary",
-      option: ["0-3 Lakh", "3-6 Lakh", "6-12 Lakh", "12-24 Lakh"],
+      options: ["0-3 Lakh", "3-6 Lakh", "6-12 Lakh", "12-24 Lakh"],
     },
   ];
 
-  const Industry = [
-    "Software Developer",
-    "Human Resources",
-    "Sales Manager",
-    "Marketing Manager",
-    "Supoort Engenner",
-    "Data Analysis",
-  ];
+  function handleChange(key: string, opt: string, checked: boolean): void {
+    throw new Error("Function not implemented.");
+  }
 
-  const Companies = [
-    "EY",
-    "Infosys",
-    "TCS",
-    "Accenture",
-    "Wipro",
-    "Jobox",
-    "getsetHire",
-    "HighSource",
-    "Deloite",
-  ];
-
-  return(
-      
-    <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-300 bg-white p-5 shadow-xl sm:max-w-sm md:max-w-md ">
-      <p className=" text-xl font-semibold">Apply Filters</p>
-
+  return (
+    <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-300 bg-white p-5 shadow-xl sm:max-w-sm md:max-w-md">
+      <p className="text-xl font-semibold">Apply Filters</p>
+      {filters.map((filter, i) => (
+        <div key={filter.key} className="mt-6 text-start">
+          <p className="font-semibold text-black">{filter.name}</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {filter.options?.map((opt, idx) => (
+              <div key={idx} className="flex w-full items-center gap-2 sm:w-1/2 md:w-full">
+                <input type="checkbox"
+                onChange={(e)=>handleChange(filter.key, opt, e.target.checked)}
+                
+                name={filter.key} id={`${filter.key}-${idx}`} value={opt} />
+                <label htmlFor={`${filter.key}-${idx}`} className="text-gray-900">{opt}</label>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
-
-  )
+  );
 };
 
 export default Filter;
