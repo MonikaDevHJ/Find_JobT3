@@ -1,9 +1,14 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useState } from "react";
+
+type FiltersState = {
+  [key: string]: string[];
+};
 
 const Filter = () => {
+  // 👇 define the state type so TS knows each key has an array of strings
+  const [selectedFilters, setSelectedFilters] = useState<FiltersState>({});
 
-  const [selectedFilters, setSelectedFilters] = React.useState({});
   const filters = [
     {
       key: "education",
@@ -36,29 +41,65 @@ const Filter = () => {
     },
   ];
 
-  function handleChange(key: string, opt: string, checked: boolean): void {
-    throw new Error("Function not implemented.");
+  function handleChange(key: string, opt: string, checked: boolean) {
+    setSelectedFilters((prev) => {
+      // make a copy of the current array for this key (or empty if none yet)
+      const current = prev[key] || [];
+
+      let updatedForKey: string[];
+      if (checked) {
+        // add this option (avoid duplicates)
+        updatedForKey = [...current, opt];
+      } else {
+        // remove this option
+        updatedForKey = current.filter((item) => item !== opt);
+      }
+
+      return {
+        ...prev,
+        [key]: updatedForKey,
+      };
+    });
   }
 
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-300 bg-white p-5 shadow-xl sm:max-w-sm md:max-w-md">
       <p className="text-xl font-semibold">Apply Filters</p>
-      {filters.map((filter, i) => (
+
+      {filters.map((filter) => (
         <div key={filter.key} className="mt-6 text-start">
           <p className="font-semibold text-black">{filter.name}</p>
           <div className="mt-2 flex flex-wrap gap-2">
             {filter.options?.map((opt, idx) => (
-              <div key={idx} className="flex w-full items-center gap-2 sm:w-1/2 md:w-full">
-                <input type="checkbox"
-                onChange={(e)=>handleChange(filter.key, opt, e.target.checked)}
-                
-                name={filter.key} id={`${filter.key}-${idx}`} value={opt} />
-                <label htmlFor={`${filter.key}-${idx}`} className="text-gray-900">{opt}</label>
+              <div
+                key={idx}
+                className="flex w-full items-center gap-2 sm:w-1/2 md:w-full"
+              >
+                <input
+                  type="checkbox"
+                  onChange={(e) =>
+                    handleChange(filter.key, opt, e.target.checked)
+                  }
+                  name={filter.key}
+                  id={`${filter.key}-${idx}`}
+                  value={opt}
+                />
+                <label
+                  htmlFor={`${filter.key}-${idx}`}
+                  className="text-gray-900"
+                >
+                  {opt}
+                </label>
               </div>
             ))}
           </div>
         </div>
       ))}
+
+      {/* 👇 Debug output to see state live */}
+      <pre className="mt-4 text-xs text-gray-500">
+        {JSON.stringify(selectedFilters, null, 2)}
+      </pre>
     </div>
   );
 };
