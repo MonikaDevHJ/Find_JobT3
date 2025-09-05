@@ -8,6 +8,7 @@ type FiltersState = {
 const Filter = () => {
   // TS knows each key has an array of strings
   const [selectedFilters, setSelectedFilters] = useState<FiltersState>({});
+  const [openFilterKey, setOpenFilterKey] = useState<string|null>(null)
 
   const filters = [
     {
@@ -61,6 +62,8 @@ const Filter = () => {
     });
   }
 
+  const activeFilter = filters.find((f)=>f.key === openFilterKey)
+
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-300 bg-white p-5 shadow-xl sm:max-w-sm md:max-w-md">
       <p className="text-xl font-semibold">Apply Filters</p>
@@ -90,7 +93,19 @@ const Filter = () => {
                   {opt}
                 </label>
               </div>
+
             ))}
+
+            {
+              filter.options.length>4 && (
+                <button
+                onClick={()=>setOpenFilterKey(filter.key)}
+                className="mt-2 text-blue-600 underline"
+                >
+                  View More
+                </button>
+              )
+            }
           </div>
         </div>
       ))}
