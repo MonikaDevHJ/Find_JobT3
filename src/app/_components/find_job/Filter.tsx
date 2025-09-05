@@ -8,7 +8,7 @@ type FiltersState = {
 const Filter = () => {
   // TS knows each key has an array of strings
   const [selectedFilters, setSelectedFilters] = useState<FiltersState>({});
-  const [openFilterKey, setOpenFilterKey] = useState<string|null>(null)
+  const [openFilterKey, setOpenFilterKey] = useState<string | null>(null);
 
   const filters = [
     {
@@ -62,7 +62,7 @@ const Filter = () => {
     });
   }
 
-  const activeFilter = filters.find((f)=>f.key === openFilterKey)
+  const activeFilter = filters.find((f) => f.key === openFilterKey);
 
   return (
     <div className="mx-auto w-full max-w-md rounded-2xl border border-gray-300 bg-white p-5 shadow-xl sm:max-w-sm md:max-w-md">
@@ -93,24 +93,64 @@ const Filter = () => {
                   {opt}
                 </label>
               </div>
-
             ))}
 
-            {
-              filter.options.length>4 && (
-                <button
-                onClick={()=>setOpenFilterKey(filter.key)}
+            {filter.options.length > 4 && (
+              <button
+                onClick={() => setOpenFilterKey(filter.key)}
                 className="mt-2 text-blue-600 underline"
-                >
-                  View More
-                </button>
-              )
-            }
+              >
+                View More
+              </button>
+            )}
           </div>
         </div>
       ))}
 
-      {/* removed the debug <pre> so nothing shows below */}
+      {/* Model */}
+
+      {openFilterKey && activeFilter && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-2xl border-gray-300 bg-white p-6 shadow-xl">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold"> {activeFilter.name}</h2>
+              <button
+                onClick={() => setOpenFilterKey(null)}
+                className="text-gray-600 hover:text-black"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="mt-4 grid grid-cols-2 gap-2">
+              {activeFilter.options.map((opt, index) => (
+                <label key={index} className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={
+                      selectedFilters[activeFilter.key]?.includes(opt) || false
+                    }
+                    onChange={(e) =>
+                      handleChange(activeFilter.key, opt, e.target.checked)
+                    }
+                  />
+                  {opt}
+                </label>
+              ))}
+            </div>
+
+            <div className="mt-6 flex  justify-end gap-3">
+              <button className="rounded border px-3 py-1 hover:bg-gray-100">
+                close
+              </button>
+              <button  className="rounded bg-blue-600 px-4 py-4 text-white hover:bg-blue-700">
+                Apply
+              </button>
+
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
