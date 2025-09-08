@@ -79,7 +79,7 @@ const JobList = () => {
     { company: "Deloite", Designation: "Security", Logo: "/Accenture.svg" },
   ];
 
-  const JOBS_PER_PAGE = 7;
+  const JOBS_PER_PAGE = 4;
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastJob = currentPage * JOBS_PER_PAGE;
@@ -112,6 +112,29 @@ const JobList = () => {
                 className="object-contain"
               />
             </div>
+          </div>
+
+          {/* Loaction and Salary */}
+          <div className="mt-2 flex gap-10">
+            <div className="">
+              <p>Experience</p>
+            </div>
+            <div className="">
+              <p>Location</p>
+            </div>
+          </div>
+
+          {/* Eligibilty */}
+          <div className="mt-3 text-start">
+            <p>Eligitbilty: BSC, Bcom , BE</p>
+          </div>
+
+          <div className="mt-2 text-start">
+            <p>Skilss:</p>
+          </div>
+
+          <div className="mt-2 text-start">
+            <p>1 day Ago</p>
           </div>
         </div>
       ))}
