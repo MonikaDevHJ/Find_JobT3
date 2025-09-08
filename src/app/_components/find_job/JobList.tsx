@@ -2,6 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { FaBriefcase } from "react-icons/fa"; // experience
+import { GoLocation } from "react-icons/go"; // location pin
+import { FaRegFileAlt } from "react-icons/fa"; // eligibility
 
 const JobList = () => {
   const Card = [
@@ -116,25 +119,39 @@ const JobList = () => {
 
           {/* Loaction and Salary */}
           <div className="mt-2 flex gap-10">
-            <div className="">
-              <p>Experience</p>
+            <div className="flex gap-2">
+              <div className="">
+                <FaBriefcase className=" mt-1" />{" "}
+              </div>
+              <div>
+                <p className="font-medium text-gray-700">Experience</p>
+              </div>
             </div>
-            <div className="">
-              <p>Location</p>
+
+            <div className="flex gap-2">
+              <div className="">
+                <GoLocation size={16} className="text-black mt-1" />{" "}
+              </div>
+              <div className="">
+                <p className="font-medium text-gray-700">Location</p>
+              </div>
             </div>
           </div>
 
           {/* Eligibilty */}
           <div className="mt-3 text-start">
-            <p>Eligitbilty: BSC, Bcom , BE</p>
+            <p className="font-medium text-gray-700">
+              Eligitbilty: BSC, Bcom , BE
+            </p>
+          </div>
+          
+
+          <div className="mt-2 text-start">
+            <p className="font-medium text-gray-700">Skilss:</p>
           </div>
 
           <div className="mt-2 text-start">
-            <p>Skilss:</p>
-          </div>
-
-          <div className="mt-2 text-start">
-            <p>1 day Ago</p>
+            <p className="font-medium text-gray-700">1 day Ago</p>
           </div>
         </div>
       ))}
