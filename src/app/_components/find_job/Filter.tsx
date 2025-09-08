@@ -38,7 +38,7 @@ const Filter = () => {
     {
       key: "salary",
       name: "Salary",
-      options: ["0-3 Lakh", "3-6 Lakh", "6-12 Lakh", "12-24 Lakh"],
+      options: ["0-3 Lakh", "3-6 Lakh", "6-12 Lakh", "12-24 Lakh", "24-30 Lakh"],
     },
   ];
 
@@ -71,7 +71,7 @@ const Filter = () => {
       {filters.map((filter) => (
         <div key={filter.key} className="mt-6 text-start">
           <p className="font-semibold text-black">{filter.name}</p>
-          <div className="mt-2 flex flex-wrap gap-2">
+          <div className="mt-1 flex flex-wrap gap-2">
             {filter.options?.map((opt, idx) => (
               <div
                 key={idx}
@@ -82,9 +82,9 @@ const Filter = () => {
                   onChange={(e) =>
                     handleChange(filter.key, opt, e.target.checked)
                   }
-                  name={filter.key}
-                  id={`${filter.key}-${idx}`}
-                  value={opt}
+                  // name={filter.key}
+                  // id={`${filter.key}-${idx}`}
+                  // value={opt}
                 />
                 <label
                   htmlFor={`${filter.key}-${idx}`}
@@ -95,7 +95,7 @@ const Filter = () => {
               </div>
             ))}
 
-            {filter.options.length > 4 && (
+            {filter.options.length > 3 && (
               <button
                 onClick={() => setOpenFilterKey(filter.key)}
                 className="mt-2 text-blue-600 underline"
