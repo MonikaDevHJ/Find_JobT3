@@ -1,9 +1,9 @@
 import React from 'react'
-
+import JobDetails from "../_components/post_job/JobDetails"
 const  EmployerProfile = () => {
   return (
     <div>
-      <p>Post JOb</p>
+      <JobDetails/>
     </div>
   )
 }
