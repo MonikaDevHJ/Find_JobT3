@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import JobDetails from "../_components/post_job/JobDetails";
 import PostJob_preview from "../_components/post_job/PostJob_preview";
+import JD2 from "../_components/post_job/JD";
 
 export default function PostJob() {
   // all fields in one object
@@ -27,7 +28,8 @@ export default function PostJob() {
         />
       )}
 
-      {step === 2 && (
+      {step === 2 && <JD2 />}
+      {step === 3 && (
         <PostJob_preview
           values={jobData}
           onBack={() => setStep(1)}
