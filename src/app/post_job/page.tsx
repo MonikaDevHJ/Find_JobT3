@@ -1,13 +1,39 @@
-import React from 'react'
-import JobDetails from "../_components/post_job/JobDetails"
-import  PostJob_preview from "../_components/post_job/PostJob_preview"
-const  EmployerProfile = () => {
-  return (
-    <div>
-      <JobDetails/>
-      <PostJob_preview/>
-    </div>
-  )
-}
+// EmployerProfile.tsx
+"use client";
+import React, { useState } from "react";
+import JobDetails from "../_components/post_job/JobDetails";
+import PostJob_preview from "../_components/post_job/PostJob_preview";
 
-export default  EmployerProfile
+export default function PostJob() {
+  // all fields in one object
+  const [jobData, setJobData] = useState({
+    companyName: "",
+    designation: "",
+    experience: "",
+    location: "",
+    eligibility: "",
+    skills: "",
+  });
+
+  const [step, setStep] = useState(1);
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-6">
+      {step === 1 && (
+        <JobDetails
+          values={jobData}
+          onChange={setJobData}
+          onNext={() => setStep(2)}
+        />
+      )}
+
+      {step === 2 && (
+        <PostJob_preview
+          values={jobData}
+          onBack={() => setStep(1)}
+          onSubmit={() => console.log("submit to backend", jobData)}
+        />
+      )}
+    </div>
+  );
+}
