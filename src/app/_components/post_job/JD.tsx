@@ -1,21 +1,20 @@
 import React from "react";
+import { useJobForm } from "~/app/context/JobFormContext";
+
 
 interface JD {
-  values: {
-    salary: string;
-    openings: string;
-    employemnetType: string;
-    InterviewMode: string;
-  };
+  
   onNext: () => void;
   onBack: () => void;
-  onChange: (data: any) => void;
 }
 
-const JD2: React.FC<JD> = ({ values, onChange, onNext, onBack }) => {
+const JD2: React.FC<JD> = ({ onNext, onBack }) => {
+  const {state, dispatch} = useJobForm()
+
   // help for Input
-  const handleChange = (field: string, value: string) => {
-    onChange({ ...values, [field]: value });
+  const handleChange = (field: keyof typeof state, value: string) => {
+        dispatch({type:"UPDATE_FIELD", field, value})
+
   };
 
   return (
@@ -31,7 +30,7 @@ const JD2: React.FC<JD> = ({ values, onChange, onNext, onBack }) => {
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="5 Lakh to 10 Lakh"
-            value={values.salary}
+            value={state.salary}
             onChange={(e)=>handleChange("salary", e.target.value)}
           />
         </div>
@@ -44,7 +43,7 @@ const JD2: React.FC<JD> = ({ values, onChange, onNext, onBack }) => {
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="5 Position"
-            value={values.openings}
+            value={state.openings}
             onChange={(e)=>handleChange("openings", e.target.value)}
           />
         </div>
@@ -57,7 +56,7 @@ const JD2: React.FC<JD> = ({ values, onChange, onNext, onBack }) => {
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Full Time"
-            value={values.employemnetType}
+            value={state.employemnetType}
             onChange={(e)=>handleChange("employemnetType", e.target.value)}
           />
         </div>
@@ -70,7 +69,7 @@ const JD2: React.FC<JD> = ({ values, onChange, onNext, onBack }) => {
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Online/ Offline"
-            value={values.InterviewMode}
+            value={state.InterviewMode}
             onChange={(e)=>handleChange("InterviewMode", e.target.value)}
           />
         </div>

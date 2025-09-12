@@ -1,24 +1,19 @@
 // JobDetails.tsx
 import React from "react";
+import { useJobForm } from "~/app/context/JobFormContext";
 
 interface JobDetailsProps {
-  values: {
-    companyName: string;
-    designation: string;
-    experience: string;
-    location: string;
-    eligibility: string;
-    skills: string;
-    
-  };
-  onChange: (data: any) => void;
+ 
   onNext: () => void;
 }
 
-const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => {
+const JobDetails: React.FC<JobDetailsProps> = ({  onNext }) => {
+  // get state + dispatch from context
+  const {state, dispatch} = useJobForm();
+
   // helper for inputs
-  const handleChange = (field: string, value: string) => {
-    onChange({ ...values, [field]: value });
+  const handleChange = (field: keyof typeof state, value: string) => {
+    dispatch({type:"UPDATE_FIELD", field, value})
   };
 
   return (
@@ -36,7 +31,7 @@ const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => 
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Enter Your Company Name"
-            value={values.companyName}
+            value={state.companyName}
             onChange={(e) => handleChange("companyName", e.target.value)}
           />
         </div>
@@ -48,7 +43,7 @@ const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => 
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Software Developer"
-            value={values.designation}
+            value={state.designation}
             onChange={(e) => handleChange("designation", e.target.value)}
           />
         </div>
@@ -59,7 +54,7 @@ const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => 
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="2 to 3 yr"
-            value={values.experience}
+            value={state.experience}
             onChange={(e) => handleChange("experience", e.target.value)}
           />
         </div>
@@ -71,7 +66,7 @@ const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => 
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Hassan"
-            value={values.location}
+            value={state.location}
             onChange={(e) => handleChange("location", e.target.value)}
           />
         </div>
@@ -82,7 +77,7 @@ const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => 
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="BSC"
-            value={values.eligibility}
+            value={state.eligibility}
             onChange={(e) => handleChange("eligibility", e.target.value)}
           />
         </div>
@@ -94,7 +89,7 @@ const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => 
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Java"
-            value={values.skills}
+            value={state.skills}
             onChange={(e) => handleChange("skills", e.target.value)}
           />
         </div>
