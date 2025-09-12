@@ -14,6 +14,11 @@ export default function PostJob() {
     location: "",
     eligibility: "",
     skills: "",
+    salary: "",
+    openings: "",
+    employemnetType: "",
+    InterviewMode: ""
+
   });
 
   const [step, setStep] = useState(1);
@@ -28,7 +33,11 @@ export default function PostJob() {
         />
       )}
 
-      {step === 2 && <JD2 />}
+      {step === 2 && <JD2
+        values={jobData}
+        onChange={setJobData}
+        onNext={()=>setStep(3)}
+      />}
       {step === 3 && (
         <PostJob_preview
           values={jobData}
