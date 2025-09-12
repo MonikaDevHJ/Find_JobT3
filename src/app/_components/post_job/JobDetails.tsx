@@ -59,8 +59,8 @@ const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => 
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="2 to 3 yr"
-            value={values.designation}
-            onChange={(e) => handleChange("designation", e.target.value)}
+            value={values.experience}
+            onChange={(e) => handleChange("experience", e.target.value)}
           />
         </div>
 
@@ -71,8 +71,8 @@ const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => 
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Hassan"
-            value={values.designation}
-            onChange={(e) => handleChange("designation", e.target.value)}
+            value={values.location}
+            onChange={(e) => handleChange("location", e.target.value)}
           />
         </div>
 
@@ -82,8 +82,8 @@ const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => 
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="BSC"
-            value={values.designation}
-            onChange={(e) => handleChange("designation", e.target.value)}
+            value={values.eligibility}
+            onChange={(e) => handleChange("eligibility", e.target.value)}
           />
         </div>
 
@@ -94,8 +94,8 @@ const JobDetails: React.FC<JobDetailsProps> = ({ values, onChange, onNext }) => 
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Java"
-            value={values.designation}
-            onChange={(e) => handleChange("designation", e.target.value)}
+            value={values.skills}
+            onChange={(e) => handleChange("skills", e.target.value)}
           />
         </div>
         {/* … experience, location, eligibility, skills */}

@@ -37,11 +37,12 @@ export default function PostJob() {
         values={jobData}
         onChange={setJobData}
         onNext={()=>setStep(3)}
+        onBack={()=>setStep(1)}
       />}
       {step === 3 && (
         <PostJob_preview
           values={jobData}
-          onBack={() => setStep(1)}
+          onBack={() => setStep(2)}
           onSubmit={() => console.log("submit to backend", jobData)}
         />
       )}
