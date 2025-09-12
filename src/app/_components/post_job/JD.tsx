@@ -8,10 +8,11 @@ interface JD {
     InterviewMode: string;
   };
   onNext: () => void;
+  onBack: () => void;
   onChange: (data: any) => void;
 }
 
-const JD2: React.FC<JD> = ({ values, onChange, onNext }) => {
+const JD2: React.FC<JD> = ({ values, onChange, onNext, onBack }) => {
   return (
     <div className="px-4 py-8 sm:px-6 md:px-10 lg:px-20">
       <div className='md:p-16"> mx-auto max-w-3xl space-y-6 rounded-xl bg-gray-100 p-6 sm:p-10'>
@@ -59,15 +60,18 @@ const JD2: React.FC<JD> = ({ values, onChange, onNext }) => {
 
         <div className="flex justify-center gap-10 text-center">
           <div className="">
-            <button className="w-full rounded-xl bg-fuchsia-600 px-6 py-2 text-lg font-semibold text-white sm:w-auto">
+            <button
+              onClick={onBack}
+              className="w-full rounded-xl bg-fuchsia-600 px-6 py-2 text-lg font-semibold text-white sm:w-auto"
+            >
               Previous
             </button>
           </div>
           <div className="">
             <button
-            onClick={onNext} 
-            
-            className="w-full rounded-xl bg-fuchsia-600 px-6 py-2 text-lg font-semibold text-white sm:w-auto">
+              onClick={onNext}
+              className="w-full rounded-xl bg-fuchsia-600 px-6 py-2 text-lg font-semibold text-white sm:w-auto"
+            >
               Next
             </button>
           </div>

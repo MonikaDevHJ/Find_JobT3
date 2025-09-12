@@ -9,6 +9,10 @@ interface PreviewProps {
     location: string;
     eligibility: string;
     skills: string;
+    salary: string;
+    openings: string;
+    employemnetType: string;
+    InterviewMode: string;
   };
   onBack: () => void;
   onSubmit: () => void;
@@ -44,6 +48,21 @@ const PostJob_preview: React.FC<PreviewProps> = ({
           </li>
           <li>
             <strong>Skills:</strong> {values.skills}
+          </li>
+        </ul>
+
+        <ul className="space-y-2 text-lg">
+          <li>
+            <strong>Salary:</strong>{values.salary}
+          </li>
+          <li>
+            <strong> No of Openinngs :</strong>{values.openings}
+          </li>
+          <li>
+            <strong> Employement Type :</strong>{values.employemnetType}
+          </li>
+          <li>
+            <strong>Interview Mode:</strong>{values.InterviewMode}
           </li>
         </ul>
 
