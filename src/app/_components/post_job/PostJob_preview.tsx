@@ -1,28 +1,14 @@
 // PostJob_preview.tsx
 import React from "react";
+import { useJobForm } from "~/app/context/JobFormContext";
 
 interface PreviewProps {
-  values: {
-    companyName: string;
-    designation: string;
-    experience: string;
-    location: string;
-    eligibility: string;
-    skills: string;
-    salary: string;
-    openings: string;
-    employemnetType: string;
-    InterviewMode: string;
-  };
   onBack: () => void;
-  onSubmit: () => void;
 }
 
-const PostJob_preview: React.FC<PreviewProps> = ({
-  values,
-  onBack,
-  onSubmit,
-}) => {
+const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
+
+  const {state , dispatch} = useJobForm()
   return (
     <div className="mt-10 px-4 sm:px-10 md:px-24">
       <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-10 md:p-16">
@@ -32,37 +18,41 @@ const PostJob_preview: React.FC<PreviewProps> = ({
 
         <ul className="space-y-2 text-lg">
           <li>
-            <strong>Company:</strong> {values.companyName}
+            <strong>Company:</strong> {state.companyName}
           </li>
           <li>
-            <strong>Designation:</strong> {values.designation}
+            <strong>Designation:</strong> {state.designation}
           </li>
           <li>
-            <strong>Experience:</strong> {values.experience}
+            <strong>Experience:</strong> {state.experience}
           </li>
           <li>
-            <strong>Location:</strong> {values.location}
+            <strong>Location:</strong> {state.location}
           </li>
           <li>
-            <strong>Eligibility:</strong> {values.eligibility}
+            <strong>Eligibility:</strong> {state.eligibility}
           </li>
           <li>
-            <strong>Skills:</strong> {values.skills}
+            <strong>Skills:</strong> {state.skills}
           </li>
         </ul>
 
         <ul className="space-y-2 text-lg">
           <li>
-            <strong>Salary:</strong>{values.salary}
+            <strong>Salary:</strong>
+            {state.salary}
           </li>
           <li>
-            <strong> No of Openinngs :</strong>{values.openings}
+            <strong> No of Openinngs :</strong>
+            {state.openings}
           </li>
           <li>
-            <strong> Employement Type :</strong>{values.employemnetType}
+            <strong> Employement Type :</strong>
+            {state.employemnetType}
           </li>
           <li>
-            <strong>Interview Mode:</strong>{values.InterviewMode}
+            <strong>Interview Mode:</strong>
+            {state.InterviewMode}
           </li>
         </ul>
 
@@ -73,12 +63,12 @@ const PostJob_preview: React.FC<PreviewProps> = ({
           >
             Back
           </button>
-          <button
+          {/* <button
             className="rounded bg-fuchsia-600 px-6 py-2 text-white"
             onClick={onSubmit}
           >
             Submit
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
