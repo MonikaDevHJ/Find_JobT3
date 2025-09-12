@@ -9,6 +9,7 @@ interface JobDetailsProps {
     location: string;
     eligibility: string;
     skills: string;
+    
   };
   onChange: (data: any) => void;
   onNext: () => void;
