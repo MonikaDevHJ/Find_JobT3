@@ -63,12 +63,12 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
           >
             Back
           </button>
-          {/* <button
+          <button
             className="rounded bg-fuchsia-600 px-6 py-2 text-white"
-            onClick={onSubmit}
+            // onClick={onSubmit}
           >
             Submit
-          </button> */}
+          </button>
         </div>
       </div>
     </div>
