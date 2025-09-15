@@ -50,3 +50,20 @@ model Employer {
   companyWebsite  String?
   createdAt       DateTime @default(now())
 }
+
+model JobPost {
+  id              String   @id @default(uuid())
+  clerkId         String
+  companyName     String
+  designation     String
+  experience      String
+  location        String
+  eligibility     String
+  skills          String
+  salary          String
+  openings        String
+  employemnetType String
+  InterviewMode   String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
