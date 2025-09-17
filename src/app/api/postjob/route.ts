@@ -3,7 +3,7 @@ import { db } from "~/server/db";
 import { auth } from "@clerk/nextjs/server";
 import Experience from "~/app/_components/candidate/Experience";
 
-export async function Post(req: Request) {
+export async function POST(req: Request) {
   try {
     const { userId } = await auth();
     if (!userId) {
