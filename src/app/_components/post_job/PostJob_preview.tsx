@@ -1,5 +1,6 @@
 // PostJob_preview.tsx
-import React from "react";
+import { useUser } from "@clerk/nextjs";
+import React, { useState } from "react";
 import { useJobForm } from "~/app/context/JobFormContext";
 
 interface PreviewProps {
@@ -7,8 +8,23 @@ interface PreviewProps {
 }
 
 const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
+  // get form data from You Contex
+  const { state, dispatch } = useJobForm()
 
-  const {state , dispatch} = useJobForm()
+  // get Logged In Clerk User Info
+  const { user } = useUser();
+
+
+  // Local Loading state for the button
+  const [Loading, setLoading] = useState(false)
+
+  // function To Call Your API 
+  const handleSubmit = async()=>{
+    setLoading(true) //Start Spinned /disabledButton
+
+  }
+
+
   return (
     <div className="mt-10 px-4 sm:px-10 md:px-24">
       <div className="rounded-2xl bg-white p-6 shadow-lg sm:p-10 md:p-16">
@@ -65,8 +81,10 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
           </button>
           <button
             className="rounded bg-fuchsia-600 px-6 py-2 text-white"
-            // onClick={onSubmit}
+            disabled={Loading}
+            onClick={handleSubmit}
           >
+            {Loading ? "Saving..." : "Submit"}
             Submit
           </button>
         </div>
