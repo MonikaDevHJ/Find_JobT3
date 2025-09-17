@@ -112,7 +112,7 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
             disabled={Loading}
             onClick={handleSubmit}
           >
-            {Loading ? "Saving..." : "Submit"}
+            {/* {Loading ? "Saving..." : "Submit"} */}
             Submit
           </button>
         </div>
