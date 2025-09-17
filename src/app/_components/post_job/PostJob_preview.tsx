@@ -19,8 +19,36 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
   const [Loading, setLoading] = useState(false)
 
   // function To Call Your API 
-  const handleSubmit = async()=>{
+  const handleSubmit = async () => {
     setLoading(true) //Start Spinned /disabledButton
+    try {
+      const res = await fetch("/api/postjob", {
+        method: "POST",
+        headers: { "content-Type": "application/json" },
+        body: JSON.stringify({
+          clerkId: user?.id, //who is Posting
+          ...state, //all your From Field context
+
+        }),
+
+      });
+      const data = await res.json();
+      if (res.ok) {
+        console.log("✅ Job Saved", data)
+        alert("Job Posted Succefully ✅!");
+        // You Could Navigate Away here 
+      } else {
+        alert(" ❌  Error:" + data.message)
+      }
+
+    } catch (err) {
+      console.log(err);
+      alert("SomeThing Went Wrong");
+
+
+    } finally {
+      setLoading(false)  ///alway reset loading
+    }
 
   }
 
