@@ -20,94 +20,21 @@ interface Job {
 const JOBS_PER_PAGE = 4;
 
 const JobList = () => {
-  // const Card = [
-  //   {
-  //     company: "Infosys",
-  //     Designation: "Software Developer",
-  //     Logo: "/infosys.svg",
-  //   },
-  //   {
-  //     company: "Accenture",
-  //     Designation: "Human Resources",
-  //     Logo: "/Accenture.svg",
-  //   },
-  //   { company: "Wipro", Designation: "Sales Manager", Logo: "/Accenture.svg" },
-  //   { company: "EY", Designation: "Recruiter", Logo: "/Accenture.svg" },
-  //   { company: "Jobox", Designation: "Manager", Logo: "/Accenture.svg" },
-  //   { company: "High Source", Designation: "Account", Logo: "/Accenture.svg" },
-  //   { company: "Deloite", Designation: "Security", Logo: "/Accenture.svg" },
-  //   {
-  //     company: "Mphasis",
-  //     Designation: "OutsideSecurity",
-  //     Logo: "/Accenture.svg",
-  //   },
-  //   { company: "24/7", Designation: "Developer", Logo: "/Accenture.svg" },
-  //   { company: "24/7", Designation: "Developer", Logo: "/Accenture.svg" },
-  //   { company: "Wipro", Designation: "Sales Manager", Logo: "/Accenture.svg" },
-  //   {
-  //     company: "Accenture",
-  //     Designation: "Human Resources",
-  //     Logo: "/Accenture.svg",
-  //   },
-  //   { company: "High Source", Designation: "Account", Logo: "/Accenture.svg" },
-  //   {
-  //     company: "Accenture",
-  //     Designation: "Human Resources",
-  //     Logo: "/Accenture.svg",
-  //   },
-  //   { company: "Wipro", Designation: "Sales Manager", Logo: "/Accenture.svg" },
-  //   { company: "EY", Designation: "Recruiter", Logo: "/Accenture.svg" },
-  //   { company: "Jobox", Designation: "Manager", Logo: "/Accenture.svg" },
-  //   { company: "High Source", Designation: "Account", Logo: "/Accenture.svg" },
-  //   { company: "Deloite", Designation: "Security", Logo: "/Accenture.svg" },
-  //   {
-  //     company: "Infosys",
-  //     Designation: "Software Developer",
-  //     Logo: "/infosys.svg",
-  //   },
-  //   {
-  //     company: "Mphasis",
-  //     Designation: "OutsideSecurity",
-  //     Logo: "/Accenture.svg",
-  //   },
-  //   { company: "Wipro", Designation: "Sales Manager", Logo: "/Accenture.svg" },
-  //   { company: "EY", Designation: "Recruiter", Logo: "/Accenture.svg" },
-  //   { company: "Jobox", Designation: "Manager", Logo: "/Accenture.svg" },
-  //   { company: "High Source", Designation: "Account", Logo: "/Accenture.svg" },
-  //   { company: "Deloite", Designation: "Security", Logo: "/Accenture.svg" },
 
-  //   {
-  //     company: "Mphasis",
-  //     Designation: "OutsideSecurity",
-  //     Logo: "/Accenture.svg",
-  //   },
-
-  //   { company: "Wipro", Designation: "Sales Manager", Logo: "/Accenture.svg" },
-  //   { company: "EY", Designation: "Recruiter", Logo: "/Accenture.svg" },
-  //   { company: "Jobox", Designation: "Manager", Logo: "/Accenture.svg" },
-  //   { company: "High Source", Designation: "Account", Logo: "/Accenture.svg" },
-  //   { company: "Deloite", Designation: "Security", Logo: "/Accenture.svg" },
-
-  //   { company: "Wipro", Designation: "Sales Manager", Logo: "/Accenture.svg" },
-  //   { company: "EY", Designation: "Recruiter", Logo: "/Accenture.svg" },
-  //   { company: "Jobox", Designation: "Manager", Logo: "/Accenture.svg" },
-  //   { company: "High Source", Designation: "Account", Logo: "/Accenture.svg" },
-  //   { company: "Deloite", Designation: "Security", Logo: "/Accenture.svg" },
-  // ];
 
   const [job, setJobs] = useState<Job[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-useEffect(()=>{
-  const fetchJobs = async()=>{
-    const res = await fetch("api/getjobs")
-    const data = await res.json();
-    setJobs(data);
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const res = await fetch("api/getjobs")
+      const data = await res.json();
+      setJobs(data);
 
-  }
-  fetchJobs();
+    }
+    fetchJobs();
 
-}, []);
+  }, []);
 
 
   const indexOfLastJob = currentPage * JOBS_PER_PAGE;
@@ -176,14 +103,10 @@ useEffect(()=>{
           </div>
 
           <div className="mt-2 text-start">
-            <p className="font-medium text-gray-700">{}</p>
+            <p className="font-medium text-gray-700">{ }</p>
           </div>
 
-          <div className="mt-2 text-start">
-            <p className="font-medium text-gray-700">
-              {new Date(job.createdAt).toLocaleDateString()}
-            </p>
-          </div>
+
         </div>
       ))}
 
