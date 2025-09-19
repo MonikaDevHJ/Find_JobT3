@@ -49,16 +49,16 @@ const JobList = () => {
       {currentJobs.map((job) => (
         <div
           key={job.id}
-          className="mt-5 rounded-2xl border border-gray-300 bg-white p-4 shadow-xl"
+          className=" rounded-2xl border border-gray-300 bg-white p-4 shadow-xl"
         >
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
-              <p className="text-start font-semibold text-gray-800">
+              <p className="text-start  mt-2  font-semibold text-gray-800">
                 {job.companyName}
               </p>
-              <p className="text-gray-600">{job.designation}</p>
+              <p className="text-gray-600 mt-2">{job.designation}</p>
             </div>
-            <div>
+            <div className="mt-2">
               <Image
                 src={job.logoUrl || "/defaultlogo.svg"}
                 alt={`${job.companyName} logo`}
@@ -70,7 +70,7 @@ const JobList = () => {
           </div>
 
           {/* Loaction and Salary */}
-          <div className="mt-2 flex gap-10">
+          <div className=" flex gap-10 mt-3">
             <div className="flex gap-2">
               <div className="">
                 <FaBriefcase className=" mt-1" />{" "}
