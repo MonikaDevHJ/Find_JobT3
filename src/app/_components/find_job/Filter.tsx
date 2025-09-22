@@ -45,6 +45,11 @@ const Filter = () => {
       key : "freshness",
       name:"FreshNess",
       options : ["Last 30 Days", "Last 15 Days", "Last 10 Days", "Last 1 Days"]
+    },
+     {
+      key : "Work Mode",
+      name:"WorkMode",
+      options : ["Hybrid", "Work From Office", "Remote",]
     }
   ];
 
