@@ -1,4 +1,5 @@
 "use client";
+import { options } from "prettier-plugin-tailwindcss";
 import React, { useState } from "react";
 
 type FiltersState = {
@@ -40,6 +41,11 @@ const Filter = () => {
       name: "Salary",
       options: ["0-3 Lakh", "3-6 Lakh", "6-12 Lakh", "12-24 Lakh", "24-30 Lakh"],
     },
+    {
+      key : "freshness",
+      name:"FreshNess",
+      options : ["Last 30 Days", "Last 15 Days", "Last 10 Days", "Last 1 Days"]
+    }
   ];
 
   function handleChange(key: string, opt: string, checked: boolean) {
