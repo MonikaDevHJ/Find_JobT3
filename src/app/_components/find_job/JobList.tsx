@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaBriefcase } from "react-icons/fa"; // experience
 import { GoLocation } from "react-icons/go"; // location pin
-
+import SearchBar from "./SearchBar";
 interface Job {
   id: string;
   companyName: string;
@@ -20,23 +20,25 @@ interface Job {
 const JOBS_PER_PAGE = 4;
 
 const JobList = () => {
-
-
   const [job, setJobs] = useState<Job[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  // fetch Function reused for initial load + later search
+  const fetchJobs = async (title = "", location = "") => {
+    // if title/location passed, API Filter: if empty , return all;
+    const res = await fetch(`/api/getjobs?title=${title}&location=${location}`);
+    const data = await res.json();
+    setJobs(data);
+    setCurrentPage(1); //reset to first page when fetching new data
+  };
+
+  // imitial Load All page
+
   useEffect(() => {
-    const fetchJobs = async () => {
-      const res = await fetch("api/getjobs")
-      const data = await res.json();
-      setJobs(data);
-
-    }
     fetchJobs();
-
   }, []);
 
-
+  // Pagination for Cards
   const indexOfLastJob = currentPage * JOBS_PER_PAGE;
   const indexOfFirstJob = indexOfLastJob - JOBS_PER_PAGE;
   const currentJobs = job.slice(indexOfFirstJob, indexOfLastJob);
@@ -45,18 +47,21 @@ const JobList = () => {
 
   return (
     <div className="">
+      {/* Serahc Bar At the top */}
+      <SearchBar onSearch={fetchJobs} />
+
       {/* Jobs */}
       {currentJobs.map((job) => (
         <div
           key={job.id}
-          className=" rounded-2xl border border-gray-300 bg-white p-4 shadow-xl"
+          className="rounded-2xl border border-gray-300 bg-white p-4 mt-4 shadow-xl"
         >
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
-              <p className="text-start  mt-2  font-semibold text-gray-800">
+              <p className="mt-2 text-start font-semibold text-gray-800">
                 {job.companyName}
               </p>
-              <p className="text-gray-600 mt-2">{job.designation}</p>
+              <p className="mt-2 text-gray-600">{job.designation}</p>
             </div>
             <div className="mt-2">
               <Image
@@ -70,10 +75,10 @@ const JobList = () => {
           </div>
 
           {/* Loaction and Salary */}
-          <div className=" flex gap-10 mt-3">
+          <div className="mt-3 flex gap-10">
             <div className="flex gap-2">
               <div className="">
-                <FaBriefcase className=" mt-1" />{" "}
+                <FaBriefcase className="mt-1" />{" "}
               </div>
               <div>
                 <p className="font-medium text-gray-700">{job.experience}</p>
@@ -82,7 +87,7 @@ const JobList = () => {
 
             <div className="flex gap-2">
               <div className="">
-                <GoLocation size={16} className="text-black mt-1" />{" "}
+                <GoLocation size={16} className="mt-1 text-black" />{" "}
               </div>
               <div className="">
                 <p className="font-medium text-gray-700">{job.location}</p>
@@ -92,21 +97,16 @@ const JobList = () => {
 
           {/* Eligibilty */}
           <div className="mt-3 text-start">
-            <p className="font-medium text-gray-700">
-              {job.eligibility}
-            </p>
+            <p className="font-medium text-gray-700">{job.eligibility}</p>
           </div>
-
 
           <div className="mt-2 text-start">
             <p className="font-medium text-gray-700">{job.skills}</p>
           </div>
 
           <div className="mt-2 text-start">
-            <p className="font-medium text-gray-700">{ }</p>
+            <p className="font-medium text-gray-700">{}</p>
           </div>
-
-
         </div>
       ))}
 
@@ -126,10 +126,11 @@ const JobList = () => {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${currentPage === page
-              ? "bg-blue-500 text-white hover:bg-blue-600"
-              : ""
-              }`}
+            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${
+              currentPage === page
+                ? "bg-blue-500 text-white hover:bg-blue-600"
+                : ""
+            }`}
           >
             {page}
           </button>
