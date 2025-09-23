@@ -24,15 +24,16 @@ export default function HomePage() {
           onClick={() => handleClick("candidate")}
           className="w-full rounded-xl bg-fuchsia-600 py-3 text-white shadow-md transition duration-300 hover:bg-fuchsia-700"
         >
-          Go to Candidate
+          Candidate Login
         </button>
 
         <button
           onClick={() => handleClick("employer")}
           className="w-full rounded-xl bg-blue-600 py-3 text-white shadow-md transition duration-300 hover:bg-blue-700"
         >
-          Go to Employer
+           Employe Login
         </button>
+        
       </div>
     </div>
   );
