@@ -25,6 +25,15 @@ const Experience = ({ onNext, onBack }: Props) => {
       const experience = JSON.parse(saveData);
       dispatch({ type: "SET_EXPERIENCE", payload: experience });
     }
+
+    // also load resuem file seprately if you want
+    const savedResume = localStorage.getItem("resumeFile");
+    if (savedResume) {
+      dispatch({
+        type: "SET_EXPERIENCE",
+        payload: { resume: savedResume },
+      })
+    }
   }, []);
 
   const validateForm = () => {
