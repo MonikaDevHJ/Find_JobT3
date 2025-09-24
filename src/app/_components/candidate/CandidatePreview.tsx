@@ -141,6 +141,11 @@
                   <p className="mb-4 text-xl font-semibold">📄 Resume Preview</p>
                   <div className="overflow-hidden rounded-md border border-gray-400">
                     {/* <PDFViewer base64Data={experience.resume} /> */}
+
+                    <iframe
+                    src = {experience.resume}
+                    className="w-full h-96"
+                    />
                   </div>
                 </div>
               </div>
