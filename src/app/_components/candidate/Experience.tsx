@@ -11,6 +11,7 @@ type Props = {
 
 const Experience = ({ onNext, onBack }: Props) => {
   const { state, dispatch } = useFormContext();
+  const [resumeName , setResumeName] = useState("");
   const { company, role, years } = state.experience;
 
   const [errors, setErrors] = useState({
@@ -135,8 +136,13 @@ const Experience = ({ onNext, onBack }: Props) => {
               type: "SET_EXPERIENCE",
               payload: { resume: base64 },
             });
+
+            if(file) setResumeName(file.name)
           }}
         />
+        {
+          resumeName && <p className="mt-2 text-green-600  text-sm">  ✅ Uploaded: {resumeName}</p>
+        }
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 pt-6">
