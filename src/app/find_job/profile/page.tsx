@@ -43,9 +43,9 @@ const ProfilePreview = () => {
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
               <p className="mb-2 text-xl font-semibold">👤 Personal Information</p>
-              <button 
-              onClick={()=>router.push("/candidate?step=1")}
-              className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button
+                onClick={() => router.push("/candidate?step=1")}
+                className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
             </div>
@@ -64,9 +64,9 @@ const ProfilePreview = () => {
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
               <p className="mb-2 text-xl font-semibold">🎓 Education Details</p>
-              <button 
-              onClick={()=>router.push("/candidate?step=2")}
-              className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button
+                onClick={() => router.push("/candidate?step=2")}
+                className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
             </div>
@@ -85,9 +85,9 @@ const ProfilePreview = () => {
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
               <p className="mb-2 text-xl font-semibold">💼 Experience Details</p>
-              <button 
-              onClick={()=>router.push("/candidate?step=3")}
-              className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button
+                onClick={() => router.push("/candidate?step=3")}
+                className="text-sm text-blue-600 underline hover:text-blue-800">
                 ✏️Edit
               </button>
             </div>
@@ -96,8 +96,27 @@ const ProfilePreview = () => {
               <p><strong>Role:</strong> {candidate?.role || "-"}</p>
               <p><strong>Years:</strong> {candidate?.years || "-"}</p>
             </div>
+
+
           </div>
         </div>
+
+
+        {/* Resume Preview */}
+      {candidate?.resumeLink && (
+        <div className="mb-6">
+          <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
+            <p className="mb-4 text-xl font-semibold">📄 You're Resume</p>
+            <div className="overflow-hidden  rounded-md border border-gray-400 ">
+              <iframe src={candidate.resumeLink} className="h-96 w-full"></iframe>
+
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
       </div>
     </div>
   );
