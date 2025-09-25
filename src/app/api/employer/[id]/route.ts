@@ -36,7 +36,7 @@ export async function GET(
         { error: "Employer Not Found" },
         { status: 404 },
       );
-    }
+    } 
 
     return NextResponse.json(employer);
   } catch(error) {
