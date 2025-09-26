@@ -83,7 +83,7 @@ const PersonalDetails = ({ onNext }: Props) => {
               const reader = new FileReader();
               reader.onloadend = () =>{
                 dispatch ({
-                  type : "RESET_PERSONAL",
+                  type : "SET_PERSONAL",
                   payload : {profileImage: reader.result as string},
                 });
 
