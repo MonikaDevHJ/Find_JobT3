@@ -53,6 +53,13 @@ const Preview = ({ onBack, goToStep }: Props) => {
                 </button>
               </div>
               <div className="mt-3 ml-8 space-y-2">
+                {
+                  personal.profileImage && (
+                    <div className="mb-4">
+                      <img src={personal.profileImage} alt="Profile"  className="h-24 w-24 rounded-full object-cover border"/>
+                    </div>
+                  )
+                }
                 <p>
                   <strong>Name:</strong> {personal.name}
                 </p>

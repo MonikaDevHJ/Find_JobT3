@@ -8,6 +8,7 @@ type PersonalInfo = {
   email: string;
   gender: string;
   education: string;
+  profileImage? : string;  
 };
 
 type EducationalInfo = {
@@ -33,7 +34,7 @@ type FormState = {
 };
 
 const initialState: FormState = {
-  personal: { name: "", phone: "", email: "", gender: "", education: "" },
+  personal: { name: "", phone: "", email: "", gender: "", education: "", profileImage: "" },
   education: { degree: "", stream: "", university: "", college: "", score: "" },
   experience: { company: "", role: "", years: "" },
   id: undefined,
