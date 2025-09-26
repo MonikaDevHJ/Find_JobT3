@@ -80,6 +80,7 @@ function formReducer(state: FormState, action: Action): FormState {
           email: "",
           gender: "",
           education: "",
+          profileImage: "",
         },
       };
 
