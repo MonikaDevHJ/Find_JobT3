@@ -1,5 +1,6 @@
 "use client";
 
+import { read } from "fs";
 import { useState, useEffect } from "react";
 
 import { useFormContext } from "~/app/context/CandidateFormContext";
@@ -42,7 +43,7 @@ const PersonalDetails = ({ onNext }: Props) => {
       education: "",
     };
     if (!name.trim()) {
-      newErrors.name = "Email is required"; 
+      newErrors.name = "Email is required";
     }
     if (!phone.trim()) {
       newErrors.phone = "Contact Number is require";
@@ -63,14 +64,50 @@ const PersonalDetails = ({ onNext }: Props) => {
   const { name, phone, email, gender, education } = state.personal;
   return (
     <div className="px-4 py-8 sm:px-6 md:px-10 lg:px-20">
-      <div className="bg-gray-100 rounded-xl p-6 sm:p-10 md:p-16 max-w-3xl mx-auto space-y-6">
+      <div className="mx-auto max-w-3xl space-y-6 rounded-xl bg-gray-100 p-6 sm:p-10 md:p-16">
         <div>
-          <p className="text-xl sm:text-2xl font-semibold text-center sm:text-left">Personal Details</p>
+          <p className="text-center text-xl font-semibold sm:text-left sm:text-2xl">
+            Personal Details
+          </p>
+        </div>
+
+        {/* Profile Photot Uplode */}
+        <div>
+          <label className="mb-2 block text-base font-semibold sm:text-lg">
+            {" "}
+            Profile Photo
+          </label>
+          <input type="file"  accept="image/*" onChange={(e)=>{
+            const file = e.target.files?.[0];
+            if(file){
+              const reader = new FileReader();
+              reader.onloadend = () =>{
+                dispatch ({
+                  type : "RESET_PERSONAL",
+                  payload : {profileImage: reader.result as string},
+                });
+
+              };
+              reader.readAsDataURL(file)
+            }
+          }}
+          className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+          />
+       {/* Preview */}
+       {state.personal.profileImage && (
+        <div className="mt-4">
+          <img src={state.personal.profileImage} alt="Profile preview" className="h-24 w-24 rounded-full object-cover border" />
+
+        </div>
+       )}
+
         </div>
 
         {/* Name Field */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">Name</label>
+          <label className="mb-2 block text-base font-semibold sm:text-lg">
+            Name
+          </label>
           <input
             type="text"
             value={name}
@@ -88,7 +125,9 @@ const PersonalDetails = ({ onNext }: Props) => {
 
         {/* Phone Field */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">Phone</label>
+          <label className="mb-2 block text-base font-semibold sm:text-lg">
+            Phone
+          </label>
           <input
             type="text"
             value={phone}
@@ -101,12 +140,16 @@ const PersonalDetails = ({ onNext }: Props) => {
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Enter Your Phone"
           />
-          {errors.phone && <p className="text-sm text-red-500">{errors.phone}</p>}
+          {errors.phone && (
+            <p className="text-sm text-red-500">{errors.phone}</p>
+          )}
         </div>
 
         {/* Email Field */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">Email</label>
+          <label className="mb-2 block text-base font-semibold sm:text-lg">
+            Email
+          </label>
           <input
             type="text"
             value={email}
@@ -119,12 +162,16 @@ const PersonalDetails = ({ onNext }: Props) => {
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Enter Your Email"
           />
-          {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+          {errors.email && (
+            <p className="text-sm text-red-500">{errors.email}</p>
+          )}
         </div>
 
         {/* Gender Field */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">Gender</label>
+          <label className="mb-2 block text-base font-semibold sm:text-lg">
+            Gender
+          </label>
           <select
             value={gender}
             onChange={(e) =>
@@ -141,12 +188,16 @@ const PersonalDetails = ({ onNext }: Props) => {
             <option value="other">Other</option>
             <option value="prefer_not_to_say">Prefer not to say</option>
           </select>
-          {errors.gender && <p className="text-sm text-red-500">{errors.gender}</p>}
+          {errors.gender && (
+            <p className="text-sm text-red-500">{errors.gender}</p>
+          )}
         </div>
 
         {/* Education Field */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">Education</label>
+          <label className="mb-2 block text-base font-semibold sm:text-lg">
+            Education
+          </label>
           <select
             value={education}
             onChange={(e) =>
@@ -164,22 +215,24 @@ const PersonalDetails = ({ onNext }: Props) => {
             <option value="Post Graduation">Post Graduation</option>
             <option value="Others">Others</option>
           </select>
-          {errors.education && <p className="text-sm text-red-500">{errors.education}</p>}
+          {errors.education && (
+            <p className="text-sm text-red-500">{errors.education}</p>
+          )}
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 mt-8">
+        <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row sm:justify-between">
           <button
             onClick={() => {
               if (validateForm()) {
                 localStorage.setItem(
                   "PersonalDetails",
-                  JSON.stringify(state.personal)
+                  JSON.stringify(state.personal),
                 );
                 alert("Personal Details Saved Successfully in Local");
               }
             }}
-            className="w-full sm:w-auto rounded-xl bg-fuchsia-500 text-white py-2 px-6 text-lg font-semibold"
+            className="w-full rounded-xl bg-fuchsia-500 px-6 py-2 text-lg font-semibold text-white sm:w-auto"
           >
             Save
           </button>
@@ -189,14 +242,13 @@ const PersonalDetails = ({ onNext }: Props) => {
                 onNext();
               }
             }}
-            className="w-full sm:w-auto rounded-xl bg-fuchsia-600 text-white py-2 px-6 text-lg font-semibold"
+            className="w-full rounded-xl bg-fuchsia-600 px-6 py-2 text-lg font-semibold text-white sm:w-auto"
           >
             Next
           </button>
         </div>
       </div>
     </div>
-
   );
 };
 
