@@ -1,9 +1,8 @@
 import React, { use } from "react";
 import { useEmployerFormContext } from "~/app/context/EmployerFormContext";
-import SuccessModal from "../common/SuccessModal"
+import SuccessModal from "../common/SuccessModal";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-
 
 type Props = {
   onBack: () => void;
@@ -13,21 +12,20 @@ type Props = {
 const EmployerPreview = ({ onBack, goToStep }: Props) => {
   const { state, dispatch } = useEmployerFormContext();
 
-  const [showSuccess, setShowSuccess] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const { employer, company } = state;
-  const router = useRouter()
+  const router = useRouter();
 
-useEffect(()=>{
-  if(showSuccess){
-    const timeOut =  setTimeout(()=>{
-      router.push("/post_job")
-    }, 2000);
-     // Cleanup: cancel the timer if the component is removed early
+  useEffect(() => {
+    if (showSuccess) {
+      const timeOut = setTimeout(() => {
+        router.push("/post_job");
+      }, 2000);
+      // Cleanup: cancel the timer if the component is removed early
       return () => clearTimeout(timeOut);
-  }   
-}, [showSuccess])
-
+    }
+  }, [showSuccess]);
 
   return (
     <div className="mt-10 px-4 sm:px-10 md:px-24">
@@ -53,6 +51,15 @@ useEffect(()=>{
             </div>
 
             <div className="mt-3 ml-8 space-y-1.5 font-bold">
+              {company.companyLogo && (
+                <div className="mb-4">
+                  <img
+                    src={company.companyLogo}
+                    alt="profile"
+                    className="h-24 w-24 rounded-full border object-cover"
+                  />
+                </div>
+              )}
               <p className="">Employer Name : {employer.employerName} </p>
 
               <p className="">Company Name :{employer.companyName}</p>
@@ -106,11 +113,13 @@ useEffect(()=>{
               Back
             </button>
 
-            {
-              showSuccess && (
-                <SuccessModal message={"Your Employer Acooutn Has Been Created Succesfull! Then Redirect To Post a Job "} />
-              )
-            }
+            {showSuccess && (
+              <SuccessModal
+                message={
+                  "Your Employer Acooutn Has Been Created Succesfull! Then Redirect To Post a Job "
+                }
+              />
+            )}
 
             <div
               onClick={async () => {
