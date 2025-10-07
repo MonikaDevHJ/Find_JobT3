@@ -17,6 +17,7 @@ type CompanyInfo = {
   designation: string;
   companyLocation: string;
   companyWebsite?: string
+  companyLogo?: string;
 };
 
 type EmployerFormState = {
