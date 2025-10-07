@@ -12,6 +12,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
+    console.log("EMPLOYER BODY:", body)
     const { employer, company } = body;
 
     const newEmployer = await db.employer.create({
@@ -26,17 +27,27 @@ export async function POST(request: Request) {
         companyWebsite: company.companyWebsite || undefined,
         companyLocation: company.companyLocation,
         companyID: company.CompanyID,
-        companyLogo : company.CompanyLogo,
+        companyLogo: company.companyLogo || null,
       },
-     
+      
     });
 
-    return NextResponse.json({ message: "Employer Saved!", newEmployer }, { status: 200 });
-  } catch (error: any) {
-    console.error("❌ Employer API Error:", error?.message, JSON.stringify(error));
     return NextResponse.json(
-      { message: "Something went wrong", error: error?.message || "Unknown error" },
-      { status: 500 }
+      { message: "Employer Saved!", newEmployer },
+      { status: 200 },
+    );
+  } catch (error: any) {
+    console.error(
+      "❌ Employer API Error:",
+      error?.message,
+      JSON.stringify(error),
+    );
+    return NextResponse.json(
+      {
+        message: "Something went wrong",
+        error: error?.message || "Unknown error",
+      },
+      { status: 500 },
     );
   }
 }
