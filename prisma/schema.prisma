@@ -32,9 +32,10 @@ model Candidate {
   company    String
   role       String
 
-  years      String
-  createdAt  DateTime @default(now())
-  resumeLink Bytes?
+  years        String
+  createdAt    DateTime @default(now())
+  resumeLink   Bytes?
+  profileImage String?
 }
 
 model Employer {
