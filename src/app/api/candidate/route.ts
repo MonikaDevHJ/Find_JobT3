@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 export async function POST(request: Request) {
   try {
     // 👇 Clerk v6 requires await
-    const { userId } = await auth();
+    const { userId } = await auth()
 
     if (!userId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -42,6 +42,8 @@ export async function POST(request: Request) {
         role: experience.role,
         years: experience.years,
         resumeLink : resumeBuffer,
+        
+        profileImage : personal.profileImage || null,
       },
     });
 

@@ -50,6 +50,13 @@ const ProfilePreview = () => {
               </button>
             </div>
             <div className="mt-3 ml-8 space-y-2">
+              {candidate?.profileImage && (
+                <div className="mb-4">
+                  <img src={candidate.profileImage} alt="profile"
+                  className="h-24 w-24 rounded-full object-cover border" />
+
+                </div>
+              )}
               <p><strong>Name:</strong> {candidate?.name || "-"}</p>
               <p><strong>Phone:</strong> {candidate?.phone || "-"}</p>
               <p><strong>Email:</strong> {candidate?.email || "-"}</p>

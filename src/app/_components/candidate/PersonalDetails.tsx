@@ -1,6 +1,5 @@
 "use client";
 
-import { read } from "fs";
 import { useState, useEffect } from "react";
 
 import { useFormContext } from "~/app/context/CandidateFormContext";
