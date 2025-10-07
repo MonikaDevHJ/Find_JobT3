@@ -44,9 +44,10 @@ const EmployerProfilePreview = () => {
               <p className="mb-2 text-xl font-semibold">
                 👤 Employer Information
               </p>
-              <button 
-              onClick={()=>router.push("/employer?step=1")}
-              className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button
+                onClick={() => router.push("/employer?step=1")}
+                className="text-sm text-blue-600 underline hover:text-blue-800"
+              >
                 ✏️Edit
               </button>
             </div>
@@ -80,19 +81,29 @@ const EmployerProfilePreview = () => {
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
               <p className="mb-2 text-xl font-semibold"> 🏢 Company Details</p>
-              <button 
-              onClick={()=>router.push("/employer?step=2")}
-              className="text-sm text-blue-600 underline hover:text-blue-800">
+              <button
+                onClick={() => router.push("/employer?step=2")}
+                className="text-sm text-blue-600 underline hover:text-blue-800"
+              >
                 ✏️Edit
               </button>
             </div>
             <div className="mt-3 ml-8 space-y-2">
+              {employer?.companyLogo && (
+                <div className="mb-4">
+                  <img
+                    src={employer.companyLogo}
+                    alt="compoanylogo"
+                    className="h-24 w-24 rounded-full border object-cover"
+                  />
+                </div>
+              )}
               <p>
                 <strong>Company Name:</strong>
                 {employer?.companyName || "-"}
               </p>
               <p>
-                <strong>Company ID:</strong> {employer?.companyID  || "-"}
+                <strong>Company ID:</strong> {employer?.companyID || "-"}
               </p>
               <p>
                 <strong> Company Contact Number:</strong>
@@ -104,7 +115,7 @@ const EmployerProfilePreview = () => {
               </p>
               <p>
                 <strong>Company Website:</strong>
-                {employer?. companyWebsite  || "-"}
+                {employer?.companyWebsite || "-"}
               </p>
             </div>
           </div>

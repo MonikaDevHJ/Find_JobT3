@@ -26,6 +26,7 @@ export async function POST(request: Request) {
         companyWebsite: company.companyWebsite || undefined,
         companyLocation: company.companyLocation,
         companyID: company.CompanyID,
+        companyLogo : company.CompanyLogo,
       },
      
     });

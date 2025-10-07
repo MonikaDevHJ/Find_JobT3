@@ -9,7 +9,7 @@ import { EmployerFormProvider } from "../context/EmployerFormContext";
 
 export default function EmployerPage() {
   const searchParams = useSearchParams();
-  const stepFromUrl = parseInt(searchParams.get("step") || "2", 10);
+  const stepFromUrl = parseInt(searchParams.get("step") || "1", 10);
 
   const [step, setStep] = useState(stepFromUrl);
 
