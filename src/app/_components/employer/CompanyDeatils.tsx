@@ -37,8 +37,10 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
 
     if (!companyName.trim()) newErrors.companyName = "Company Name is Required";
     if (!CompanyID.trim()) newErrors.CompanyID = "Company ID is Required";
-    if (!contactNumber.trim()) newErrors.contactNumber = "Contact Number is Required";
-    if (!companyLocation.trim()) newErrors.companyLocation = "Location is Required";
+    if (!contactNumber.trim())
+      newErrors.contactNumber = "Contact Number is Required";
+    if (!companyLocation.trim())
+      newErrors.companyLocation = "Location is Required";
 
     setError(newErrors);
     return Object.values(newErrors).every((val) => val === "");
@@ -59,6 +61,42 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
         </p>
 
         <div className="mt-6 space-y-6">
+          {/* Company Logo */}
+          <div>
+            <label className="mb-2 block text-base font-semibold sm:text-lg">
+              {" "}
+              Company Logo
+            </label>
+            <input
+              type="file"
+              accept="image/"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = () => {
+                    dispatch({
+                      type: "SET_COMPANY",
+                      payload: { companyLogo: reader.result as string },
+                    });
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+              className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+            />
+            {/* Preview Image */}
+            {state.company.companyLogo && (
+              <div className="mt-4">
+                <img
+                  src={state.company.companyLogo}
+                  alt="Profile preview"
+                  className="h-24 w-24 rounded-full border object-cover"
+                />
+              </div>
+            )}
+          </div>
+
           {/* Company Name */}
           <div>
             <label>Company Name</label>
@@ -68,7 +106,10 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
               placeholder="Enter your Company Name"
               value={state.company.companyName}
               onChange={(e) =>
-                dispatch({ type: "SET_COMPANY", payload: { companyName: e.target.value } })
+                dispatch({
+                  type: "SET_COMPANY",
+                  payload: { companyName: e.target.value },
+                })
               }
             />
             {error.companyName && (
@@ -85,7 +126,10 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
               placeholder="Enter Company ID"
               value={state.company.CompanyID}
               onChange={(e) =>
-                dispatch({ type: "SET_COMPANY", payload: { CompanyID: e.target.value } })
+                dispatch({
+                  type: "SET_COMPANY",
+                  payload: { CompanyID: e.target.value },
+                })
               }
             />
             {error.CompanyID && (
@@ -102,15 +146,16 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
               placeholder="Company Contact Number"
               value={state.company.contactNumber}
               onChange={(e) =>
-                dispatch({ type: "SET_COMPANY", payload: { contactNumber: e.target.value } })
+                dispatch({
+                  type: "SET_COMPANY",
+                  payload: { contactNumber: e.target.value },
+                })
               }
             />
             {error.contactNumber && (
               <p className="text-sm text-red-500">{error.contactNumber}</p>
             )}
           </div>
-
-       
 
           {/* Location */}
           <div>
@@ -121,7 +166,10 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
               placeholder="Bangalore, Karnataka"
               value={state.company.companyLocation}
               onChange={(e) =>
-                dispatch({ type: "SET_COMPANY", payload: { companyLocation: e.target.value } })
+                dispatch({
+                  type: "SET_COMPANY",
+                  payload: { companyLocation: e.target.value },
+                })
               }
             />
             {error.companyLocation && (
@@ -138,11 +186,13 @@ const CompanyDeatils = ({ onNext, onBack }: Props) => {
               placeholder="https://example.com"
               value={state.company.companyWebsite}
               onChange={(e) =>
-                dispatch({ type: "SET_COMPANY", payload: { companyWebsite: e.target.value } })
+                dispatch({
+                  type: "SET_COMPANY",
+                  payload: { companyWebsite: e.target.value },
+                })
               }
             />
           </div>
-
         </div>
 
         {/* Buttons */}
