@@ -32,9 +32,26 @@ const JobList = ({selectedFilters}:JobListProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // fetch Function reused for initial load + later search
-  const fetchJobs = async (title = "", location = "") => {
-    // if title/location passed, API Filter: if empty , return all;
-    const res = await fetch(`/api/getjobs?title=${title}&location=${location}`);
+  const fetchJobs = async (title = "", location = "", filter:FiltersState={}) => {
+   
+    //  build Query param
+    const params = new URLSearchParams();
+
+    if(title) params.append("title", title);
+    if(location)params.append("Location", location);
+
+    // loop thourgh all selected filter
+    for(const key  in filter){
+      const selectedValues = filter[key] || [];
+      if(selectedValues.length > 0){
+        // join multiple values with coma (eg "frrehser, 2+years")
+        params.append(key, selectedValues.join(","));
+      }
+    }
+
+
+    // if title/location passed, API Filter: if e mpty , return all;
+    const res = await fetch(`/api/getjobs?${params.toString()}`);
     const data = await res.json();
     setJobs(data);
     setCurrentPage(1); //reset to first page when fetching new data
