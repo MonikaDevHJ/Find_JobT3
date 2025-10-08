@@ -18,8 +18,16 @@ interface Job {
 }
 
 const JOBS_PER_PAGE = 4;
+type  FiltersState = {
+  [key:string] : string[];
+}
 
-const JobList = () => {
+type JobListProps = {
+  selectedFilters : FiltersState;
+}
+
+const JobList = ({selectedFilters}:JobListProps) => {
+  
   const [job, setJobs] = useState<Job[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 

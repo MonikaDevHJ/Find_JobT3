@@ -1,15 +1,18 @@
 "use client";
-import { options } from "prettier-plugin-tailwindcss";
 import React, { useState } from "react";
 
 type FiltersState = {
   [key: string]: string[];
 };
 
-const Filter = () => {
+type filterProps = {
+  selectedFilters: FiltersState;
+  setSelectedFilters: React.Dispatch<React.SetStateAction<FiltersState>>;
+}
+
+const Filter = ({selectedFilters, setSelectedFilters}:filterProps) => {
   // TS knows each key has an array of strings
-  const [selectedFilters, setSelectedFilters] = useState<FiltersState>({});
-  const [openFilterKey, setOpenFilterKey] = useState<string | null>(null);
+  const [openFilterKey, setOpenFilterKey] = React.useState<string | null>(null);
 
   const filters = [
     {
@@ -42,14 +45,14 @@ const Filter = () => {
       options: ["0-3 Lakh", "3-6 Lakh", "6-12 Lakh", "12-24 Lakh", "24-30 Lakh"],
     },
     {
-      key : "freshness",
-      name:"FreshNess",
-      options : ["Last 30 Days", "Last 15 Days", "Last 10 Days", "Last 1 Days"]
+      key: "freshness",
+      name: "FreshNess",
+      options: ["Last 30 Days", "Last 15 Days", "Last 10 Days", "Last 1 Days"]
     },
-     {
-      key : "Work Mode",
-      name:"WorkMode",
-      options : ["Hybrid", "Work From Office", "Remote",]
+    {
+      key: "Work Mode",
+      name: "WorkMode",
+      options: ["Hybrid", "Work From Office", "Remote",]
     }
   ];
 
@@ -93,9 +96,9 @@ const Filter = () => {
                   onChange={(e) =>
                     handleChange(filter.key, opt, e.target.checked)
                   }
-                  // name={filter.key}
-                  // id={`${filter.key}-${idx}`}
-                  // value={opt}
+                // name={filter.key}
+                // id={`${filter.key}-${idx}`}
+                // value={opt}
                 />
                 <label
                   htmlFor={`${filter.key}-${idx}`}
@@ -154,7 +157,7 @@ const Filter = () => {
               <button className="rounded border px-3 py-1 hover:bg-gray-100">
                 close
               </button>
-              <button  className="rounded bg-blue-600 px-4 py-4 text-white hover:bg-blue-700">
+              <button className="rounded bg-blue-600 px-4 py-4 text-white hover:bg-blue-700">
                 Apply
               </button>
 
