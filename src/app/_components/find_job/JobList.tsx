@@ -38,7 +38,7 @@ const JobList = ({selectedFilters}:JobListProps) => {
     const params = new URLSearchParams();
 
     if(title) params.append("title", title);
-    if(location)params.append("Location", location);
+    if(location)params.append("location", location);
 
     // loop thourgh all selected filter
     for(const key  in filter){
@@ -60,8 +60,8 @@ const JobList = ({selectedFilters}:JobListProps) => {
   // imitial Load All page
 
   useEffect(() => {
-    fetchJobs();
-  }, []);
+    fetchJobs("", "", selectedFilters);
+  }, [selectedFilters]);
 
   // Pagination for Cards
   const indexOfLastJob = currentPage * JOBS_PER_PAGE;
