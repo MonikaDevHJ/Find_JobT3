@@ -125,7 +125,7 @@ const JobList = ({ selectedFilters }: JobListProps) => {
 
           {/* WorkMode */}
           <div className="text-start mt-3 flex gap-2">
-            <p className="font-medium text-gray-700">Work Mode :</p>
+            <p className="font-medium text-gray-700">Interview Mode :</p>
             <p className="font-medium text-gray-700">{job.InterviewMode}</p>
           </div>
 

@@ -20,6 +20,12 @@ const Filter = ({selectedFilters, setSelectedFilters}:filterProps) => {
       name: "WorkMode",
       options: ["Hybrid", "Work From Office", "Remote",]
     },
+
+     {
+      key: " InterviewMode",
+      name: "Interview Mode",
+      options: ["Online", "Office",]
+    },
     {
       key: "education",
       name: "Education",
