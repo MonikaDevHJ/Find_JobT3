@@ -93,6 +93,7 @@ const Filter = ({selectedFilters, setSelectedFilters}:filterProps) => {
               >
                 <input
                   type="checkbox"
+                  checked = {selectedFilters[filter.key]?.includes(opt) || false}
                   onChange={(e) =>
                     handleChange(filter.key, opt, e.target.checked)
                   }
