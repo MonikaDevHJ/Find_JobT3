@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FaBriefcase } from "react-icons/fa"; // experience
 import { GoLocation } from "react-icons/go"; // location pin
 import SearchBar from "./SearchBar";
+import { title } from "process";
 interface Job {
   id: string;
   companyName: string;
@@ -18,32 +19,32 @@ interface Job {
 }
 
 const JOBS_PER_PAGE = 4;
-type  FiltersState = {
-  [key:string] : string[];
+type FiltersState = {
+  [key: string]: string[];
 }
 
 type JobListProps = {
-  selectedFilters : FiltersState;
+  selectedFilters: FiltersState;
 }
 
-const JobList = ({selectedFilters}:JobListProps) => {
-  
+const JobList = ({ selectedFilters }: JobListProps) => {
+
   const [job, setJobs] = useState<Job[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   // fetch Function reused for initial load + later search
-  const fetchJobs = async (title = "", location = "", filter:FiltersState={}) => {
-   
+  const fetchJobs = async (title = "", location = "", filter: FiltersState = {}) => {
+
     //  build Query param
     const params = new URLSearchParams();
 
-    if(title) params.append("title", title);
-    if(location)params.append("location", location);
+    if (title) params.append("title", title);
+    if (location) params.append("location", location);
 
     // loop thourgh all selected filter
-    for(const key  in filter){
+    for (const key in filter) {
       const selectedValues = filter[key] || [];
-      if(selectedValues.length > 0){
+      if (selectedValues.length > 0) {
         // join multiple values with coma (eg "frrehser, 2+years")
         params.append(key, selectedValues.join(","));
       }
@@ -73,7 +74,7 @@ const JobList = ({selectedFilters}:JobListProps) => {
   return (
     <div className="">
       {/* Serahc Bar At the top */}
-      <SearchBar onSearch={fetchJobs} />
+      <SearchBar onSearch={(title, location)=>fetchJobs(title,location,selectedFilters)} />
 
       {/* Jobs */}
       {currentJobs.map((job) => (
@@ -130,7 +131,7 @@ const JobList = ({selectedFilters}:JobListProps) => {
           </div>
 
           <div className="mt-2 text-start">
-            <p className="font-medium text-gray-700">{}</p>
+            <p className="font-medium text-gray-700">{ }</p>
           </div>
         </div>
       ))}
@@ -151,11 +152,10 @@ const JobList = ({selectedFilters}:JobListProps) => {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${
-              currentPage === page
+            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${currentPage === page
                 ? "bg-blue-500 text-white hover:bg-blue-600"
                 : ""
-            }`}
+              }`}
           >
             {page}
           </button>
