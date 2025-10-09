@@ -5,7 +5,6 @@ import Image from "next/image";
 import { FaBriefcase } from "react-icons/fa"; // experience
 import { GoLocation } from "react-icons/go"; // location pin
 import SearchBar from "./SearchBar";
-import { title } from "process";
 interface Job {
   id: string;
   companyName: string;
