@@ -15,6 +15,11 @@ const Filter = ({selectedFilters, setSelectedFilters}:filterProps) => {
   const [openFilterKey, setOpenFilterKey] = React.useState<string | null>(null);
 
   const filters = [
+      {
+      key: "Work Mode",
+      name: "WorkMode",
+      options: ["Hybrid", "Work From Office", "Remote",]
+    },
     {
       key: "education",
       name: "Education",
@@ -49,11 +54,7 @@ const Filter = ({selectedFilters, setSelectedFilters}:filterProps) => {
       name: "FreshNess",
       options: ["Last 30 Days", "Last 15 Days", "Last 10 Days", "Last 1 Days"]
     },
-    {
-      key: "Work Mode",
-      name: "WorkMode",
-      options: ["Hybrid", "Work From Office", "Remote",]
-    }
+  
   ];
 
   function handleChange(key: string, opt: string, checked: boolean) {

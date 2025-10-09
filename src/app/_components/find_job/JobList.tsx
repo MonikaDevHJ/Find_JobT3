@@ -15,6 +15,7 @@ interface Job {
   skills: string;
   logoUrl?: string; // if you store logo url in db
   createdAt: string;
+  InterviewMode : string;
 }
 
 const JOBS_PER_PAGE = 4;
@@ -30,6 +31,8 @@ const JobList = ({ selectedFilters }: JobListProps) => {
 
   const [job, setJobs] = useState<Job[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [title, setTitle] = useState("");
+  const[location, setLocation] = useState("")
 
   // fetch Function reused for initial load + later search
   const fetchJobs = async (title = "", location = "", filter: FiltersState = {}) => {
@@ -60,7 +63,7 @@ const JobList = ({ selectedFilters }: JobListProps) => {
   // imitial Load All page
 
   useEffect(() => {
-    fetchJobs("", "", selectedFilters);
+    fetchJobs(title, location, selectedFilters);
   }, [selectedFilters]);
 
   // Pagination for Cards
@@ -73,7 +76,7 @@ const JobList = ({ selectedFilters }: JobListProps) => {
   return (
     <div className="">
       {/* Serahc Bar At the top */}
-      <SearchBar onSearch={(title, location)=>fetchJobs(title,location,selectedFilters)} />
+      <SearchBar onSearch={(newTitle, newLocation)=>{setTitle(newTitle); setLocation(newLocation); fetchJobs(newTitle, newLocation, selectedFilters)}} />
 
       {/* Jobs */}
       {currentJobs.map((job) => (
@@ -118,6 +121,12 @@ const JobList = ({ selectedFilters }: JobListProps) => {
                 <p className="font-medium text-gray-700">{job.location}</p>
               </div>
             </div>
+          </div>
+
+          {/* WorkMode */}
+          <div className="text-start mt-3 flex gap-2">
+            <p className="font-medium text-gray-700">Work Mode :</p>
+            <p className="font-medium text-gray-700">{job.InterviewMode}</p>
           </div>
 
           {/* Eligibilty */}
