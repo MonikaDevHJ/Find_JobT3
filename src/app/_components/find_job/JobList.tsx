@@ -16,6 +16,7 @@ interface Job {
   logoUrl?: string; // if you store logo url in db
   createdAt: string;
   InterviewMode: string;
+  WorkMode : string;
 }
 
 const JOBS_PER_PAGE = 4;
@@ -139,7 +140,7 @@ const JobList = ({ selectedFilters }: JobListProps) => {
 
             <div className="flex">
               <p className="font-medium text-gray-700">Working Mode :</p>
-              <p className="font-medium text-gray-700">Hybrid  {} </p>
+              <p className="font-medium text-gray-700"> {job.WorkMode}</p>
             </div>
           </div>
 

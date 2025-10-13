@@ -27,9 +27,9 @@ export async function GET(req: Request) {
           interviewMode.length > 0
             ? { OR: interviewMode.map((mode) => ({ InterviewMode: mode })) }
             : {},
-        //   workMode.length > 0
-        //     ? { OR: workMode.map((mode) => ({ workMode: mode })) }
-        //     : {},
+          workMode.length > 0
+            ? { OR: workMode.map((mode) => ({ WorkMode: mode })) }
+            : {},
         ],
       },
       orderBy: { createdAt: "desc" },
