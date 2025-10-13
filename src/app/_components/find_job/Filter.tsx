@@ -28,14 +28,13 @@ const Filter = ({selectedFilters, setSelectedFilters}:filterProps) => {
 
    
     {
-      key: "education",
+      key: "eligibility",
       name: "Education",
       options: [
-        "UnderGradtion",
-        "Under Graduation",
+        "Gradtion",
         "Post Graduation",
-        "10th",
-        "12Th",
+        "10 th",
+        "12 th",
         "Diploma",
       ],
     },

@@ -16,7 +16,7 @@ interface Job {
   logoUrl?: string; // if you store logo url in db
   createdAt: string;
   InterviewMode: string;
-  WorkMode : string;
+  WorkMode: string;
 }
 
 const JOBS_PER_PAGE = 4;
@@ -133,28 +133,32 @@ const JobList = ({ selectedFilters }: JobListProps) => {
 
           {/* WorkMode */}
           <div className="mt-3 flex gap-5 text-start">
-            <div className="flex">
+            <div className="flex gap-2">
               <p className="font-medium text-gray-700">Interview Mode :</p>
               <p className="font-medium text-gray-700">{job.InterviewMode}</p>
             </div>
 
-            <div className="flex">
+            <div className="flex gap-2">
               <p className="font-medium text-gray-700">Working Mode :</p>
               <p className="font-medium text-gray-700"> {job.WorkMode}</p>
             </div>
           </div>
 
           {/* Eligibilty */}
-          <div className="mt-3 text-start">
+          <div className="mt-3 text-start flex gap-2">
+            <p className="font-medium text-gray-700">Eligibility :</p>
+
             <p className="font-medium text-gray-700">{job.eligibility}</p>
           </div>
 
-          <div className="mt-2 text-start">
+          <div className="mt-2 text-start flex gap-2">
+            <p className="font-medium text-gray-700">Skills :</p>
+
             <p className="font-medium text-gray-700">{job.skills}</p>
           </div>
 
           <div className="mt-2 text-start">
-            <p className="font-medium text-gray-700">{}</p>
+            <p className="font-medium text-gray-700">{ }</p>
           </div>
         </div>
       ))}
@@ -175,11 +179,10 @@ const JobList = ({ selectedFilters }: JobListProps) => {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${
-              currentPage === page
-                ? "bg-blue-500 text-white hover:bg-blue-600"
-                : ""
-            }`}
+            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${currentPage === page
+              ? "bg-blue-500 text-white hover:bg-blue-600"
+              : ""
+              }`}
           >
             {page}
           </button>

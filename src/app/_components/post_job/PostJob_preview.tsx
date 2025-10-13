@@ -101,7 +101,7 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
 
            <li>
             <strong>Working Mode:</strong>
-            {state.WorkingMode}
+            {state.WorkMode}
           </li>
         </ul>
 
