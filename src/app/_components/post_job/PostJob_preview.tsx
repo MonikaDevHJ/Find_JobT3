@@ -98,6 +98,11 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
             <strong>Interview Mode:</strong>
             {state.InterviewMode}
           </li>
+
+           <li>
+            <strong>Working Mode:</strong>
+            {state.WorkingMode}
+          </li>
         </ul>
 
         <div className="mt-6 flex gap-4">

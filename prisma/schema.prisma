@@ -66,6 +66,7 @@ model JobPost {
   openings        String
   employemnetType String
   InterviewMode   String
+  WorkMode        String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }

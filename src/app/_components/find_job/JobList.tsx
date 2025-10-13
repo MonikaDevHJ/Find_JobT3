@@ -15,28 +15,30 @@ interface Job {
   skills: string;
   logoUrl?: string; // if you store logo url in db
   createdAt: string;
-  InterviewMode : string;
+  InterviewMode: string;
 }
 
 const JOBS_PER_PAGE = 4;
 type FiltersState = {
   [key: string]: string[];
-}
+};
 
 type JobListProps = {
   selectedFilters: FiltersState;
-}
+};
 
 const JobList = ({ selectedFilters }: JobListProps) => {
-
   const [job, setJobs] = useState<Job[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [title, setTitle] = useState("");
-  const[location, setLocation] = useState("")
+  const [location, setLocation] = useState("");
 
   // fetch Function reused for initial load + later search
-  const fetchJobs = async (title = "", location = "", filter: FiltersState = {}) => {
-
+  const fetchJobs = async (
+    title = "",
+    location = "",
+    filter: FiltersState = {},
+  ) => {
     //  build Query param
     const params = new URLSearchParams();
 
@@ -51,7 +53,6 @@ const JobList = ({ selectedFilters }: JobListProps) => {
         params.append(key, selectedValues.join(","));
       }
     }
-
 
     // if title/location passed, API Filter: if e mpty , return all;
     const res = await fetch(`/api/getjobs?${params.toString()}`);
@@ -76,13 +77,19 @@ const JobList = ({ selectedFilters }: JobListProps) => {
   return (
     <div className="">
       {/* Serahc Bar At the top */}
-      <SearchBar onSearch={(newTitle, newLocation)=>{setTitle(newTitle); setLocation(newLocation); fetchJobs(newTitle, newLocation, selectedFilters)}} />
+      <SearchBar
+        onSearch={(newTitle, newLocation) => {
+          setTitle(newTitle);
+          setLocation(newLocation);
+          fetchJobs(newTitle, newLocation, selectedFilters);
+        }}
+      />
 
       {/* Jobs */}
       {currentJobs.map((job) => (
         <div
           key={job.id}
-          className="rounded-2xl border border-gray-300 bg-white p-4 mt-4 shadow-xl"
+          className="mt-4 rounded-2xl border border-gray-300 bg-white p-4 shadow-xl"
         >
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
@@ -124,9 +131,16 @@ const JobList = ({ selectedFilters }: JobListProps) => {
           </div>
 
           {/* WorkMode */}
-          <div className="text-start mt-3 flex gap-2">
-            <p className="font-medium text-gray-700">Interview Mode :</p>
-            <p className="font-medium text-gray-700">{job.InterviewMode}</p>
+          <div className="mt-3 flex gap-5 text-start">
+            <div className="flex">
+              <p className="font-medium text-gray-700">Interview Mode :</p>
+              <p className="font-medium text-gray-700">{job.InterviewMode}</p>
+            </div>
+
+            <div className="flex">
+              <p className="font-medium text-gray-700">Working Mode :</p>
+              <p className="font-medium text-gray-700">Hybrid  {} </p>
+            </div>
           </div>
 
           {/* Eligibilty */}
@@ -139,7 +153,7 @@ const JobList = ({ selectedFilters }: JobListProps) => {
           </div>
 
           <div className="mt-2 text-start">
-            <p className="font-medium text-gray-700">{ }</p>
+            <p className="font-medium text-gray-700">{}</p>
           </div>
         </div>
       ))}
@@ -160,10 +174,11 @@ const JobList = ({ selectedFilters }: JobListProps) => {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${currentPage === page
+            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${
+              currentPage === page
                 ? "bg-blue-500 text-white hover:bg-blue-600"
                 : ""
-              }`}
+            }`}
           >
             {page}
           </button>

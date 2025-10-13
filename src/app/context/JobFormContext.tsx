@@ -17,6 +17,7 @@ interface JobFormState {
   openings: string;
   employemnetType: string;
   InterviewMode: string;
+  WorkingMode : string;
 }
 
 /*
@@ -34,6 +35,7 @@ const initialState: JobFormState = {
   openings: "",
   employemnetType: "",
   InterviewMode: "",
+  WorkingMode : "",
 };
 
 /*
