@@ -11,6 +11,8 @@ export async function GET(req: Request) {
 
     const interviewMode = searchParams.get("InterviewMode")?.split(",") || [];
 
+    const workMode = searchParams.get("WorkMode")?.split(",") || [];
+
     // build prisma filter dynamically
     const jobs = await db.jobPost.findMany({
       where: {
@@ -25,6 +27,9 @@ export async function GET(req: Request) {
           interviewMode.length > 0
             ? { OR: interviewMode.map((mode) => ({ InterviewMode: mode })) }
             : {},
+        //   workMode.length > 0
+        //     ? { OR: workMode.map((mode) => ({ workMode: mode })) }
+        //     : {},
         ],
       },
       orderBy: { createdAt: "desc" },

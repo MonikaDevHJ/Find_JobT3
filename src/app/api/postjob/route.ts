@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
 import { auth } from "@clerk/nextjs/server";
-import Experience from "~/app/_components/candidate/Experience";
 
 export async function POST(req: Request) {
   try {
@@ -25,6 +24,7 @@ export async function POST(req: Request) {
         openings: body.openings,
         employemnetType: body.employemnetType,
         InterviewMode: body.InterviewMode,
+        WorkMode :body.WorkMode,
       },
     });
     return NextResponse.json({ message: "Job Saved!", job }, { status: 200 });
