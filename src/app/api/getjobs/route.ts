@@ -9,9 +9,7 @@ export async function GET(req: Request) {
     const title = searchParams.get("title") || "";
     const location = searchParams.get("location") || "";
 
-    const eligibility = searchParams.get("education")?.split(",") || [];
-    const salary = searchParams.get("salary")?.split(",") || [];
-    const workMode = searchParams.get("WorkMode")?.split(",") || [];
+    const interviewMode = searchParams.get("InterviewMode")?.split(",") || [];
 
     // build prisma filter dynamically
     const jobs = await db.jobPost.findMany({
@@ -24,7 +22,9 @@ export async function GET(req: Request) {
             ? { location: { contains: location, mode: "insensitive" } }
             : {},
 
-          workMode.length > 0 ? {OR: workMode.map((mode) =>({InterviewMode: mode}))} : {},
+          interviewMode.length > 0
+            ? { OR: interviewMode.map((mode) => ({ InterviewMode: mode })) }
+            : {},
         ],
       },
       orderBy: { createdAt: "desc" },
