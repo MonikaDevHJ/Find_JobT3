@@ -82,8 +82,8 @@ const JD2: React.FC<JD> = ({ onNext, onBack }) => {
             type="text"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
             placeholder="Remote/ Office/hybrid"
-            value={state.WorkingMode}
-            onChange={(e)=>handleChange("WorkingMode", e.target.value)}
+            value={state.WorkMode}
+            onChange={(e)=>handleChange("WorkMode", e.target.value)}
           />
         </div>
 
