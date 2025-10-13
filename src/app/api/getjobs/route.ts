@@ -13,6 +13,8 @@ export async function GET(req: Request) {
 
     const workMode = searchParams.get("WorkMode")?.split(",") || [];
 
+    const eligibility = searchParams.get("eligibility")?.split(",") || [];
+
     // build prisma filter dynamically
     const jobs = await db.jobPost.findMany({
       where: {
@@ -29,6 +31,13 @@ export async function GET(req: Request) {
             : {},
           workMode.length > 0
             ? { OR: workMode.map((mode) => ({ WorkMode: mode })) }
+            : {},
+          eligibility.length > 0
+            ? {
+                OR: eligibility.map((edu) => ({
+                  eligibility: { contains: edu, mode: "insensitive" },
+                })),
+              }
             : {},
         ],
       },
