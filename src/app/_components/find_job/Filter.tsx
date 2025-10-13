@@ -23,7 +23,7 @@ const Filter = ({selectedFilters, setSelectedFilters}:filterProps) => {
       {
       key: "WorkMode",
       name: "WorkMode",
-      options: ["Hybrid", "Work From Office", "Remote",]
+      options: ["Hybrid", "Office", "Remote",]
     },
 
    
