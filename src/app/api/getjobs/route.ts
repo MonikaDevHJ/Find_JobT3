@@ -20,7 +20,7 @@ export async function GET(req: Request) {
       "Post Graduation": ["M.Tech", "M.Sc", "MBA", "M.Com", "MA", "MCA"],
       "10 th": ["10", "10th", "SSLC"],
       "12 th": ["12", "12th", "PUC", "HSC"],
-      Diploma: ["Diploma"],
+      "Diploma": ["Diploma"],
     };
 
     let expandEligibitly: string[] = [];
