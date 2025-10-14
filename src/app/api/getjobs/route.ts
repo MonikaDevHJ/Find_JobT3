@@ -13,26 +13,24 @@ export async function GET(req: Request) {
 
     const workMode = searchParams.get("WorkMode")?.split(",") || [];
 
-   const eligibility = searchParams.get("eligibility")?.split(",") || [];
+    const eligibility = searchParams.get("eligibility")?.split(",") || [];
 
-  
     const educationMapping: Record<string, string[]> = {
-      Gradtion: ["BE", "B.Tech", "B.E", "B.Com", "B.Sc", "BA", "BCA"],
+      Gradtion: ["BE", "B.Tech", "B.E", "B.Com", "B.Sc", "BA", "BCA", "Any Grdaution"],
       "Post Graduation": ["M.Tech", "M.Sc", "MBA", "M.Com", "MA", "MCA"],
       "10 th": ["10", "10th", "SSLC"],
       "12 th": ["12", "12th", "PUC", "HSC"],
-      "Diploma": ["Diploma"],
+      Diploma: ["Diploma"],
     };
 
-    let expandEligibitly : string [] = [];
-      eligibility.forEach((edu) => {
-        
-        if(educationMapping[edu]){
-          expandEligibitly = [...expandEligibitly, ...educationMapping[edu],];
-        }else{
-          expandEligibitly.push(edu);
-        }
-      });
+    let expandEligibitly: string[] = [];
+    eligibility.forEach((edu) => {
+      if (educationMapping[edu]) {
+        expandEligibitly = [...expandEligibitly, ...educationMapping[edu]];
+      } else {
+        expandEligibitly.push(edu);
+      }
+    });
 
     // build prisma filter dynamically
     const jobs = await db.jobPost.findMany({
@@ -51,12 +49,12 @@ export async function GET(req: Request) {
           workMode.length > 0
             ? { OR: workMode.map((mode) => ({ WorkMode: mode })) }
             : {},
-          eligibility.length > 0
+          expandEligibitly.length > 0
             ? {
                 OR: eligibility.map((edu) => ({
                   eligibility: { contains: edu, mode: "insensitive" },
                 })),
-              } 
+              }
             : {},
         ],
       },
