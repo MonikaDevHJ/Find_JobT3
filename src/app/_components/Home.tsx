@@ -1,17 +1,36 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useUser, SignInButton } from "@clerk/nextjs";
 
 export default function HomePage() {
   const router = useRouter();
+  const {user, isSignedIn} = useUser();
 
-  const handleClick = (role: string) => {
-    if (role === "candidate") {
-      router.push("/candidate");
-    } else if (role === "employer") {
-      router.push("/employer");
-    }
-  };
+ const handleCandidateLogin = async ()=>{
+  if(!isSignedIn){
+    // If not Signer In Open Clerk SIgn in Modal
+    alert("Please Sign in First");
+    return;;
+  }
+
+  // Call API To Check if Candidate already Exist
+  const res = await fetch("api/check_candidate" , {
+    method : "POST",
+    headers : {"content-Type" : "application/json"},
+    body : JSON.stringify({clerkId :  user.id}),
+  })
+
+  const data = await res.json();
+
+  if(data.exist){
+    // ✅ Candidate LAready HAve acccount 
+    router.push("/find_job")
+  }else{
+    // Candidate is new - go to registarion form 
+    router.push("/candidate")
+  }
+ }
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-white to-blue-50 px-4">
@@ -21,14 +40,14 @@ export default function HomePage() {
 
       <div className="flex w-full max-w-xs flex-col space-y-4">
         <button
-          onClick={() => handleClick("candidate")}
+          onClick={handleCandidateLogin}
           className="w-full rounded-xl bg-fuchsia-600 py-3 text-white shadow-md transition duration-300 hover:bg-fuchsia-700"
         >
           Candidate Login
         </button>
 
         <button
-          onClick={() => handleClick("employer")}
+          onClick={() => router.push("employer")}
           className="w-full rounded-xl bg-blue-600 py-3 text-white shadow-md transition duration-300 hover:bg-blue-700"
         >
            Employe Login

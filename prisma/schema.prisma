@@ -18,7 +18,7 @@ model Post {
 
 model Candidate {
   id         String @id @default(uuid()) //Internal Primary Key (perment IN DB)
-  clerkId    String
+  clerkId    String @unique
   name       String
   phone      String
   email      String
