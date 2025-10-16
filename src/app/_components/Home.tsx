@@ -9,7 +9,7 @@ export default function HomePage() {
 
  const handleCandidateLogin = async ()=>{
   if(!isSignedIn){
-    // If not Signer In Open Clerk SIgn in Modal
+    // If not Signer In Open Clerk Sign in Modal
     alert("Please Sign in First");
     return;;
   }
@@ -24,7 +24,7 @@ export default function HomePage() {
   const data = await res.json();
 
   if(data.exist){
-    // ✅ Candidate LAready HAve acccount 
+    // ✅ Candidate Already have acccount 
     router.push("/find_job")
   }else{
     // Candidate is new - go to registarion form 
@@ -50,7 +50,7 @@ export default function HomePage() {
           onClick={() => router.push("employer")}
           className="w-full rounded-xl bg-blue-600 py-3 text-white shadow-md transition duration-300 hover:bg-blue-700"
         >
-           Employe Login
+           Employer Login
         </button>
         
       </div>

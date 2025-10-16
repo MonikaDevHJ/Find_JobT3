@@ -24,6 +24,11 @@ const JD2: React.FC<JD> = ({ onNext, onBack }) => {
           Post A Job Here{" "}
         </p>
 
+
+      
+
+
+
         <div>
           <p className="mb-2 text-base font-semibold sm:text-lg">Salary</p>
           <input
