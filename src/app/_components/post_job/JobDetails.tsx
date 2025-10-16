@@ -1,19 +1,20 @@
 // JobDetails.tsx
+import { read } from "fs";
 import React from "react";
 import { useJobForm } from "~/app/context/JobFormContext";
 
 interface JobDetailsProps {
- 
+
   onNext: () => void;
 }
 
-const JobDetails: React.FC<JobDetailsProps> = ({  onNext }) => {
+const JobDetails: React.FC<JobDetailsProps> = ({ onNext }) => {
   // get state + dispatch from context
-  const {state, dispatch} = useJobForm();
+  const { state, dispatch } = useJobForm();
 
   // helper for inputs
   const handleChange = (field: keyof typeof state, value: string) => {
-    dispatch({type:"UPDATE_FIELD", field, value})
+    dispatch({ type: "UPDATE_FIELD", field, value })
   };
 
   return (
@@ -22,6 +23,41 @@ const JobDetails: React.FC<JobDetailsProps> = ({  onNext }) => {
         <p className="text-center text-xl font-semibold sm:text-left sm:text-2xl">
           Post A Job Here{" "}
         </p>
+
+
+        {/* Company Logo */}
+        <div>
+          <label className="mb-2 block text-base font-semibold sm:text-lg">Company Logo</label>
+          <input type="file"
+            accept="image/*" onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                  dispatch({
+                    type: "UPDATE_FIELD",
+                    payload: { companyLogo: reader.result as string }
+                  })
+
+                };
+                reader.readAsDataURL(file)
+              }
+
+            }}
+            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+          />
+        </div>
+
+        {/* Preview */}
+        {
+          state.companyLogo && (
+            <div className="mt-4">
+              <img src={state.companyLogo} alt="company Logo" className="h-24 w-24 rounded-full object-cover border" />
+
+            </div>
+          )
+        }
+
 
         <div>
           <p className="mb-2 text-base font-semibold sm:text-lg">
@@ -59,7 +95,7 @@ const JobDetails: React.FC<JobDetailsProps> = ({  onNext }) => {
           />
         </div>
 
-        
+
         <div>
           <p className="mb-2 text-base font-semibold sm:text-lg">Location</p>
           <input
@@ -83,7 +119,7 @@ const JobDetails: React.FC<JobDetailsProps> = ({  onNext }) => {
         </div>
 
 
-         <div>
+        <div>
           <p className="mb-2 text-base font-semibold sm:text-lg">Skills</p>
           <input
             type="text"

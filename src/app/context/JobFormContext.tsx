@@ -18,6 +18,7 @@ interface JobFormState {
   employemnetType: string;
   InterviewMode: string;
   WorkMode: string;
+  companyLogo: string;
 }
 
 /*
@@ -36,6 +37,7 @@ const initialState: JobFormState = {
   employemnetType: "",
   InterviewMode: "",
   WorkMode: "",
+  companyLogo:""
 };
 
 /*
