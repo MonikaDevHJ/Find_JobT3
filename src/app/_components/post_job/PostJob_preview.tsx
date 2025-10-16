@@ -60,6 +60,24 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
           Preview Page
         </h2>
 
+        <div className="mt- mr-10 space-y-2 flex gap-0 ">
+
+          <div className="mt-8 mr-10">
+                <strong>Company Logo</strong>
+          </div>
+          <div>
+          {
+            state.companyLogo && (
+              <div className="mb-4">
+                <img src={state.companyLogo} alt="Company Logo" className="h-24 w-24 rounded-full object-cover border" />
+
+              </div>
+            )
+          }
+          </div>
+
+        </div>
+
         <ul className="space-y-2 text-lg">
           <li>
             <strong>Company:</strong> {state.companyName}
