@@ -93,6 +93,29 @@ const EducationDetails = ({ onNext, onBack }: Props) => {
           )}
         </div>
 
+
+           {/* Stream */}
+        <div>
+          <label className="mb-2 block text-base sm:text-lg font-semibold">
+            Stream
+          </label>
+          <input
+            type="text"
+            value={stream}
+            onChange={(e) =>
+              dispatch({
+                type: "SET_EDUCATION",
+                payload: { stream: e.target.value },
+              })
+            }
+            placeholder="Computer Science"
+            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+          />
+          {errors.stream && (
+            <p className="text-sm text-red-500">{errors.stream}</p>
+          )}
+        </div>
+
         {/* University */}
         <div>
           <label className="mb-2 block text-base sm:text-lg font-semibold">
