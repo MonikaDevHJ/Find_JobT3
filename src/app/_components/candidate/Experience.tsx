@@ -11,7 +11,7 @@ type Props = {
 
 const Experience = ({ onNext, onBack }: Props) => {
   const { state, dispatch } = useFormContext();
-  const [resumeName , setResumeName] = useState("");
+  const [resumeName, setResumeName] = useState("");
   const { company, role, years } = state.experience;
 
   const [errors, setErrors] = useState({
@@ -33,7 +33,7 @@ const Experience = ({ onNext, onBack }: Props) => {
       dispatch({
         type: "SET_EXPERIENCE",
         payload: { resume: savedResume },
-      })
+      });
     }
   }, []);
 
@@ -48,15 +48,15 @@ const Experience = ({ onNext, onBack }: Props) => {
   };
 
   return (
-    <div className="px-4 sm:px-6 md:px-10 lg:px-20 py-8">
-      <div className="bg-white rounded-2xl p-6 sm:p-10 md:p-16 shadow-lg max-w-3xl mx-auto space-y-6">
-        <p className="text-xl sm:text-2xl font-bold text-center sm:text-left">
+    <div className="px-4 py-8 sm:px-6 md:px-10 lg:px-20">
+      <div className="mx-auto max-w-3xl space-y-6 rounded-2xl bg-white p-6 shadow-lg sm:p-10 md:p-16">
+        <p className="text-center text-xl font-bold sm:text-left sm:text-2xl">
           Experience Details
         </p>
 
         {/* Company */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">
+          <label className="mb-2 block text-base font-semibold sm:text-lg">
             Company
           </label>
           <input
@@ -78,7 +78,7 @@ const Experience = ({ onNext, onBack }: Props) => {
 
         {/* Role */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">
+          <label className="mb-2 block text-base font-semibold sm:text-lg">
             Role
           </label>
           <input
@@ -93,14 +93,12 @@ const Experience = ({ onNext, onBack }: Props) => {
             placeholder="Frontend Developer"
             className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
           />
-          {errors.role && (
-            <p className="text-sm text-red-500">{errors.role}</p>
-          )}
+          {errors.role && <p className="text-sm text-red-500">{errors.role}</p>}
         </div>
 
         {/* Years */}
         <div>
-          <label className="mb-2 block text-base sm:text-lg font-semibold">
+          <label className="mb-2 block text-base font-semibold sm:text-lg">
             Years of Experience
           </label>
           <input
@@ -120,8 +118,19 @@ const Experience = ({ onNext, onBack }: Props) => {
           )}
         </div>
 
+        {/* Skilss */}
+        <div>
+          <label className="mb-2 block text-base font-semibold sm:text-lg">
+            Skilss
+          </label>
+          <input
+            type="text"
+            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+          />
+        </div>
+
         {/* Resume Upload using FileUpload component */}
-        <label className="mb-2 block text-base sm:text-lg font-semibold">
+        <label className="mb-2 block text-base font-semibold sm:text-lg">
           Upload Resume (PDF Only)
         </label>
 
@@ -137,25 +146,26 @@ const Experience = ({ onNext, onBack }: Props) => {
               payload: { resume: base64 },
             });
 
-            if(file) setResumeName(file.name)
+            if (file) setResumeName(file.name);
           }}
         />
-        {
-          resumeName && <p className="mt-2 text-green-600  text-sm">  ✅ Uploaded: {resumeName}</p>
-        }
+        {resumeName && (
+          <p className="mt-2 text-sm text-green-600">
+            {" "}
+            ✅ Uploaded: {resumeName}
+          </p>
+        )}
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 pt-6">
+        <div className="flex flex-col justify-center gap-4 pt-6 sm:flex-row sm:justify-between">
           <button
             onClick={onBack}
-            className="w-full sm:w-auto rounded-xl border border-gray-500 bg-white text-gray-700 py-2 px-6 text-lg font-semibold hover:bg-gray-100"
+            className="w-full rounded-xl border border-gray-500 bg-white px-6 py-2 text-lg font-semibold text-gray-700 hover:bg-gray-100 sm:w-auto"
           >
             Back
           </button>
 
-          <button
-            className="w-full sm:w-auto rounded-xl bg-fuchsia-500 text-white py-2 px-6 text-lg font-semibold hover:bg-fuchsia-600"
-          >
+          <button className="w-full rounded-xl bg-fuchsia-500 px-6 py-2 text-lg font-semibold text-white hover:bg-fuchsia-600 sm:w-auto">
             Save
           </button>
 
@@ -165,7 +175,7 @@ const Experience = ({ onNext, onBack }: Props) => {
                 onNext();
               }
             }}
-            className="w-full sm:w-auto rounded-xl bg-fuchsia-600 text-white py-2 px-6 text-lg font-semibold hover:bg-fuchsia-500"
+            className="w-full rounded-xl bg-fuchsia-600 px-6 py-2 text-lg font-semibold text-white hover:bg-fuchsia-500 sm:w-auto"
           >
             Next
           </button>
