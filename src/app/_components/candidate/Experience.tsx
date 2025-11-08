@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useFormContext } from "~/app/context/CandidateFormContext";
 import FileUpload from "../common/FileUpload";
+import SkillsInput from "../candidate/skills"
 
 type Props = {
   onNext: () => void;
@@ -119,15 +120,8 @@ const Experience = ({ onNext, onBack }: Props) => {
         </div>
 
         {/* Skilss */}
-        <div>
-          <label className="mb-2 block text-base font-semibold sm:text-lg">
-            Skilss
-          </label>
-          <input
-            type="text"
-            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
-          />
-        </div>
+       
+        <SkillsInput/>
 
         {/* Resume Upload using FileUpload component */}
         <label className="mb-2 block text-base font-semibold sm:text-lg">
