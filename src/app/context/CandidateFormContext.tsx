@@ -24,6 +24,7 @@ type ExperienceInfo = {
   role: string;
   years: string;
   resume?:string;  
+  skills? : string[];
 };
 
 type FormState = {
@@ -36,7 +37,7 @@ type FormState = {
 const initialState: FormState = {
   personal: { name: "", phone: "", email: "", gender: "", education: "", profileImage: "" },
   education: { degree: "", stream: "", university: "", college: "", score: "" },
-  experience: { company: "", role: "", years: "" },
+  experience: { company: "", role: "", years: "", resume:"", skills:[] },
   id: undefined,
 };
 

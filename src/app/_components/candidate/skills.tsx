@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { X } from "lucide-react"; // for cancel icon
+import { useFormContext } from "~/app/context/CandidateFormContext";
 
 const allSuggestions = [
   "HTML",
@@ -21,7 +22,8 @@ const allSuggestions = [
 ];
 
 export default function SkillsInput() {
-  const [skills, setSkills] = useState<string[]>([]);
+  const{state, dispatch} = useFormContext();
+  const skills = state.experience.skills || []
   const [inputValue, setInputValue] = useState("");
 
   const filteredSuggestions = allSuggestions.filter(
@@ -32,13 +34,18 @@ export default function SkillsInput() {
 
   const addSkill = (skill: string) => {
     if (!skills.includes(skill) && skill.trim() !== "") {
-      setSkills([...skills, skill]);
-      setInputValue("");
+     dispatch({
+      type: "SET_EXPERIENCE",
+      payload: {skills: [...skills, skill]}
+     })
     }
   };
 
   const removeSkill = (skillToRemove: string) => {
-    setSkills(skills.filter((skill) => skill !== skillToRemove));
+    dispatch({
+      type:"SET_EXPERIENCE",
+      payload: {skills:skills.filter((s)=> s!== skillToRemove)}
+    })
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

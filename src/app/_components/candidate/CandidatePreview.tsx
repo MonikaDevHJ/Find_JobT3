@@ -137,6 +137,28 @@ const Preview = ({ onBack, goToStep }: Props) => {
                 <p>
                   <strong>Years:</strong> {experience.years}
                 </p>
+
+                {
+                  experience.skills && experience.skills.length > 0 && (
+                    <div className="mt-3">
+                      <strong>Skills:</strong>
+                     <div className="flex flex-wrap gap-2 mt-2">
+                      {
+                        experience.skills.map((skill,index)=>(
+                          <span
+                          key= {index}
+                          className="rounded-full border border-gray-400 bg-gray-400 px-3 py-1 texts-sm font-semibold"
+                          >
+
+                          </span>
+                        ))
+                      }
+
+                     </div>
+
+                    </div>
+                  )
+                }
               </div>
             </div>
           </div>
