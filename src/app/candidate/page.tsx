@@ -5,25 +5,23 @@ import PersonalDetails from "../_components/candidate/PersonalDetails";
 import EducationDetails from "../_components/candidate/EducationDetails";
 import Experience from "../_components/candidate/Experience";
 import Preview from "../_components/candidate/CandidatePreview";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function CandidatePage() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const stepFromUrl = parseInt(searchParams.get("step") || "1", 10)
 
-  const [step, setStep] = useState(stepFromUrl)
+  const stepFromUrl = parseInt(searchParams.get("step") || "1", 10);
+  const [step, setStep] = useState(stepFromUrl);
 
   useEffect(() => {
-    setStep(stepFromUrl)
+    setStep(stepFromUrl);
+  }, [stepFromUrl]);
 
-
-  }, [stepFromUrl]) //run whenver URL step changes
-
-
-  // it is tool to move any stepg
   const goToStep = (stepNumber: number) => {
     setStep(stepNumber);
-  }
+    router.push(`?step=${stepNumber}`);
+  };
 
   return (
     <div className="min-h-screen bg-gray-200">
@@ -37,10 +35,10 @@ export default function CandidatePage() {
       </div>
 
       <div className="mt-10 px-4 sm:px-10 md:px-24">
-        {step === 1 && <PersonalDetails onNext={() => setStep(2)} />}
-        {step === 2 && <EducationDetails onNext={() => setStep(3)} onBack={() => setStep(1)} />}
-        {step === 3 && <Experience onNext={() => setStep(4)} onBack={() => setStep(2)} />}
-        {step === 4 && <Preview onBack={() => setStep(3)} goToStep={goToStep} />}
+        {step === 1 && <PersonalDetails onNext={() => goToStep(2)} />}
+        {step === 2 && <EducationDetails onNext={() => goToStep(3)} onBack={() => goToStep(1)} />}
+        {step === 3 && <Experience onNext={() => goToStep(4)} onBack={() => goToStep(2)} />}
+        {step === 4 && <Preview onBack={() => goToStep(3)} goToStep={goToStep} />}
       </div>
     </div>
   );

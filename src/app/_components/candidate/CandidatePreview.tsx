@@ -144,11 +144,12 @@ const Preview = ({ onBack, goToStep }: Props) => {
                       <strong>Skills:</strong>
                      <div className="flex flex-wrap gap-2 mt-2">
                       {
-                        experience.skills.map((skill,index)=>(
+                        experience.skills.map((Skills,index)=>(
                           <span
                           key= {index}
-                          className="rounded-full border border-gray-400 bg-gray-400 px-3 py-1 texts-sm font-semibold"
+                          className="rounded-full border border-gray-400 bg-gray-400 px-5 py-2 texts-sm font-semibold "
                           >
+                            {Skills}
 
                           </span>
                         ))
