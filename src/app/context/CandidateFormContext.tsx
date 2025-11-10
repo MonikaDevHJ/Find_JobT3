@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useReducer, useContext } from "react";
+import React, { createContext, useReducer, useContext, useEffect } from "react";
 
 type PersonalInfo = {
   name: string;
@@ -8,7 +8,7 @@ type PersonalInfo = {
   email: string;
   gender: string;
   education: string;
-  profileImage? : string;  
+  profileImage?: string;
 };
 
 type EducationalInfo = {
@@ -23,8 +23,8 @@ type ExperienceInfo = {
   company: string;
   role: string;
   years: string;
-  resume?:string;  
-  skills? : string[];
+  resume?: string;
+  skills?: string[];
 };
 
 type FormState = {
@@ -35,9 +35,16 @@ type FormState = {
 };
 
 const initialState: FormState = {
-  personal: { name: "", phone: "", email: "", gender: "", education: "", profileImage: "" },
+  personal: {
+    name: "",
+    phone: "",
+    email: "",
+    gender: "",
+    education: "",
+    profileImage: "",
+  },
   education: { degree: "", stream: "", university: "", college: "", score: "" },
-  experience: { company: "", role: "", years: "", resume:"", skills:[] },
+  experience: { company: "", role: "", years: "", resume: "", skills: [] },
   id: undefined,
 };
 
@@ -100,6 +107,37 @@ const FormContext = createContext<{
 
 export const FormProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(formReducer, initialState);
+
+  // Load Saved Form Data from localStorage (Only on firts mount)
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("candidateFormData");
+    if (savedData) {
+      try {
+        const parseData = JSON.parse(savedData);
+        // dispatch each part safely (you can customize this)
+        if (parseData.personal) {
+          dispatch({ type: "SET_PERSONAL", payload: parseData.personal });
+        }
+        if (parseData.education) {
+          dispatch({ type: "SET_EDUCATION", payload: parseData.education });
+        }
+        if (parseData.experience) {
+          dispatch({ type: "SET_EXPERIENCE", payload: parseData.experience });
+        }
+        if (parseData.id) {
+          dispatch({ type: "SET_ID", payload: parseData.id });
+        }
+      } catch (err) {
+        console.log("Failed to parse saved data ", err);
+      }
+    }
+  }, []);
+
+  // save form data to localStorage whenver it changes
+  useEffect(() => {
+    localStorage.setItem("candidateFormData", JSON.stringify(state))
+  }, [state]);
 
   return (
     <FormContext.Provider value={{ state, dispatch }}>
