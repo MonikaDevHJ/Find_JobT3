@@ -36,6 +36,7 @@ model Candidate {
   createdAt    DateTime @default(now())
   resumeLink   Bytes?
   profileImage String?
+  skills       String[] //new array column (Postgresql support array types)
 }
 
 model Employer {

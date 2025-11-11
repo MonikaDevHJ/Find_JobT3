@@ -53,7 +53,7 @@ const ProfilePreview = () => {
               {candidate?.profileImage && (
                 <div className="mb-4">
                   <img src={candidate.profileImage} alt="profile"
-                  className="h-24 w-24 rounded-full object-cover border" />
+                    className="h-24 w-24 rounded-full object-cover border" />
 
                 </div>
               )}
@@ -102,6 +102,22 @@ const ProfilePreview = () => {
               <p><strong>Company:</strong> {candidate?.company || "-"}</p>
               <p><strong>Role:</strong> {candidate?.role || "-"}</p>
               <p><strong>Years:</strong> {candidate?.years || "-"}</p>
+              {candidate?.skills && candidate.skills.length > 0 && (
+                <div className="mt-3">
+                  <strong>Skills:</strong>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {candidate.skills.map((skill: string, index: number) => (
+                      <span
+                        key={index}
+                        className="rounded-full border border-gray-400 bg-gray-300 px-5 py-2 text-sm font-semibold"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
             </div>
 
 
@@ -110,19 +126,19 @@ const ProfilePreview = () => {
 
 
         {/* Resume Preview */}
-      {candidate?.resumeLink && (
-        <div className="mb-6">
-          <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
-            <p className="mb-4 text-xl font-semibold">📄 You're Resume</p>
-            <div className="overflow-hidden  rounded-md border border-gray-400 ">
-              <iframe src={candidate.resumeLink} className="h-96 w-full"></iframe>
+        {candidate?.resumeLink && (
+          <div className="mb-6">
+            <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
+              <p className="mb-4 text-xl font-semibold">📄 You're Resume</p>
+              <div className="overflow-hidden  rounded-md border border-gray-400 ">
+                <iframe src={candidate.resumeLink} className="h-96 w-full"></iframe>
+
+              </div>
 
             </div>
 
           </div>
-
-        </div>
-      )}
+        )}
 
       </div>
     </div>
