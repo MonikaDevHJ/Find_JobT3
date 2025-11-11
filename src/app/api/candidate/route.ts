@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 export async function POST(request: Request) {
   try {
     // 👇 Clerk v6 requires await
-    const { userId } = await auth()
+    const { userId } = await auth();
 
     if (!userId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -14,14 +14,12 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { personal, education, experience } = body;
 
-   
     // decode  base64 to Buffer if resume exist
-    let resumeBuffer : Buffer | undefined
-    if(experience?.resume){
+    let resumeBuffer: Buffer | undefined;
+    if (experience?.resume) {
       const base64Data = experience.resume.split(",")[1]; //strip prefixes
-      resumeBuffer = Buffer.from(base64Data, "base64")
+      resumeBuffer = Buffer.from(base64Data, "base64");
     }
-
 
     const candidate = await db.candidate.create({
       data: {
@@ -41,9 +39,10 @@ export async function POST(request: Request) {
         company: experience.company,
         role: experience.role,
         years: experience.years,
-        resumeLink : resumeBuffer,
-        
-        profileImage : personal.profileImage || null,
+        resumeLink: resumeBuffer,
+
+        profileImage: personal.profileImage || null,
+        skills: experience.skills || [],
       },
     });
 
