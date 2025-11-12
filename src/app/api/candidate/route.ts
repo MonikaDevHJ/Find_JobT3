@@ -12,14 +12,13 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { personal, education, experience } = body;
 
-    // Convert resume to buffer if uploaded
     let resumeBuffer: Buffer | undefined;
     if (experience?.resume) {
       const base64Data = experience.resume.split(",")[1];
       resumeBuffer = Buffer.from(base64Data, "base64");
     }
 
-    // ✅ Step 1: check if candidate already exists
+    // ✅ Step 1: Check if candidate exists
     const existingCandidate = await db.candidate.findUnique({
       where: { clerkId: userId },
     });
@@ -27,7 +26,7 @@ export async function POST(request: Request) {
     let candidate;
 
     if (existingCandidate) {
-      //  update if found
+      // Update candidate
       candidate = await db.candidate.update({
         where: { clerkId: userId },
         data: {
@@ -52,13 +51,14 @@ export async function POST(request: Request) {
           skills: experience.skills || existingCandidate.skills,
         },
       });
+
       return NextResponse.json(
-        { message: "candidate Updated Succesfully", candidate },
-        { status: 200 },
+        { message: "Candidate Updated Successfully", candidate },
+        { status: 200 }
       );
     }
 
-    // Step 2 : if new Create record
+    // Step 2: Create new candidate
     candidate = await db.candidate.create({
       data: {
         clerkId: userId,
@@ -85,14 +85,14 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(
-      { message: "Candidate  Created Saved!", candidate },
-      { status: 200 },
+      { message: "Candidate Created Successfully", candidate },
+      { status: 201 }
     );
   } catch (error: any) {
     console.error("❌ Candidate API Error:", error?.message);
     return NextResponse.json(
       { message: "Error", error: error?.message || "Unknown error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
