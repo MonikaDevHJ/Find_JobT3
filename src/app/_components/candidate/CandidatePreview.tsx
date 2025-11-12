@@ -19,7 +19,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
 
   const { user } = useUser();
   const [showSuccess, setShowSucess] = useState(false);
-  const [successMessage, setSucccesMessage] = useState("");
+const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     if (showSuccess) {
@@ -180,10 +180,10 @@ const Preview = ({ onBack, goToStep }: Props) => {
             >
               Back
             </button>
-            
+
 
             {showSuccess && (
-              <SuccessModal message="Your candidate account has been created successfully! Redirecting to Find Job..." />
+              <SuccessModal message={successMessage}/>
             )}
 
             <button
@@ -205,6 +205,12 @@ const Preview = ({ onBack, goToStep }: Props) => {
                   if (response.ok) {
                     console.log("DB response: ", result);
                     dispatch({ type: "SET_ID", payload: result.candidate.id });
+                    // Detech Weather it is created or updated
+                    if(result.message?.includes("Updated")){
+                      setSuccessMessage("✅ Candidate Updated Successfully! Redirecting...")
+                    }else{
+                      setSuccessMessage("🎉 Candidate Created Successfully! Redirecting...")
+                    }
                     setShowSucess(true);
                   } else {
                     if (
