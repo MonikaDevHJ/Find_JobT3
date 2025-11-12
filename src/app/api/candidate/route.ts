@@ -12,30 +12,54 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { personal, education, experience } = body;
 
-    // ✅ Step 1: check if candidate already exists
-    const existingCandidate = await db.candidate.findUnique({
-      where: { clerkId: userId },
-    });
-
-    if (existingCandidate) {
-      // ❌ Don’t create again, return message
-      return NextResponse.json(
-        {
-          message: "Account already exists for this user.",
-          candidate: existingCandidate,
-        },
-        { status: 400 },
-      );
-    }
-
-    // ✅ Step 2: If new user, continue to create
+    // Convert resume to buffer if uploaded
     let resumeBuffer: Buffer | undefined;
     if (experience?.resume) {
       const base64Data = experience.resume.split(",")[1];
       resumeBuffer = Buffer.from(base64Data, "base64");
     }
 
-    const candidate = await db.candidate.create({
+    // ✅ Step 1: check if candidate already exists
+    const existingCandidate = await db.candidate.findUnique({
+      where: { clerkId: userId },
+    });
+
+    let candidate;
+
+    if (existingCandidate) {
+      //  update if found
+      candidate = await db.candidate.update({
+        where: { clerkId: userId },
+        data: {
+          name: personal.name,
+          phone: personal.phone,
+          email: personal.email,
+          gender: personal.gender,
+          education: personal.education,
+
+          degree: education.degree,
+          stream: education.stream,
+          university: education.university,
+          college: education.college,
+          score: education.score,
+
+          company: experience.company,
+          role: experience.role,
+          years: experience.years,
+          resumeLink: resumeBuffer || existingCandidate.resumeLink,
+
+          profileImage: personal.profileImage || existingCandidate.profileImage,
+          skills: experience.skills || existingCandidate.skills,
+        },
+      });
+      return NextResponse.json(
+        { message: "candidate Updated Succesfully", candidate },
+        { status: 200 },
+      );
+    }
+
+    // Step 2 : if new Create record
+    candidate = await db.candidate.create({
       data: {
         clerkId: userId,
         name: personal.name,
@@ -61,7 +85,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(
-      { message: "Candidate Saved!", candidate },
+      { message: "Candidate  Created Saved!", candidate },
       { status: 200 },
     );
   } catch (error: any) {

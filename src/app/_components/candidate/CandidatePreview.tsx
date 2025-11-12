@@ -19,6 +19,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
 
   const { user } = useUser();
   const [showSuccess, setShowSucess] = useState(false);
+  const [successMessage, setSucccesMessage] = useState("");
 
   useEffect(() => {
     if (showSuccess) {
@@ -179,6 +180,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
             >
               Back
             </button>
+            
 
             {showSuccess && (
               <SuccessModal message="Your candidate account has been created successfully! Redirecting to Find Job..." />
