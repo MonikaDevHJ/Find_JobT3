@@ -5,12 +5,10 @@ import React, { useState } from 'react'
 import Filter from "../_components/find_job/Filter"
 import JobList from "../_components/find_job/JobList"
 
-type FiltersState = {
-  [key: string] : string[];
-}
+type FiltersState = Record<string, string[]>
 
 
-const findJob = () => {
+const FindJob = () => {
   
   // here we will store the whatever the filter the user selects
   const [selectedFilters, setSelectedFilters] = useState<FiltersState>({});
@@ -41,4 +39,4 @@ const findJob = () => {
   )
 }
 
-export default findJob
+export default FindJob

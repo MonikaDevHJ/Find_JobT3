@@ -1,9 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-type FiltersState = {
-  [key: string]: string[];
-};
+type FiltersState = Record<string, string[]>;
 
 type filterProps = {
   selectedFilters: FiltersState;

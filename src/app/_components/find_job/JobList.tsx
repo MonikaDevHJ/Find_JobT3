@@ -20,9 +20,7 @@ interface Job {
 }
 
 const JOBS_PER_PAGE = 4;
-type FiltersState = {
-  [key: string]: string[];
-};
+type FiltersState = Record<string, string[]>;
 
 type JobListProps = {
   selectedFilters: FiltersState;
