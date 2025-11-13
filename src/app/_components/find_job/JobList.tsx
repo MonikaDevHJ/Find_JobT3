@@ -106,6 +106,7 @@ const JobList = ({ selectedFilters }: JobListProps) => {
                 className="object-contain"
               />
             </div>
+            
           </div>
 
           {/* Loaction and Salary */}
@@ -143,20 +144,22 @@ const JobList = ({ selectedFilters }: JobListProps) => {
           </div>
 
           {/* Eligibilty */}
-          <div className="mt-3 text-start flex gap-2">
+          <div className="mt-3 flex gap-2 text-start">
             <p className="font-medium text-gray-700">Eligibility :</p>
 
             <p className="font-medium text-gray-700">{job.eligibility}</p>
           </div>
 
-          <div className="mt-2 text-start flex gap-2">
+          <div className="mt-2 flex gap-2 text-start">
             <p className="font-medium text-gray-700">Skills :</p>
 
             <p className="font-medium text-gray-700">{job.skills}</p>
           </div>
 
           <div className="mt-2 text-start">
-            <p className="font-medium text-gray-700">{ }</p>
+            <button className="rounded-2xl bg-fuchsia-400 p-2 font-semibold hover:bg-fuchsia-700">
+              Apply Here
+            </button>
           </div>
         </div>
       ))}
@@ -177,10 +180,11 @@ const JobList = ({ selectedFilters }: JobListProps) => {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${currentPage === page
-              ? "bg-blue-500 text-white hover:bg-blue-600"
-              : ""
-              }`}
+            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${
+              currentPage === page
+                ? "bg-blue-500 text-white hover:bg-blue-600"
+                : ""
+            }`}
           >
             {page}
           </button>
