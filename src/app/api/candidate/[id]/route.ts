@@ -7,9 +7,9 @@ interface Params {
   };
 }
 
-export async function GET(_request: Request, { params }: Params) {
+export async function GET(_request: Request, context: { params: { id: string } }) {
   try {
-    const { id } = params;
+    const { id } = context.params;;
 
     if (!id) {
       return NextResponse.json(
