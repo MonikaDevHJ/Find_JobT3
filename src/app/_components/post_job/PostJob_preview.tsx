@@ -2,12 +2,14 @@
 import { useUser } from "@clerk/nextjs";
 import React, { useState } from "react";
 import { useJobForm } from "~/app/context/JobFormContext";
+import { useRouter } from "next/navigation";
 
 interface PreviewProps {
   onBack: () => void;
 }
 
 const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
+  const router = useRouter();
   // get form data from You Contex
   const { state, dispatch } = useJobForm()
 
@@ -36,6 +38,7 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
       if (res.ok) {
         console.log("✅ Job Saved", data)
         alert("Job Posted Succefully ✅!");
+        router.push("/joblist")
         // You Could Navigate Away here 
       } else {
         alert(" ❌  Error:" + data.message)
