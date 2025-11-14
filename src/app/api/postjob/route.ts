@@ -25,9 +25,9 @@ export async function POST(request: Request) {
         skills: body.skills,
         salary: body.salary,
         openings: body.openings,
-        employemnetType: body.employmentType, // ✅ fixed typo
-        InterviewMode : body.interviewMode, // ✅ fixed typo
-        WorkMode: body.workMode, // ✅ fixed typo
+        employemnetType: body.employemnetType,
+        InterviewMode: body.InterviewMode,
+        WorkMode: body.WorkMode,
         createdAt: new Date(),
       },
     });
