@@ -104,7 +104,7 @@ const JobList = ({ selectedFilters }: JobListProps) => {
                 width={40}
                 height={40}
                 className="object-contain"
-              />
+              />  
             </div>
             
           </div>
@@ -149,7 +149,8 @@ const JobList = ({ selectedFilters }: JobListProps) => {
 
             <p className="font-medium text-gray-700">{job.eligibility}</p>
           </div>
-
+   
+           {/* Skills */}
           <div className="mt-2 flex gap-2 text-start">
             <p className="font-medium text-gray-700">Skills :</p>
 
