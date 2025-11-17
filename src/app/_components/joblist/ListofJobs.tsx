@@ -30,7 +30,7 @@ const ListofJobs = () => {
 
   useEffect(() => {
     const loadJobs = async () => {
-      const res = await fetch("/api/getjobs");
+      const res = await fetch("/api/myjobs"); 
       const data = await res.json();
       setJobs(data);
     };
