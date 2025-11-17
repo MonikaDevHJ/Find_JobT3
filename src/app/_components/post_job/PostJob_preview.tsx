@@ -139,7 +139,7 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
             onClick={handleSubmit}
           >
             {/* {Loading ? "Saving..." : "Submit"} */}
-            Submit
+            Submit Job
           </button>
         </div>
       </div>
