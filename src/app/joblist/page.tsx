@@ -1,5 +1,5 @@
 import React from 'react'
-import ListofJobs  from "../_components/joblist/ListofJobs"
+import ListofJobs  from "../_components/employeroblist/ListofJobs"
 
 const JobList = () => {
   return (
