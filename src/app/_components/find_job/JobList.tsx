@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FaBriefcase } from "react-icons/fa"; // experience
 import { GoLocation } from "react-icons/go"; // location pin
 import SearchBar from "./SearchBar";
+import { app } from "~/app/config";
 interface Job {
   id: string;
   companyName: string;
@@ -27,10 +28,38 @@ type JobListProps = {
 };
 
 const JobList = ({ selectedFilters }: JobListProps) => {
+  const[appliedJobs, setAppliedJobs] = useState<string[]>([])
   const [job, setJobs] = useState<Job[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
+
+
+  useEffect ( ()=>{
+    const loadAppliedJobs = async ()=>{
+      const res = await fetch("/api/getappliedjobs");
+      const data = await res.json();
+      setAppliedJobs(data.applied || []); 
+    };
+      loadAppliedJobs();
+  }, []);
+
+
+  const handleApply = async (jobId: string) => {
+    const res = await fetch("/api/applyjob", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ jobId }),
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    if(res.ok){
+      setAppliedJobs((prev)=>[...prev, jobId])
+    }
+  };
+
 
   // fetch Function reused for initial load + later search
   const fetchJobs = async (
@@ -104,9 +133,9 @@ const JobList = ({ selectedFilters }: JobListProps) => {
                 width={40}
                 height={40}
                 className="object-contain"
-              />  
+              />
             </div>
-            
+
           </div>
 
           {/* Loaction and Salary */}
@@ -149,8 +178,8 @@ const JobList = ({ selectedFilters }: JobListProps) => {
 
             <p className="font-medium text-gray-700">{job.eligibility}</p>
           </div>
-   
-           {/* Skills */}
+
+          {/* Skills */}
           <div className="mt-2 flex gap-2 text-start">
             <p className="font-medium text-gray-700">Skills :</p>
 
@@ -158,10 +187,29 @@ const JobList = ({ selectedFilters }: JobListProps) => {
           </div>
 
           <div className="mt-2 text-start">
-            <button className="rounded-2xl bg-fuchsia-400 p-2 font-semibold hover:bg-fuchsia-700">
+            {appliedJobs.includes(job.id) ? (
+              <button
+              disabled
+               className="rounded-2xl bg-green-500 p-2 font-semibold text-black opacity-80">   Applied ✔</button>
+            ) : (
+              <button
+              onClick={()=>handleApply(job.id)}
+              className="rounded-2xl bg-fuchsia-400 p-2 font-semibold hover:bg-fuchsia-700"
+              >Apply Here</button>
+            )}
+
+          </div>
+
+          {/* <div className="mt-2 text-start">
+            <button
+              onClick={() => handleApply(job.id)}
+
+              className="rounded-2xl bg-fuchsia-400 p-2 font-semibold hover:bg-fuchsia-700">
               Apply Here
             </button>
-          </div>
+          </div> */}
+      
+      
         </div>
       ))}
 
@@ -181,11 +229,10 @@ const JobList = ({ selectedFilters }: JobListProps) => {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${
-              currentPage === page
+            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${currentPage === page
                 ? "bg-blue-500 text-white hover:bg-blue-600"
                 : ""
-            }`}
+              }`}
           >
             {page}
           </button>
