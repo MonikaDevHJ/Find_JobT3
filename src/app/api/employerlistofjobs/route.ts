@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
 import { auth } from "@clerk/nextjs/server";
-import { join } from "path";
 
 export async function GET() {
   try {
