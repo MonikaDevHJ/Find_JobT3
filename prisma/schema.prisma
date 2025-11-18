@@ -70,4 +70,15 @@ model JobPost {
   WorkMode        String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  appliedcandidate AppliedCandidate[]
+}
+
+model AppliedCandidate {
+  id          String   @id @default(uuid())
+  jobId       String
+  candidateID String
+  createdAt   DateTime @default(now())
+
+  job JobPost @relation(fields: [jobId], references: [id])
 }

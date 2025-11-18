@@ -19,6 +19,7 @@ type Job = {
   InterviewMode: string;
   WorkMode?: string;
   logoUrl?: string;
+  appliedCount : number;
 };
 
 // How many jobs per page
@@ -30,7 +31,7 @@ const ListofJobs = () => {
 
   useEffect(() => {
     const loadJobs = async () => {
-      const res = await fetch("/api/employerlistofjobs"); 
+      const res = await fetch("/api/employerlistofjobs");
       const data = await res.json();
       setJobs(data);
     };
@@ -104,7 +105,7 @@ const ListofJobs = () => {
 
           <div className="mt-2 text-start">
             <button className="rounded-2xl bg-fuchsia-400 p-2 font-semibold hover:bg-fuchsia-700">
-              Applied Candidate Here
+              Applied Candidate Here ({job.appliedCount})
             </button>
           </div>
         </div>
@@ -126,11 +127,10 @@ const ListofJobs = () => {
           <button
             key={page}
             onClick={() => setCurrentPage(page)}
-            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${
-              currentPage === page
+            className={`rounded-md border px-3 py-1 transition-colors hover:bg-blue-50 ${currentPage === page
                 ? "bg-blue-500 text-white hover:bg-blue-600"
                 : ""
-            }`}
+              }`}
           >
             {page}
           </button>
