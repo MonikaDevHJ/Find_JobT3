@@ -36,7 +36,10 @@ const ListofJobs = () => {
     const loadJobs = async () => {
       const res = await fetch("/api/employerlistofjobs");
       const data = await res.json();
-      setJobs(data);
+
+      // Ensure jobs is Always  an array
+      const arrayData = Array.isArray(data)? data : data.jobs || [];
+      setJobs(arrayData);
     };
 
     loadJobs();
