@@ -8,27 +8,27 @@ export async function GET() {
     if (!userId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
+
     const myJobs = await db.jobPost.findMany({
       where: {
         clerkId: userId,
       },
       include: {
-        appliedcandidate: true,
+        AppliedCandidates: true,  // ✅ CORRECT NAME
       },
       orderBy: { createdAt: "desc" },
     });
 
-    // Add appliedCount
     const formatted = myJobs.map((job) => ({
       ...job,
-      appliedCount: job.appliedcandidate.length,
+      appliedCount: job.AppliedCandidates.length, // ✅ FIXED
     }));
 
     return NextResponse.json(formatted);
   } catch (err: any) {
     return NextResponse.json(
       { message: "Error fetching employer jobs", error: err.message },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

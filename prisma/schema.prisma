@@ -17,8 +17,8 @@ model Post {
 }
 
 model Candidate {
-  id         String @id @default(uuid()) //Internal Primary Key (perment IN DB)
-  clerkId    String @unique
+  id         String   @id @default(uuid())
+  clerkId    String   @unique
   name       String
   phone      String
   email      String
@@ -31,12 +31,15 @@ model Candidate {
   score      String
   company    String
   role       String
+  years      String
+  createdAt  DateTime @default(now())
 
-  years        String
-  createdAt    DateTime @default(now())
   resumeLink   Bytes?
   profileImage String?
-  skills       String[] //new array column (Postgresql support array types)
+  skills       String[]
+
+  // 🔥 NEW — Back relation
+  AppliedCandidates AppliedCandidate[]
 }
 
 model Employer {
@@ -71,7 +74,8 @@ model JobPost {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  appliedcandidate AppliedCandidate[]
+  // 🔥 RENAME to PascalCase (recommended)
+  AppliedCandidates AppliedCandidate[]
 }
 
 model AppliedCandidate {
@@ -80,5 +84,9 @@ model AppliedCandidate {
   candidateID String
   createdAt   DateTime @default(now())
 
+  // 🔥 Relation to JobPost (already present)
   job JobPost @relation(fields: [jobId], references: [id])
+
+  // 🔥 NEW — relation to Candidate
+  candidate Candidate @relation(fields: [candidateID], references: [id])
 }
