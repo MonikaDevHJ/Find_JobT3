@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaBriefcase } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
+import { useRouter } from "next/navigation";
 
 type Job = {
   id: string;
@@ -28,6 +29,8 @@ const JOBS_PER_PAGE = 4;
 const ListofJobs = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const router = useRouter()
 
   useEffect(() => {
     const loadJobs = async () => {
@@ -104,7 +107,9 @@ const ListofJobs = () => {
           </div>
 
           <div className="mt-2 text-start">
-            <button className="rounded-2xl bg-fuchsia-400 p-2 font-semibold hover:bg-fuchsia-700">
+            <button
+            onClick={  ()=> router.push(`/employer/applied/${job.id}`) }
+             className="rounded-2xl bg-fuchsia-400 p-2 font-semibold hover:bg-fuchsia-700">
               Applied Candidate Here ({job.appliedCount})
             </button>
           </div>
