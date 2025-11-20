@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, use } from "react";
 
 interface AppliedPageProps {
-  params: {
-    jobId: string;
-  };
+  params: Promise<{ jobId: string }>;
 }
 
 const AppliedCandidatesPage = ({ params }: AppliedPageProps) => {
-  const { jobId } = params;
+  // 👉 unwrap the promise
+  const { jobId } = use(params);
 
   const [candidates, setCandidates] = useState<any[]>([]);
 
@@ -19,6 +18,9 @@ const AppliedCandidatesPage = ({ params }: AppliedPageProps) => {
         cache: "no-store",
       });
       const data = await res.json();
+
+      console.log("Fetched:", data);
+
       setCandidates(data.candidates || []);
     };
 
