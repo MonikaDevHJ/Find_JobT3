@@ -5,7 +5,6 @@ import Image from "next/image";
 import { FaBriefcase } from "react-icons/fa"; // experience
 import { GoLocation } from "react-icons/go"; // location pin
 import SearchBar from "./SearchBar";
-import { app } from "~/app/config";
 interface Job {
   id: string;
   companyName: string;
@@ -35,14 +34,14 @@ const JobList = ({ selectedFilters }: JobListProps) => {
   const [location, setLocation] = useState("");
 
 
-  useEffect ( ()=>{
-    const loadAppliedJobs = async ()=>{
-      const res = await fetch("/api/getappliedjobs");
-      const data = await res.json();
-      setAppliedJobs(data.applied || []); 
-    };
-      loadAppliedJobs();
-  }, []);
+  // useEffect ( ()=>{
+  //   const loadAppliedJobs = async ()=>{
+  //     const res = await fetch("/api/getappliedjobs");
+  //     const data = await res.json();
+  //     setAppliedJobs(data.applied || []); 
+  //   };
+  //     loadAppliedJobs();
+  // }, []);
 
 
   const handleApply = async (jobId: string) => {

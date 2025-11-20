@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       return NextResponse.json(
         { message: "Candidate profile not found" },
         { status: 404 }
-      );
+      );  
     }
 
     // check already applied
