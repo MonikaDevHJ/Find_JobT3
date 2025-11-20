@@ -10,7 +10,7 @@ import { env } from "~/env";
 // 👷 In dev, it logs all the DB queries and warnings to help us debug
 const createPrismaClient = () =>
   new PrismaClient({
-    log:
+    log:  
       env.NODE_ENV === "development"
         ? ["query", "error", "warn"]  // 🐞 More logs during development
         : ["error"],                  // 🤫 Less noise in production
