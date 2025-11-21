@@ -43,27 +43,29 @@ export async function POST(request: Request) {
     const body: CandidateRequestBody = await request.json();
     const { personal, education, experience } = body;
 
-    // ✅ Safely handle optional resume
-    let resumeBuffer: Buffer | undefined;
+    let resumeBuffer: Uint8Array | null = null;
+
+    // Convert base64 to buffer
     if (experience?.resume) {
       const base64Data = experience.resume.split(",")[1];
       if (base64Data) {
-        resumeBuffer = Buffer.from(base64Data, "base64");
+        const buffer = Buffer.from(base64Data, "base64");
+        resumeBuffer = new Uint8Array(buffer.buffer); // Prisma supports Uint8Array
       }
     }
 
-    // ✅ Check existing candidate
+    // Check if candidate exists
     const existingCandidate = await db.candidate.findUnique({
       where: { clerkId: userId },
     });
 
-    // Common data (avoids repetition)
+    // Common fields for both create/update
     const data = {
       name: personal.name,
       phone: personal.phone,
       email: personal.email,
-      gender: personal.gender ?? "", // fallback
-      education: personal.education ?? "", // fallback
+      gender: personal.gender ?? "",
+      education: personal.education ?? "",
 
       degree: education.degree,
       stream: education.stream,
@@ -87,19 +89,21 @@ export async function POST(request: Request) {
         where: { clerkId: userId },
         data,
       });
+
       return NextResponse.json(
         { message: "Candidate Updated Successfully", candidate },
         { status: 200 }
       );
-    } else {
-      candidate = await db.candidate.create({
-        data: { clerkId: userId, ...data },
-      });
-      return NextResponse.json(
-        { message: "Candidate Created Successfully", candidate },
-        { status: 201 }
-      );
     }
+
+    candidate = await db.candidate.create({
+      data: { clerkId: userId, ...data },
+    });
+
+    return NextResponse.json(
+      { message: "Candidate Created Successfully", candidate },
+      { status: 201 }
+    );
   } catch (error: any) {
     console.error("❌ Candidate API Error:", error);
     return NextResponse.json(
