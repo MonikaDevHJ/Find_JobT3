@@ -88,7 +88,7 @@ const JobList = ({ selectedFilters }: JobListProps) => {
     setCurrentPage(1); //reset to first page when fetching new data
   };
 
-  // imitial Load All page
+  // initial Load All page
 
   useEffect(() => {
     fetchJobs(title, location, selectedFilters);
