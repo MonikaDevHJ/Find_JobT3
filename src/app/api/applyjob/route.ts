@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     // check already applied
     const alreadyApplied = await db.appliedCandidate.findFirst({
       where: {
-        candidateID: candidate.id,
+        candidateId: candidate.id,
         jobId: jobId,
       },
     });
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
     const applied = await db.appliedCandidate.create({
       data: {
         jobId,
-        candidateID: candidate.id,
+        candidateId: candidate.id,
       },
     });
 

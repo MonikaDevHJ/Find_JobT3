@@ -38,7 +38,7 @@ model Candidate {
   profileImage String?
   skills       String[]
 
-  // 🔥 NEW — Back relation
+  // Back relation
   AppliedCandidates AppliedCandidate[]
 }
 
@@ -74,19 +74,20 @@ model JobPost {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  // 🔥 RENAME to PascalCase (recommended)
   AppliedCandidates AppliedCandidate[]
 }
 
 model AppliedCandidate {
-  id          String   @id @default(uuid())
-  jobId       String
-  candidateID String
-  createdAt   DateTime @default(now())
+  id    String @id @default(uuid())
+  jobId String
 
-  // 🔥 Relation to JobPost (already present)
+  candidateId String
+
+  createdAt DateTime @default(now())
+
+  // Relation to JobPost
   job JobPost @relation(fields: [jobId], references: [id])
 
-  // 🔥 NEW — relation to Candidate
-  candidate Candidate @relation(fields: [candidateID], references: [id])
+  // Relation to Candidate
+  candidate Candidate @relation(fields: [candidateId], references: [id])
 }
