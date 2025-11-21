@@ -21,7 +21,7 @@ export async function GET() {
     // get all applied jobIds
     const applied = await db.appliedCandidate.findMany({
       where: {
-        candidateID: candidate.id,
+        candidateId: candidate.id,
       },
       select: { jobId: true },
     });

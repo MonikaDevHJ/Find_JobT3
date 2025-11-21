@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FaBriefcase } from "react-icons/fa"; // experience
 import { GoLocation } from "react-icons/go"; // location pin
 import SearchBar from "./SearchBar";
+import { string } from "zod";
 interface Job {
   id: string;
   companyName: string;
@@ -34,14 +35,16 @@ const JobList = ({ selectedFilters }: JobListProps) => {
   const [location, setLocation] = useState("");
 
 
-  // useEffect ( ()=>{
-  //   const loadAppliedJobs = async ()=>{
-  //     const res = await fetch("/api/getappliedjobs");
-  //     const data = await res.json();
-  //     setAppliedJobs(data.applied || []); 
-  //   };
-  //     loadAppliedJobs();
-  // }, []);
+useEffect(() => {
+  const loadAppliedJobs = async () => {
+    const res = await fetch("/api/getappliedjobs");
+    const data = await res.json();
+
+    // force all IDs to become string
+    setAppliedJobs((data.applied || []).map((id: any) => String(id)));
+  };
+  loadAppliedJobs();
+}, []);
 
 
   const handleApply = async (jobId: string) => {
@@ -55,7 +58,7 @@ const JobList = ({ selectedFilters }: JobListProps) => {
     alert(data.message);
 
     if(res.ok){
-      setAppliedJobs((prev)=>[...prev, jobId])
+      setAppliedJobs((prev)=>[...prev, String(jobId)])
     }
   };
 
@@ -186,7 +189,7 @@ const JobList = ({ selectedFilters }: JobListProps) => {
           </div>
 
           <div className="mt-2 text-start">
-            {appliedJobs.includes(job.id) ? (
+            {appliedJobs.includes(String(job.id)) ? (
               <button
               disabled
                className="rounded-2xl bg-green-500 p-2 font-semibold text-black opacity-80">   Applied ✔</button>
