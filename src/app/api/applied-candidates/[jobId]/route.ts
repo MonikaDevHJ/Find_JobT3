@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
 
-// GET /api/employer/applied/[jobId]
 export async function GET(
   request: Request,
-  context: { params: { jobId: string } }
+  { params }: { params: { jobId: string } }
 ) {
   try {
-    const jobId = context.params.jobId;
+    const { jobId } = params;
 
     if (!jobId) {
       return NextResponse.json(
@@ -16,15 +15,11 @@ export async function GET(
       );
     }
 
-    // Fetch all applied candidates for this job
-
-
-    
     const appliedCandidates = await db.appliedCandidate.findMany({
       where: { jobId },
       include: {
-        candidate: true, // fetch candidate profile details
-        job: true,       // if you also want job details
+        candidate: true,
+        job: true,
       },
     });
 
