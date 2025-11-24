@@ -14,14 +14,18 @@ export async function GET() {
         clerkId: userId,
       },
       include: {
-        AppliedCandidates: true,  // ✅ CORRECT NAME
+        _count: {
+          select: {
+            AppliedCandidates: true,  // 👈 Prisma automatically counts
+          },
+        },
       },
       orderBy: { createdAt: "desc" },
     });
 
     const formatted = myJobs.map((job) => ({
       ...job,
-      appliedCount: job.AppliedCandidates.length, // ✅ FIXED
+      appliedCount: job._count.AppliedCandidates, // 👈 Correct, fast count
     }));
 
     return NextResponse.json(formatted);
