@@ -17,6 +17,9 @@ export async function GET(
     }
 
     // Fetch all applied candidates for this job
+
+
+    
     const appliedCandidates = await db.appliedCandidate.findMany({
       where: { jobId },
       include: {
