@@ -7,7 +7,7 @@ const AppliedCandidates = ({ jobId }: { jobId: string }) => {
 
   useEffect(() => {
     const loadData = async () => {
-      const res = await fetch(`/api/applied-candidates/${jobId}`, {
+      const res = await fetch(`/api/appliedcandidates/${jobId}`, {
         cache: "no-store",
       });
       const data = await res.json();
