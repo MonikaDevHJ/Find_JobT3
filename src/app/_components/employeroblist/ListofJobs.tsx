@@ -39,7 +39,7 @@ const ListofJobs = () => {
 
       // Ensure jobs is Always  an array
       const arrayData = Array.isArray(data)? data : data.jobs || [];
-      setJobs(arrayData);
+      setJobs(arrayData); 
     };
 
     loadJobs();

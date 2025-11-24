@@ -7,7 +7,7 @@ const AppliedCandidates = ({ jobId }: { jobId: string }) => {
 
   useEffect(() => {
     const loadData = async () => {
-      const res = await fetch(`/api/employer/applied/${jobId}`, {
+      const res = await fetch(`/api/applied-candidates/${jobId}`, {
         cache: "no-store",
       });
       const data = await res.json();
@@ -29,7 +29,7 @@ const AppliedCandidates = ({ jobId }: { jobId: string }) => {
         <p className="text-gray-500 text-lg">No one applied yet.</p>
       )}
 
-      <div className="space-y-4">
+      <div className="space-y-4"> 
         {candidates.map((item: any) => (
           <div
             key={item.id}

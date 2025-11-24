@@ -5,7 +5,6 @@ import Image from "next/image";
 import { FaBriefcase } from "react-icons/fa"; // experience
 import { GoLocation } from "react-icons/go"; // location pin
 import SearchBar from "./SearchBar";
-import { string } from "zod";
 interface Job {
   id: string;
   companyName: string;
@@ -79,7 +78,7 @@ useEffect(() => {
     for (const key in filter) {
       const selectedValues = filter[key] || [];
       if (selectedValues.length > 0) {
-        // join multiple values with coma (eg "frrehser, 2+years")
+        // join multiple values with coma (eg "fresher, 2+years")
         params.append(key, selectedValues.join(","));
       }
     }
