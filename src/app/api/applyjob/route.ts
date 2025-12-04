@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     const { jobId } = await req.json();
 
-    if (!jobId) {5
+    if (!jobId) {
       return NextResponse.json(
         { message: "Job ID is required" },
         { status: 400 }

@@ -9,7 +9,7 @@ export async function GET(
     const { jobId } = params;
 
     if (!jobId) {
-      return NextResponse.json(
+      return NextResponse.json( 
         { message: "Job ID is required" },
         { status: 400 }
       );
