@@ -1,37 +1,8 @@
+export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
 import { auth } from "@clerk/nextjs/server";
-
-interface PersonalDetails {
-  name: string;
-  phone: string;
-  email: string;
-  gender?: string;
-  education?: string;
-  profileImage?: string | null;
-}
-
-interface EducationDetails {
-  degree: string;
-  stream: string;
-  university: string;
-  college: string;
-  score: string;
-}
-
-interface ExperienceDetails {
-  company: string;
-  role: string;
-  years: string;
-  resume?: string;
-  skills?: string[];
-}
-
-interface CandidateRequestBody {
-  personal: PersonalDetails;
-  education: EducationDetails;
-  experience: ExperienceDetails;
-}
 
 export async function POST(request: Request) {
   try {
@@ -40,16 +11,25 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const body: CandidateRequestBody = await request.json();
+    const body = await request.json();
     const { personal, education, experience } = body;
 
-    // ✅ Convert base64 resume to proper Uint8Array for Prisma
-    let resumeBuffer: Uint8Array | null = null;
+    // -------------------------------------
+    // FINAL FIX: convert base64 to REAL Uint8Array
+    // -------------------------------------
+    let resumeArray: Uint8Array | null = null;
+
     if (experience?.resume) {
-      const base64Data = experience.resume.split(",")[1];
-      if (base64Data) {
-        const buffer = Buffer.from(base64Data, "base64");
-        resumeBuffer = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+      const base64 = experience.resume.split(",")[1];
+
+      if (base64) {
+        const binary = atob(base64); // decode base64 in node runtime
+        const len = binary.length;
+
+        resumeArray = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          resumeArray[i] = binary.charCodeAt(i);
+        }
       }
     }
 
@@ -70,33 +50,33 @@ export async function POST(request: Request) {
       role: experience.role,
       years: experience.years,
 
-      resumeLink: resumeBuffer ?? null, // ✅ matches Prisma type
+      resumeLink: resumeArray, // Prisma Bytes field
       profileImage: personal.profileImage ?? null,
       skills: experience.skills ?? [],
     };
 
-    const existingCandidate = await db.candidate.findUnique({
+    const existing = await db.candidate.findUnique({
       where: { clerkId: userId },
     });
 
-    let candidate;
-    if (existingCandidate) {
-      candidate = await db.candidate.update({
+    if (existing) {
+      const updated = await db.candidate.update({
         where: { clerkId: userId },
         data,
       });
+
       return NextResponse.json(
-        { message: "Candidate Updated Successfully", candidate },
+        { message: "Candidate Updated Successfully", candidate: updated },
         { status: 200 }
       );
     }
 
-    candidate = await db.candidate.create({
+    const created = await db.candidate.create({
       data: { clerkId: userId, ...data },
     });
 
     return NextResponse.json(
-      { message: "Candidate Created Successfully", candidate },
+      { message: "Candidate Created Successfully", candidate: created },
       { status: 201 }
     );
   } catch (error: any) {
