@@ -31,7 +31,7 @@
     "@trpc/server": "^11.0.0",
     "firebase": "^11.9.0",
     "lucide-react": "^0.513.0",
-    "next": "^15.2.3",
+    "next": "15.2.6",
     "pdfjs-dist": "^5.4.54",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
