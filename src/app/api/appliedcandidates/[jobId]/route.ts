@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import { db } from "~/server/db";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { jobId: string } }
+  _req: Request,
+  context: { params: { jobId: string } }
 ) {
   try {
-    const { jobId } = params;
+    const jobId = context.params.jobId;
 
     if (!jobId) {
-      return NextResponse.json( 
+      return NextResponse.json(
         { message: "Job ID is required" },
         { status: 400 }
       );
