@@ -1,12 +1,17 @@
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
+import type { NextRequest } from "next/server";
 
-export async function GET(
-  _req: Request,
-  context: { params: { jobId: string } }
-) {
+// Next.js Runtime type for route params
+type Params = {
+  params: {
+    jobId: string;
+  };
+};
+
+export async function GET(_req: NextRequest, { params }: Params) {
   try {
-    const jobId = context.params.jobId;
+    const { jobId } = params;
 
     if (!jobId) {
       return NextResponse.json(
