@@ -43,12 +43,13 @@ export async function POST(request: Request) {
     const body: CandidateRequestBody = await request.json();
     const { personal, education, experience } = body;
 
-    // ✅ Use Buffer directly
-    let resumeBuffer: Buffer | null = null;
+    // ✅ Convert base64 resume to proper Uint8Array for Prisma
+    let resumeBuffer: Uint8Array | null = null;
     if (experience?.resume) {
       const base64Data = experience.resume.split(",")[1];
       if (base64Data) {
-        resumeBuffer = Buffer.from(base64Data, "base64");
+        const buffer = Buffer.from(base64Data, "base64");
+        resumeBuffer = new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
       }
     }
 
@@ -69,7 +70,7 @@ export async function POST(request: Request) {
       role: experience.role,
       years: experience.years,
 
-      resumeLink: resumeBuffer, // ✅ Buffer works for Prisma
+      resumeLink: resumeBuffer ?? null, // ✅ matches Prisma type
       profileImage: personal.profileImage ?? null,
       skills: experience.skills ?? [],
     };
