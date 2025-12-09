@@ -33,12 +33,12 @@ const AppliedCandidates = ({ jobId }: { jobId: string }) => {
 
       {/* ⬅️ SHOW LOADING BEFORE DATA */}
       {loading && (
-        <p className="text-gray-500 text-lg">Loading applied candidates... Please wait</p>
+        <p className="text-gray-800 text-lg">Loading applied candidates... Please wait</p>
       )}
 
       {/* ⬅️ AFTER loading completes, now check if empty */}
       {!loading && candidates.length === 0 && (
-        <p className="text-gray-500 text-lg">No one applied yet.</p>
+        <p className="text-gray-700 text-lg">No one applied yet.</p>
       )}
 
       {/* Candidate list */}
