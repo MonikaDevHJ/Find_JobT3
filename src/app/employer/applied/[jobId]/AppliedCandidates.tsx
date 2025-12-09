@@ -4,16 +4,22 @@ import React, { useEffect, useState } from "react";
 
 const AppliedCandidates = ({ jobId }: { jobId: string }) => {
   const [candidates, setCandidates] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const loadData = async () => {
-      const res = await fetch(`/api/appliedcandidates/${jobId}`, {
-        cache: "no-store",
-      });
-      const data = await res.json();
+      try {
+        const res = await fetch(`/api/appliedcandidates/${jobId}`, {
+          cache: "no-store",
+        });
+        const data = await res.json();
 
-      console.log("Fetched:", data);
-      setCandidates(data.candidates || []);
+        setCandidates(data.candidates || []);
+      } catch (err) {
+        console.error("Error:", err);
+      } finally {
+        setLoading(false); 
+      }
     };
 
     loadData();
@@ -25,18 +31,25 @@ const AppliedCandidates = ({ jobId }: { jobId: string }) => {
         Applied Candidates ({candidates.length})
       </h1>
 
-      {candidates.length === 0 && (
+      {/* ⬅️ SHOW LOADING BEFORE DATA */}
+      {loading && (
+        <p className="text-gray-500 text-lg">Loading applied candidates... Please wait</p>
+      )}
+
+      {/* ⬅️ AFTER loading completes, now check if empty */}
+      {!loading && candidates.length === 0 && (
         <p className="text-gray-500 text-lg">No one applied yet.</p>
       )}
 
-      <div className="space-y-4"> 
+      {/* Candidate list */}
+      <div className="space-y-4">
         {candidates.map((item: any) => (
           <div
             key={item.id}
             className="border rounded-lg p-5 bg-white shadow-sm flex justify-between items-center"
           >
             <div>
-              <h2 className="font-bold text-xl">{item.candidate.name}</h2>
+              <p className="font-bold text-xl">{item.candidate.name}</p>
               <p className="text-gray-600">{item.candidate.email}</p>
               <p className="text-gray-600">{item.candidate.phone}</p>
             </div>
