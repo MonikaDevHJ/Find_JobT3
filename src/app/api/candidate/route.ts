@@ -43,23 +43,15 @@ export async function POST(request: Request) {
     const body: CandidateRequestBody = await request.json();
     const { personal, education, experience } = body;
 
-    let resumeBuffer: Uint8Array | null = null;
-
-    // Convert base64 to buffer
+    // ✅ Use Buffer directly
+    let resumeBuffer: Buffer | null = null;
     if (experience?.resume) {
       const base64Data = experience.resume.split(",")[1];
       if (base64Data) {
-        const buffer = Buffer.from(base64Data, "base64");
-        resumeBuffer = new Uint8Array(buffer.buffer); // Prisma supports Uint8Array
+        resumeBuffer = Buffer.from(base64Data, "base64");
       }
     }
 
-    // Check if candidate exists
-    const existingCandidate = await db.candidate.findUnique({
-      where: { clerkId: userId },
-    });
-
-    // Common fields for both create/update
     const data = {
       name: personal.name,
       phone: personal.phone,
@@ -77,19 +69,21 @@ export async function POST(request: Request) {
       role: experience.role,
       years: experience.years,
 
-      resumeLink: resumeBuffer ?? null,
+      resumeLink: resumeBuffer, // ✅ Buffer works for Prisma
       profileImage: personal.profileImage ?? null,
       skills: experience.skills ?? [],
     };
 
-    let candidate;
+    const existingCandidate = await db.candidate.findUnique({
+      where: { clerkId: userId },
+    });
 
+    let candidate;
     if (existingCandidate) {
       candidate = await db.candidate.update({
         where: { clerkId: userId },
         data,
       });
-
       return NextResponse.json(
         { message: "Candidate Updated Successfully", candidate },
         { status: 200 }
