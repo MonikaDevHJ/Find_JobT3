@@ -1,11 +1,11 @@
 import React from "react";
-import Mainadmin from "../_components/admin/admin"
+import Mainadmin from "../_components/admin/admin";
 
 const AdminPage = () => {
   return (
     <div>
-        <Mainadmin/>    
-        </div>
+      <Mainadmin />
+    </div>
   );
 };
 
