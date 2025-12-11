@@ -33,7 +33,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-white to-blue-50 px-4">
+    <div className="flex min-h-screen flex-col items-center justify-center  from-white to-blue-50 px-4">
       <h1 className="mb-8 text-center text-3xl font-bold text-fuchsia-800 sm:text-4xl md:text-5xl">
         Find Job
       </h1>
@@ -53,7 +53,9 @@ export default function HomePage() {
           Employer Login
         </button>
 
-        <button className="w-full rounded-xl bg-fuchsia-700 py-3 text-white shadow-md transition duration-300 hover:bg-fuchsia-500">
+        <button 
+        onClick={ ()=> router.push("admin") }
+        className="w-full rounded-xl bg-fuchsia-700 py-3 text-white shadow-md transition duration-300 hover:bg-fuchsia-500">
           Admin
         </button>
       </div>
