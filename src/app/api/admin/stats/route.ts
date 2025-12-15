@@ -5,12 +5,10 @@ import { auth } from "@clerk/nextjs/server";
 export async function GET() {
   try {
     const { userId } = await auth();
-
     if (!userId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    // 🔢 COUNT records
     const candidateCount = await db.candidate.count();
     const employerCount = await db.employer.count();
     const jobCount = await db.jobPost.count();
@@ -21,10 +19,10 @@ export async function GET() {
       jobs: jobCount,
     });
   } catch (error) {
-    console.error("❌ Admin stats error:", error);
+    console.log("❌ Admin stats error:", error);
     return NextResponse.json(
-      { message: "Failed to fetch stats" },
-      { status: 500 }
+      { message: "Failed to fetch start" },
+      { status: 500 },
     );
   }
 }
