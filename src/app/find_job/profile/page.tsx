@@ -2,7 +2,7 @@
 
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
 
 const ProfilePreview = () => {
   const { user, isLoaded } = useUser();
@@ -42,26 +42,41 @@ const ProfilePreview = () => {
         <div className="mb-6">
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
-              <p className="mb-2 text-xl font-semibold">👤 Personal Information</p>
+              <p className="mb-2 text-xl font-semibold">
+                👤 Personal Information
+              </p>
               <button
                 onClick={() => router.push("/candidate?step=1")}
-                className="text-sm text-blue-600 underline hover:text-blue-800">
+                className="text-sm text-blue-600 underline hover:text-blue-800"
+              >
                 ✏️Edit
               </button>
             </div>
             <div className="mt-3 ml-8 space-y-2">
               {candidate?.profileImage && (
                 <div className="mb-4">
-                  <img src={candidate.profileImage} alt="profile"
-                    className="h-24 w-24 rounded-full object-cover border" />
-
+                  <img
+                    src={candidate.profileImage}
+                    alt="profile"
+                    className="h-24 w-24 rounded-full border object-cover"
+                  />
                 </div>
               )}
-              <p><strong>Name:</strong> {candidate?.name || "-"}</p>
-              <p><strong>Phone:</strong> {candidate?.phone || "-"}</p>
-              <p><strong>Email:</strong> {candidate?.email || "-"}</p>
-              <p><strong>Gender:</strong> {candidate?.gender || "-"}</p>
-              <p><strong>Education:</strong> {candidate?.education || "-"}</p>
+              <p>
+                <strong>Name:</strong> {candidate?.name || "-"}
+              </p>
+              <p>
+                <strong>Phone:</strong> {candidate?.phone || "-"}
+              </p>
+              <p>
+                <strong>Email:</strong> {candidate?.email || "-"}
+              </p>
+              <p>
+                <strong>Gender:</strong> {candidate?.gender || "-"}
+              </p>
+              <p>
+                <strong>Education:</strong> {candidate?.education || "-"}
+              </p>
             </div>
           </div>
         </div>
@@ -73,16 +88,27 @@ const ProfilePreview = () => {
               <p className="mb-2 text-xl font-semibold">🎓 Education Details</p>
               <button
                 onClick={() => router.push("/candidate?step=2")}
-                className="text-sm text-blue-600 underline hover:text-blue-800">
+                className="text-sm text-blue-600 underline hover:text-blue-800"
+              >
                 ✏️Edit
               </button>
             </div>
             <div className="mt-3 ml-8 space-y-2">
-              <p><strong>Degree:</strong> {candidate?.degree || "-"}</p>
-              <p><strong>Stream:</strong> {candidate?.stream || "-"}</p>
-              <p><strong>University:</strong> {candidate?.university || "-"}</p>
-              <p><strong>College:</strong> {candidate?.college || "-"}</p>
-              <p><strong>Score:</strong> {candidate?.score || "-"}</p>
+              <p>
+                <strong>Degree:</strong> {candidate?.degree || "-"}
+              </p>
+              <p>
+                <strong>Stream:</strong> {candidate?.stream || "-"}
+              </p>
+              <p>
+                <strong>University:</strong> {candidate?.university || "-"}
+              </p>
+              <p>
+                <strong>College:</strong> {candidate?.college || "-"}
+              </p>
+              <p>
+                <strong>Score:</strong> {candidate?.score || "-"}
+              </p>
             </div>
           </div>
         </div>
@@ -91,21 +117,30 @@ const ProfilePreview = () => {
         <div className="mb-6">
           <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
             <div className="flex items-center justify-between">
-              <p className="mb-2 text-xl font-semibold">💼 Experience Details</p>
+              <p className="mb-2 text-xl font-semibold">
+                💼 Experience Details
+              </p>
               <button
                 onClick={() => router.push("/candidate?step=3")}
-                className="text-sm text-blue-600 underline hover:text-blue-800">
+                className="text-sm text-blue-600 underline hover:text-blue-800"
+              >
                 ✏️Edit
               </button>
             </div>
             <div className="mt-3 ml-8 space-y-2">
-              <p><strong>Company:</strong> {candidate?.company || "-"}</p>
-              <p><strong>Role:</strong> {candidate?.role || "-"}</p>
-              <p><strong>Years:</strong> {candidate?.years || "-"}</p>
+              <p>
+                <strong>Company:</strong> {candidate?.company || "-"}
+              </p>
+              <p>
+                <strong>Role:</strong> {candidate?.role || "-"}
+              </p>
+              <p>
+                <strong>Years:</strong> {candidate?.years || "-"}
+              </p>
               {candidate?.skills && candidate.skills.length > 0 && (
                 <div className="mt-3">
                   <strong>Skills:</strong>
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="mt-2 flex flex-wrap gap-2">
                     {candidate.skills.map((skill: string, index: number) => (
                       <span
                         key={index}
@@ -117,29 +152,24 @@ const ProfilePreview = () => {
                   </div>
                 </div>
               )}
-
             </div>
-
-
           </div>
         </div>
-
 
         {/* Resume Preview */}
         {candidate?.resumeLink && (
           <div className="mb-6">
             <div className="rounded-4xl bg-gray-200 p-5 shadow-xl">
               <p className="mb-4 text-xl font-semibold">📄 You're Resume</p>
-              <div className="overflow-hidden  rounded-md border border-gray-400 ">
-                <iframe src={candidate.resumeLink} className="h-96 w-full"></iframe>
-
+              <div className="overflow-hidden rounded-md border border-gray-400">
+                <iframe
+                  src={candidate.resumeLink}
+                  className="h-96 w-full"
+                ></iframe>
               </div>
-
             </div>
-
           </div>
         )}
-
       </div>
     </div>
   );
