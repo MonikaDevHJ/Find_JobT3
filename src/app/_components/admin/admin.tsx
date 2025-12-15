@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import CountCard from "./CountCard";
 
 const Mainadmin = () => {
@@ -15,24 +16,24 @@ const Mainadmin = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch("/api/admin/stats");
-        if (!res.ok) throw new Error("Failed to fetch stats");
+        const res = await fetch("api/admin/stats");
+        if (!res.ok) throw new Error("failed to  Fetch  stats");
 
         const data = await res.json();
         setCounts(data);
       } catch (err) {
-        console.error("❌ Error loading admin stats:", err);
+        console.log("❌ Error loading admin stats:", err);
       } finally {
         setLoading(false);
       }
     };
-
     fetchStats();
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-10 flex flex-col items-center">
-      <h1 className="mb-12 text-3xl md:text-4xl font-extrabold text-fuchsia-700">
+    <div className="flex min-h-screen flex-col items-center bg-gray-50 px-4 py-10">
+      {/* Heading */}
+      <h1 className="mb-12 text-3xl font-extrabold text-fuchsia-700 md:text-4xl">
         Welcome to Admin Dashboard
       </h1>
 
