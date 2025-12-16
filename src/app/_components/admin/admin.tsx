@@ -3,7 +3,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import CountCard from "./CountCard";
-
+import { useRouter } from "next/navigation";
 const Mainadmin = () => {
   const [counts, setCounts] = useState({
     candidates: 0,
@@ -29,6 +29,8 @@ const Mainadmin = () => {
     };
     fetchStats();
   }, []);
+   
+  const router = useRouter();
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-gray-50 px-4 py-10">
@@ -43,11 +45,13 @@ const Mainadmin = () => {
           title="Total Candidates"
           count={counts.candidates}
           loading={loading}
+          onView={()=> router.push("/admin/candidate")}
         />
         <CountCard
           title="Total Employers"
           count={counts.employers}
           loading={loading}
+          onView={()=> router.push("/admin/employer")}
         />
       </div>
 
@@ -57,6 +61,7 @@ const Mainadmin = () => {
           title="Total Jobs Posted"
           count={counts.jobs}
           loading={loading}
+          onView={ ()=> router.push("/admin/jobs")}
         />
       </div>
     </div>
