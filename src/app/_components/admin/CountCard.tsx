@@ -1,6 +1,5 @@
 import React from "react";
 import { Eye } from "lucide-react";
-import { useRouter } from "next/router";
 
 type CountcardProps = {
   title: string;
