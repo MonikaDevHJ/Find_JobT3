@@ -80,6 +80,9 @@ const AdminCandidatePage = () => {
               </tr>
             )}
           </tbody>
+
+
+          
         </table>
       </div>
     </div>
