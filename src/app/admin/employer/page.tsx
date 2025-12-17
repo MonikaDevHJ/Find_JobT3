@@ -10,7 +10,7 @@ type Employer = {
   employerName: string;
   companyName: string;
   contactNumber: string;
-  CreatedAt: string;
+   createdAt    : string;
 };
 
 const adminEmployerpage = () => {
@@ -23,9 +23,11 @@ const adminEmployerpage = () => {
         const res = await fetch("/api/admin/employer");
         if (!res.ok) throw new Error("Failed Fetch Employer");
         const data = await res.json();
+        setEmployer(data);
       } catch (error) {
         console.log("❌ Error loading Emplyer:", error);
       } finally {
+        setLoading(false);
       }
     };
     fetchEmployer();
@@ -62,7 +64,7 @@ const adminEmployerpage = () => {
                 <td className="border px-4 py-3">{employer.companyName}</td>
                 <td className="border px-4 py-3">{employer.contactNumber}</td>
                 <td className="border px-4 py-3">
-                  {new Date(employer.CreatedAt).toLocaleString()}
+                  {new Date(employer.createdAt).toLocaleString()}
                 </td>
               </tr>
             ))}
