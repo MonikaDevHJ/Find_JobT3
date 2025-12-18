@@ -10,7 +10,7 @@ type Employer = {
   employerName: string;
   companyName: string;
   contactNumber: string;
-   createdAt    : string;
+  createdAt: string;
 };
 
 const adminEmployerpage = () => {

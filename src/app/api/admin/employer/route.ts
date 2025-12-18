@@ -10,6 +10,8 @@ export async function GET() {
         employerName: true,
         companyName: true,
         contactNumber: true,
+       createdAt: true,
+
       },
     });
     return NextResponse.json(employer);
