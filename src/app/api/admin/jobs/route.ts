@@ -14,5 +14,12 @@ export async function GET() {
         experience: true,
       },
     });
-  } catch {}
+    return NextResponse.json(job);
+  } catch (error) {
+    console.log("❌ Error fetching admin Jobs:", error);
+    return NextResponse.json(
+      { message: "Failed To Fetch Jobs" },
+      { status: 500 },
+    );
+  }
 }
