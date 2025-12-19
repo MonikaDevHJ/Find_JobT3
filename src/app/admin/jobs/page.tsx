@@ -1,10 +1,10 @@
 "use client";
 
-import { error } from "console";
 import React from "react";
 import { useEffect, useState } from "react";
 
 type Jobs = {
+  id: string;
   companyName: string;
   location: string;
   designation: string;
@@ -13,6 +13,9 @@ type Jobs = {
 };
 
 const adminJobsPage = () => {
+  const [jobs, setJobs] = useState<Jobs[]>([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const jobPost = async () => {
       try {
@@ -20,10 +23,18 @@ const adminJobsPage = () => {
         if (!res.ok) throw new Error("Failed Fetch Jobs");
         const data = await res.json();
       } catch (error) {
+        console.log("❌ Error loading Job Post:", error);
       } finally {
       }
     };
-  });
+    adminJobsPage();
+  }, []);
+
+  if (loading) {
+    return (
+      <p className="p-10 text-center text-lg font-semibold"> Loading Jobs</p>
+    );
+  }
 
   return (
     <div className="p-6 md:p-10">
@@ -44,13 +55,15 @@ const adminJobsPage = () => {
           </thead>
 
           <tbody>
-            <tr className="hover:bg-gray-50">
-              <td className="border px-4 py-3">Jobox</td>
-              <td className="border px-4 py-3">Bengalore</td>
-              <td className="border px-4 py-3">Software Developer</td>
-              <td className="border px-4 py-3">3 Lakh to 5 Lakh</td>
-              <td className="border px-4 py-3">3 yr to 5yr</td>
-            </tr>
+            {jobs.map((jobs) => (
+              <tr key={jobs.id} className="hover:bg-gray-50">
+                <td className="border px-4 py-3">{jobs.companyName}</td>
+                <td className="border px-4 py-3">{jobs.location}</td>
+                <td className="border px-4 py-3">{jobs.designation}</td>
+                <td className="border px-4 py-3">{jobs.salary}</td>
+                <td className="border px-4 py-3">{jobs.experience}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
