@@ -1,6 +1,30 @@
+"use client";
+
+import { error } from "console";
 import React from "react";
+import { useEffect, useState } from "react";
+
+type Jobs = {
+  companyName: string;
+  location: string;
+  designation: string;
+  salary: string;
+  experience: string;
+};
 
 const adminJobsPage = () => {
+  useEffect(() => {
+    const jobPost = async () => {
+      try {
+        const res = await fetch("/api/admin/jobs");
+        if (!res.ok) throw new Error("Failed Fetch Jobs");
+        const data = await res.json();
+      } catch (error) {
+      } finally {
+      }
+    };
+  });
+
   return (
     <div className="p-6 md:p-10">
       <h1 className="mb-6 text-2xl font-bold text-fuchsia-700">
