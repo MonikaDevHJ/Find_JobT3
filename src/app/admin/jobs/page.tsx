@@ -22,12 +22,14 @@ const adminJobsPage = () => {
         const res = await fetch("/api/admin/jobs");
         if (!res.ok) throw new Error("Failed Fetch Jobs");
         const data = await res.json();
+        setJobs(data);
       } catch (error) {
         console.log("❌ Error loading Job Post:", error);
       } finally {
+        setLoading(false);
       }
     };
-    adminJobsPage();
+   jobPost();
   }, []);
 
   if (loading) {
