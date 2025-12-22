@@ -12,7 +12,7 @@ type Jobs = {
   experience: string;
 };
 
-const adminJobsPage = () => {
+const AdminJobsPage = () => {
   const [jobs, setJobs] = useState<Jobs[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,6 +22,7 @@ const adminJobsPage = () => {
         const res = await fetch("/api/admin/jobs");
         if (!res.ok) throw new Error("Failed Fetch Jobs");
         const data = await res.json();
+        console.log(data);
         setJobs(data);
       } catch (error) {
         console.log("❌ Error loading Job Post:", error);
@@ -53,17 +54,21 @@ const adminJobsPage = () => {
               <th className="border px-4 py-3 text-left">Job Role</th>
               <th className="border px-4 py-3 text-left">Salary</th>
               <th className="border px-4 py-3 text-left">Experience </th>
+              <th className="border px-4 py-4 text-left">Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {jobs.map((jobs) => (
-              <tr key={jobs.id} className="hover:bg-gray-50">
-                <td className="border px-4 py-3">{jobs.companyName}</td>
-                <td className="border px-4 py-3">{jobs.location}</td>
-                <td className="border px-4 py-3">{jobs.designation}</td>
-                <td className="border px-4 py-3">{jobs.salary}</td>
-                <td className="border px-4 py-3">{jobs.experience}</td>
+            {jobs.map((job) => (
+              <tr key={job.id} className="hover:bg-gray-50">
+                <td className="border px-4 py-3">{job.companyName}</td>
+                <td className="border px-4 py-3">{job.location}</td>
+                <td className="border px-4 py-3">{job.designation}</td>
+                <td className="border px-4 py-3">{job.salary}</td>
+                <td className="border px-4 py-3">{job.experience}</td>
+                <td className="border px-4 py-3">
+                  <button className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700"> Delete</button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -73,4 +78,4 @@ const adminJobsPage = () => {
   );
 };
 
-export default adminJobsPage;
+export default AdminJobsPage;
