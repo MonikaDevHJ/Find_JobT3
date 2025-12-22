@@ -30,7 +30,7 @@ const AdminJobsPage = () => {
         setLoading(false);
       }
     };
-   jobPost();
+    jobPost();
   }, []);
 
   if (loading) {
@@ -38,6 +38,22 @@ const AdminJobsPage = () => {
       <p className="p-10 text-center text-lg font-semibold"> Loading Jobs</p>
     );
   }
+
+  const handleDelete = async (jobId: string) => {
+    const confirmDelete = confirm("Are You Sure you Want to delete this job?");
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`/api/admin/jobs/${jobId}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Failed to Delete");
+      setJobs((prev) => prev.filter((job) => job.id !== jobId));
+    } catch (error) { 
+      console.log("❌ Delete failed:", error);
+    }
+  };
 
   return (
     <div className="p-6 md:p-10">
@@ -67,7 +83,13 @@ const AdminJobsPage = () => {
                 <td className="border px-4 py-3">{job.salary}</td>
                 <td className="border px-4 py-3">{job.experience}</td>
                 <td className="border px-4 py-3">
-                  <button className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700"> Delete</button>
+                  <button
+                    onClick={() => handleDelete(job.id)}
+                    className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700"
+                  >
+                    {" "}
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

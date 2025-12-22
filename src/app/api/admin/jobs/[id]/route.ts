@@ -1,4 +1,3 @@
-import { Param } from "@prisma/client/runtime/library";
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
 
@@ -6,6 +5,10 @@ export async function  DELETE( req:Request, { params }: { params : {id: string} 
    
     try{
         const jobId = params.id;
+
+        await db.appliedCandidate.deleteMany ({
+            where : {jobId}
+        })
 
         await db.jobPost.delete ({
             where : {id : jobId}
