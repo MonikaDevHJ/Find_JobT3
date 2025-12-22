@@ -50,7 +50,7 @@ const AdminJobsPage = () => {
 
       if (!res.ok) throw new Error("Failed to Delete");
       setJobs((prev) => prev.filter((job) => job.id !== jobId));
-    } catch (error) {
+    } catch (error) { 
       console.log("❌ Delete failed:", error);
     }
   };
