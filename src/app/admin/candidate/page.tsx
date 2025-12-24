@@ -54,6 +54,7 @@ const AdminCandidatePage = () => {
               <th className="border px-4 py-3 text-left">Email</th>
               <th className="border px-4 py-3 text-left">Phone</th>
               <th className="border px-4 py-3 text-left">Created At</th>
+              <th className="border px-4 py-3 text-left">Action</th>
             </tr>
           </thead>
 
@@ -65,6 +66,16 @@ const AdminCandidatePage = () => {
                 <td className="border px-4 py-3">{candidate.phone}</td>
                 <td className="border px-4 py-3">
                   {new Date(candidate.createdAt).toLocaleDateString()}
+                </td>
+
+                <td className="border px-4 py-3">
+                  <button
+                  
+                  className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700"
+                  >
+
+                  </button>
+                  
                 </td>
               </tr>
             ))}
