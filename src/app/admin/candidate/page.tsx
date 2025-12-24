@@ -40,6 +40,21 @@ const AdminCandidatePage = () => {
     );
   }
 
+  const handleDelete = async (candidateId: string) => {
+    const confirmDelete = confirm("Are You Sure you Want to delete this job?");
+    if (!confirmDelete) return;
+    try {
+      const res = await fetch(`/api/admin/candidate/${candidateId}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Failed To Delete");
+      setCandidates((prev) => prev.filter((cand) => cand.id !== candidateId));
+    } catch (error) {
+      console.log("❌ Delete failed:", error);
+    }
+  };
+
   return (
     <div className="p-6 md:p-10">
       <h1 className="mb-6 text-2xl font-bold text-fuchsia-700">
@@ -69,13 +84,9 @@ const AdminCandidatePage = () => {
                 </td>
 
                 <td className="border px-4 py-3">
-                  <button
-                  
-                  className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700"
-                  >
-
-                  </button>
-                  
+                  <button 
+                  onClick={()=> handleDelete(candidate.id)}
+                  className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700"> Delete</button>
                 </td>
               </tr>
             ))}
