@@ -71,6 +71,7 @@ const adminEmployerpage = () => {
               <th className="border px-4 py-3 text-left">Email</th>
               <th className="border px-4 py-3 text-left">Phone</th>
               <th className="border px-4 py-3 text-left">Created At</th>
+              <th className="border bx-4 py-3 text-left">Action</th>
             </tr>
           </thead>
 
@@ -82,6 +83,16 @@ const adminEmployerpage = () => {
                 <td className="border px-4 py-3">{employer.contactNumber}</td>
                 <td className="border px-4 py-3">
                   {new Date(employer.createdAt).toLocaleString()}
+                </td>
+                <td className="border px-4 py-3">  
+                <button
+                onClick={ ()=> {handleDelete(employer.id)}
+              
+              }
+              className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700"
+                >
+                  Delete
+                </button>
                 </td>
               </tr>
             ))}
