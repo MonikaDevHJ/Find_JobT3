@@ -40,22 +40,28 @@ const adminEmployerpage = () => {
     );
   }
 
-  const handleDelete = async (employerId: string) => {
-    const confirmDelete = confirm(
-      "Are You Sure You want to Delete This Employer",
+ const handleDelete = async (employerId: string) => {
+  const confirmDelete = confirm(
+    "Are You Sure You want to Delete This Employer",
+  );
+  if (!confirmDelete) return;
+
+  try {
+    const res = await fetch(`/api/admin/employer/${employerId}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) throw new Error("Failed To Delete");
+
+    // ✅ remove from UI immediately
+    setEmployer((prev) =>
+      prev.filter((emp) => emp.id !== employerId),
     );
-    if (!confirmDelete) return;
+  } catch (error) {
+    console.log("❌ Delete failed:", error);
+  }
+};
 
-    try {
-      const res = await fetch(`/api/admin/employer/${employerId}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) throw new Error("Failed To Delete");
-    } catch (error) {
-      console.log("❌ Delete failed:", error);
-    }
-  };
 
   return (
     <div className="p-6 md:p-10">

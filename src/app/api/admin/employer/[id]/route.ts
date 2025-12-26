@@ -6,12 +6,13 @@ export async function DELETE(
   { params }: { params: { id: string } },
 ) {
   try {
-    const employerId = params.id;
-
     await db.employer.delete({
-      where: { employerId },
+      where: { id: params.id },
     });
-    return NextResponse.json({ message: "Employer Deleted Succesfully" });
+
+    return NextResponse.json({
+      message: "Employer Deleted Successfully",
+    });
   } catch (error) {
     console.log("❌ Error deleting Employer:", error);
     return NextResponse.json(
