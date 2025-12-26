@@ -39,6 +39,24 @@ const adminEmployerpage = () => {
       </p>
     );
   }
+
+  const handleDelete = async (employerId: string) => {
+    const confirmDelete = confirm(
+      "Are You Sure You want to Delete This Employer",
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`/api/admin/employer/${employerId}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Failed To Delete");
+    } catch (error) {
+      console.log("❌ Delete failed:", error);
+    }
+  };
+
   return (
     <div className="p-6 md:p-10">
       <h1 className="mb-6 text-2xl font-bold text-fuchsia-700">
