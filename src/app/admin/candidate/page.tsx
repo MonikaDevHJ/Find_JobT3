@@ -86,7 +86,7 @@ const AdminCandidatePage = () => {
                 <td className="border px-4 py-3">
                   <button 
                   onClick={()=> handleDelete(candidate.id)}
-                  className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700"> Delete</button>
+                  className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Delete</button>
                 </td>
               </tr>
             ))}
