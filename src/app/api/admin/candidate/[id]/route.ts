@@ -3,21 +3,23 @@ import { db } from "~/server/db";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const candidateId = params.id;
+    const { id } = await params;
 
     await db.candidate.delete({
-      where: { id: candidateId },
+      where: { id },
     });
 
-    return NextResponse.json({ message: "Candidate Deleted Succefully" });
+    return NextResponse.json({
+      message: "Candidate Deleted Successfully",
+    });
   } catch (error) {
-    console.log("❌ Error deleting job :", error);
+    console.log("❌ Error deleting candidate:", error);
     return NextResponse.json(
-      { message: " Failed to Delete Candidate" },
-      { status: 500 },
+      { message: "Failed to Delete Candidate" },
+      { status: 500 }
     );
   }
 }

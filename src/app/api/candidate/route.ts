@@ -3,10 +3,13 @@ export const runtime = "nodejs";
 import { NextResponse } from "next/server";
 import { db } from "~/server/db";
 import { auth } from "@clerk/nextjs/server";
+import { Buffer } from "buffer";
+import { Prisma } from "@prisma/client";
 
 export async function POST(request: Request) {
   try {
     const { userId } = await auth();
+
     if (!userId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
@@ -14,22 +17,13 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { personal, education, experience } = body;
 
-    // -------------------------------------
-    // FINAL FIX: convert base64 to REAL Uint8Array
-    // -------------------------------------
-    let resumeArray: Uint8Array | null = null;
+    // ✅ Prisma-safe Bytes
+    let resumeBuffer: Prisma.Bytes | null = null;
 
     if (experience?.resume) {
       const base64 = experience.resume.split(",")[1];
-
       if (base64) {
-        const binary = atob(base64); // decode base64 in node runtime
-        const len = binary.length;
-
-        resumeArray = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
-          resumeArray[i] = binary.charCodeAt(i);
-        }
+        resumeBuffer = Buffer.from(base64, "base64");
       }
     }
 
@@ -50,7 +44,7 @@ export async function POST(request: Request) {
       role: experience.role,
       years: experience.years,
 
-      resumeLink: resumeArray, // Prisma Bytes field
+      resumeLink: resumeBuffer,
       profileImage: personal.profileImage ?? null,
       skills: experience.skills ?? [],
     };

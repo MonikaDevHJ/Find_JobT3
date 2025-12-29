@@ -3,11 +3,13 @@ import { db } from "~/server/db";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
+
     await db.employer.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({
@@ -17,7 +19,7 @@ export async function DELETE(
     console.log("❌ Error deleting Employer:", error);
     return NextResponse.json(
       { message: "Failed To Delete Employer" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
