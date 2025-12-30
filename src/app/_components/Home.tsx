@@ -41,7 +41,7 @@ export default function HomePage() {
       <div className="flex w-full max-w-xs flex-col space-y-4">
         <button
           onClick={handleCandidateLogin}
-          className="w-full rounded-xl bg-fuchsia-600 py-3 text-white shadow-md transition duration-300 hover:bg-fuchsia-500"
+          className="w-full rounded-xl bg-fuchsia-700 py-3 text-white shadow-md transition duration-300 hover:bg-fuchsia-500"
         >
           Candidate Login
         </button>
