@@ -28,7 +28,7 @@ const JobDetails: React.FC<JobDetailsProps> = ({ onNext }) => {
       };
       reader.readAsDataURL(file);
     }
-  };
+  };  
 
   return (
     <div className="px-4 py-8 sm:px-6 md:px-10 lg:px-20">

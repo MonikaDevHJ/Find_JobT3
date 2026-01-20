@@ -19,7 +19,7 @@ const Preview = ({ onBack, goToStep }: Props) => {
 
   const { user } = useUser();
   const [showSuccess, setShowSucess] = useState(false);
-const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     if (showSuccess) {
@@ -183,7 +183,7 @@ const [successMessage, setSuccessMessage] = useState("");
 
 
             {showSuccess && (
-              <SuccessModal message={successMessage}/>
+              <SuccessModal message={successMessage} />
             )}
 
             <button
@@ -206,9 +206,9 @@ const [successMessage, setSuccessMessage] = useState("");
                     console.log("DB response: ", result);
                     dispatch({ type: "SET_ID", payload: result.candidate.id });
                     // Detech Weather it is created or updated
-                    if(result.message?.includes("Updated")){
+                    if (result.message?.includes("Updated")) {
                       setSuccessMessage("✅ Candidate Updated Successfully! Redirecting...")
-                    }else{
+                    } else {
                       setSuccessMessage("🎉 Candidate Created Successfully! Redirecting...")
                     }
                     setShowSucess(true);
