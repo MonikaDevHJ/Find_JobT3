@@ -1,6 +1,9 @@
 "use client";
 import React from "react";
 import { useJobForm } from "~/app/context/JobFormContext";
+import { UploadButton } from "@uploadthing/react";
+import type { OurFileRouter } from "../../api/uploadingthings/route";
+
 
 interface JobDetailsProps {
   onNext: () => void;
@@ -15,20 +18,20 @@ const JobDetails: React.FC<JobDetailsProps> = ({ onNext }) => {
   };
 
   // ✅ fixed company logo upload
-  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        dispatch({
-          type: "UPDATE_FIELD",
-          field: "companyLogo",
-          value: reader.result as string,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  };  
+  // const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       dispatch({
+  //         type: "UPDATE_FIELD",
+  //         field: "companyLogo",
+  //         value: reader.result as string,
+  //       });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };  
 
   return (
     <div className="px-4 py-8 sm:px-6 md:px-10 lg:px-20">
@@ -38,17 +41,29 @@ const JobDetails: React.FC<JobDetailsProps> = ({ onNext }) => {
         </p>
 
         {/* Company Logo */}
+        {/* Company Logo */}
         <div>
           <label className="mb-2 block text-base font-semibold sm:text-lg">
             Company Logo
           </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleLogoUpload}
-            className="w-full rounded border border-gray-500 p-2 focus:ring-2 focus:ring-fuchsia-300 focus:outline-none"
+
+          <UploadButton<OurFileRouter, "companyLogo">
+            endpoint="companyLogo"
+            onClientUploadComplete={(res) => {
+              dispatch({
+                type: "UPDATE_FIELD",
+                field: "companyLogo",
+                value: res?.[0]?.url ?? "",
+              });
+            }}
+            onUploadError={(error) => {
+              alert(`Upload failed: ${error.message}`);
+            }}
           />
+
+
         </div>
+
 
         {/* Preview */}
         {state.companyLogo && (
