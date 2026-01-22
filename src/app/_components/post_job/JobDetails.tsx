@@ -2,7 +2,7 @@
 import React from "react";
 import { useJobForm } from "~/app/context/JobFormContext";
 import { UploadButton } from "@uploadthing/react";
-import type { OurFileRouter } from "../../api/uploadingthings/route";
+import type { OurFileRouter } from "../../api/uploadthing/route";
 
 
 interface JobDetailsProps {
