@@ -63,25 +63,45 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
           Preview Page
         </h2>
 
+
+        <div className="flex items-center gap-6 mt-6">
+          <div className="font-semibold text-gray-900 text-lg">
+            Company Logo
+          </div>
+
+          {state.companyLogo ? (
+            <img
+              src={state.companyLogo}
+              alt="Company Logo"
+              className="h-28 w-28 rounded-xl object-cover border-2 border-gray-300 shadow"
+            />
+          ) : (
+            <div className="text-gray-500">No logo uploaded</div>
+          )}
+        </div>
+
+
+
+
         <div className="mt- mr-10 space-y-2 flex gap-0 ">
 
           <div className="mt-8 mr-10">
-                <strong>Company Logo</strong>
+            <strong>Company Logo</strong>
           </div>
           <div>
-          {
-            state.companyLogo && (
-              <div className="mb-4">
-                <img src={state.companyLogo} alt="Company Logo" className="h-24 w-24 rounded-full object-cover border" />
+            {
+              state.companyLogo && (
+                <div className="mb-4">
+                  <img src={state.companyLogo} alt="Company Logo" className="h-24 w-24 rounded-full object-cover border" />
 
-              </div>
-            )
-          }
+                </div>
+              )
+            }
           </div>
 
         </div>
 
-        <ul className="space-y-2 text-lg">
+        <ul className="space-y-2 text-lg text-gray-900">
           <li>
             <strong>Company:</strong> {state.companyName}
           </li>
@@ -120,7 +140,7 @@ const PostJob_preview: React.FC<PreviewProps> = ({ onBack, }) => {
             {state.InterviewMode}
           </li>
 
-           <li>
+          <li>
             <strong>Working Mode:</strong>
             {state.WorkMode}
           </li>

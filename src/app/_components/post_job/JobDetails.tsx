@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useJobForm } from "~/app/context/JobFormContext";
 import { UploadButton } from "@uploadthing/react";
-import type { OurFileRouter } from "../../api/uploadthing/route";
+import type { OurFileRouter } from "../../api/uploadthing/core";
 
 
 interface JobDetailsProps {
@@ -11,27 +11,14 @@ interface JobDetailsProps {
 
 const JobDetails: React.FC<JobDetailsProps> = ({ onNext }) => {
   const { state, dispatch } = useJobForm();
+  const [logoPreview, setLogoPreview] = React.useState<string>("");
 
   // helper for inputs
   const handleChange = (field: keyof typeof state, value: string) => {
     dispatch({ type: "UPDATE_FIELD", field, value });
   };
 
-  // ✅ fixed company logo upload
-  // const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       dispatch({
-  //         type: "UPDATE_FIELD",
-  //         field: "companyLogo",
-  //         value: reader.result as string,
-  //       });
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };  
+  ;
 
   return (
     <div className="px-4 py-8 sm:px-6 md:px-10 lg:px-20">
@@ -49,27 +36,45 @@ const JobDetails: React.FC<JobDetailsProps> = ({ onNext }) => {
 
           <UploadButton<OurFileRouter, "companyLogo">
             endpoint="companyLogo"
-            onClientUploadComplete={(res) => {
-              dispatch({
-                type: "UPDATE_FIELD",
-                field: "companyLogo",
-                value: res?.[0]?.url ?? "",
-              });
+            appearance={{
+              button: "bg-black text-white px-4 py-2 rounded-lg",
             }}
+
+            onUploadBegin={(name) => {
+              console.log("UPLOAD START:", name);
+            }}
+
+            onClientUploadComplete={(res) => {
+              console.log("UPLOAD COMPLETE:", JSON.stringify(res, null, 2));
+
+              const url = res?.[0]?.url;
+              if (url) {
+                setLogoPreview(url);
+                dispatch({
+                  type: "UPDATE_FIELD",
+                  field: "companyLogo",
+                  value: url,
+                });
+              }
+            }}
+
             onUploadError={(error) => {
+              console.log("UPLOAD ERROR:", error);
               alert(`Upload failed: ${error.message}`);
             }}
           />
+
+
 
 
         </div>
 
 
         {/* Preview */}
-        {state.companyLogo && (
+        {logoPreview && (
           <div className="mt-4">
             <img
-              src={state.companyLogo}
+              src={logoPreview}
               alt="company Logo"
               className="h-24 w-24 rounded-full object-cover border"
             />

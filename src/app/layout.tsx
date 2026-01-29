@@ -4,6 +4,7 @@ import "~/styles/globals.css";
 import { Geist } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 
+
 import NavbarVisibilityWrapper from "../app/_components/NavbarVisibilityWrapper"; // 👇 this will decide to show Navbar
 import { TRPCReactProvider } from "~/trpc/react";
 import { FormProvider } from "../app/context/CandidateFormContext";
@@ -20,12 +21,13 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className={geist.variable}>
         <body>
-          <NavbarVisibilityWrapper /> {/* 👈 handles path detection */}
+          <NavbarVisibilityWrapper />
           <FormProvider>
             <TRPCReactProvider>{children}</TRPCReactProvider>
           </FormProvider>
         </body>
       </html>
     </ClerkProvider>
+
   );
 }
